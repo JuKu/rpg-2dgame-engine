@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jukusoft</groupId>
+    <artifactId>rpg-2dgame-engine</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>rpg-2dgame</module>
+        <module>rpg-game-engine</module>
+    </modules>
+
+    <properties>
+        <!-- file encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- main class -->
+        <main.class>com.jukusoft.lwjgl.tutorial.Main</main.class>
+
+        <!-- java version -->
+        <java.version>1.8</java.version>
+
+        <!-- png decoder version -->
+        <pngdecoder.version> 1.0 </pngdecoder.version>
+
+        <!-- LWJGL version -->
+        <lwjgl.version>3.1.0</lwjgl.version>
+
+        <log4j.version>1.2.17</log4j.version>
+    </properties>
+
+    <dependencies>
+        <!-- JUnit tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- LWJGL Api without natives -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+
+        <!-- LWJGL GLFW module Api -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <!-- LWJGL GLFW module natives -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+
+        <!-- LWJGL jemalloc module Api -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <!-- LWJGL jemalloc module natives -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-jemalloc</artifactId>
+            <version>${lwjgl.version}</version>
+            <classifier>natives-${platform}</classifier>
+        </dependency>
+
+        <!-- LWJGL OpenGL module -->
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-opengl</artifactId>
+            <version>${lwjgl.version}</version>
+        </dependency>
+
+        <!-- Log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- profiles to support all platforms -->
+    <profiles>
+        <!-- profiles for windows -->
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <platform>windows</platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>windows-x86</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                    <arch>x86</arch>
+                </os>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>windows-amd64</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+        </profile>
+
+        <!-- profiles for linux -->
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                </os>
+            </activation>
+            <properties>
+                <platform>linux</platform>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>linux-x86</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                    <arch>x86</arch>
+                </os>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>linux-amd64</id>
+            <activation>
+                <os>
+                    <family>Linux</family>
+                    <arch>amd64</arch>
+                </os>
+            </activation>
+        </profile>
+
+        <!-- profile for mac osx -->
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os>
+                    <family>Mac</family>
+                </os>
+            </activation>
+            <properties>
+                <platform>macos</platform>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- compiler plugin to specify java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
