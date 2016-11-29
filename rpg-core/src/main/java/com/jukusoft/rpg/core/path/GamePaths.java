@@ -6,7 +6,17 @@ package com.jukusoft.rpg.core.path;
 public class GamePaths {
 
     public static String getDataDir () {
+        //TODO: read from GameConfig
+
         return "./data/";
+    }
+
+    public static String getConfigDir () {
+        return getDataDir() + "config/";
+    }
+
+    public static String getShaderDir () {
+        return getDataDir() + "shader/";
     }
 
 }
