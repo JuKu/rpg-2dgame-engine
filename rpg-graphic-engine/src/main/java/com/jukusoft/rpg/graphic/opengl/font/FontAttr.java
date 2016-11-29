@@ -29,4 +29,24 @@ public class FontAttr {
         return this.color;
     }
 
+    @Override
+    public boolean equals (Object obj) {
+        if (!(obj instanceof FontAttr)) {
+            throw new IllegalStateException("only FontAttr objects can be compared for equals.");
+        }
+
+        return this.equals((FontAttr) obj);
+    }
+
+    public boolean equals (FontAttr fontAttr) {
+        return this.font.equals(fontAttr) && this.charsetName.equals(fontAttr.getCharsetName()) && this.color.equals(fontAttr.getColor());
+    }
+
+    public int hashCode () {
+        String str = font.getFamily() + "-" + font.getFontName() + "-" + font.getName() + "-" + font.getStyle() + "-" + font.getSize() + "-" + charsetName + "-" + color.getRed() + "-" + color.getGreen() + "-" + color.getBlue() + "-" + color.getAlpha();
+
+        //generate hashCode from string
+        return str.hashCode();
+    }
+
 }
