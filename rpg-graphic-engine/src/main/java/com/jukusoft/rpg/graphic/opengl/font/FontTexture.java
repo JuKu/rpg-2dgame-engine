@@ -167,6 +167,10 @@ public class FontTexture extends Asset {
         }
     }
 
+    public boolean isUploaded () {
+        return this.texture != null && this.texture.isUploaded();
+    }
+
     public void loadFontTexture () throws IOException, UnsupportedAssetException, AssetNotFoundException {
         String path = this.getCachePath();
 
@@ -184,6 +188,9 @@ public class FontTexture extends Asset {
 
         //create and upload new image texture to gpu
         this.texture = OpenGL2DTexture.createAndUpload(image);
+
+        //release memory of image
+        image.callCleanUp();
     }
 
     public String getCachePath () {

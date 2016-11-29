@@ -43,10 +43,15 @@ public class FontAttr {
     }
 
     public int hashCode () {
-        String str = font.getFamily() + "-" + font.getFontName() + "-" + font.getName() + "-" + font.getStyle() + "-" + font.getSize() + "-" + charsetName + "-" + color.getRed() + "-" + color.getGreen() + "-" + color.getBlue() + "-" + color.getAlpha();
+        String str = this.toString();
 
         //generate hashCode from string
         return str.hashCode();
+    }
+
+    @Override
+    public String toString () {
+        return font.getFamily() + "-" + font.getFontName() + "-" + font.getName() + "-" + font.getStyle() + "-" + font.getSize() + "-" + charsetName + "-" + color.getRed() + "-" + color.getGreen() + "-" + color.getBlue() + "-" + color.getAlpha();
     }
 
 }

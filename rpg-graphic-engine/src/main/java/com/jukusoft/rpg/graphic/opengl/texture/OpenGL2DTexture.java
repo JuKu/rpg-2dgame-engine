@@ -1,6 +1,10 @@
 package com.jukusoft.rpg.graphic.opengl.texture;
 
 import com.jukusoft.rpg.core.asset.image.Image;
+import com.jukusoft.rpg.core.exception.AssetNotFoundException;
+import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
+
+import java.io.IOException;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -76,6 +80,30 @@ public class OpenGL2DTexture {
 
         //set uploaded flag to true
         this.isUploaded = true;
+    }
+
+    public void uploadIfAbsent (Image image) {
+        if (!this.isUploaded) {
+            this.upload(image);
+        }
+    }
+
+    public void uploadIfAbsent (String path) throws IOException, UnsupportedAssetException, AssetNotFoundException {
+        if (!this.isUploaded) {
+            Image image = new Image(path);
+
+            //bind texture on gpu first
+            this.bind();
+
+            //upload texture data
+            this.upload(image);
+
+            //unbind texture on gpu
+            this.unbind();
+
+            //cleanUp image from RAM, because it isnt needed anymore
+            image.callCleanUp();
+        }
     }
 
     /**
