@@ -49,9 +49,21 @@ public class Main {
         //show window
         window.setVisible(true);
 
+        window.setExitOnClose(true);
+
+        //prepare rendering
+        window.prepareRendering();
+
+        //set clear color
+        window.setClearColor(0, 0, 0, 0);
+
         while (true) {
             //process input
             window.processInput();
+
+            window.clear();
+
+            window.swap();
 
             Thread.currentThread().sleep(100);
         }

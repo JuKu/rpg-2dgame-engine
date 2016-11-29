@@ -55,6 +55,38 @@ while (true) {
 
 IMPORTANT: The window is frozing, if you dont poll window events with window.processInput()!
 
+To set an clear background color, you can use this example:
+```java
+//you have to initialize GLFW first (only once)
+GLFWUtils.init();
+
+//create window
+IWindow window = new GLFWWindow(1280, 720, "2D RPG", false);
+window.create();
+
+//show window
+window.setVisible(true);
+
+window.setExitOnClose(true);
+
+//prepare rendering
+window.prepareRendering();
+
+//set clear color
+window.setClearColor(0, 0, 0, 0);
+
+while (true) {
+    //process input
+    window.processInput();
+
+    window.clear();
+
+    window.swap();
+
+    Thread.currentThread().sleep(100);
+}
+```
+
 ### Logging
 
 To log, there is an class GameLogger.
