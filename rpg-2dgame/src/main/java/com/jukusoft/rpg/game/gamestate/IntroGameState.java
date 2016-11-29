@@ -19,10 +19,6 @@ public class IntroGameState extends BasicGameState {
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         GameLogger.info("IntroGameState", "IntroGameState::onInit().");
-
-        //load texture
-        FontTexture texture = ResourceManager.getInstance().getFontTexture(new Font("Arial", Font.PLAIN, 20), "ISO-8859-1", Color.WHITE);
-        FontTexture texture1 = ResourceManager.getInstance().getFontTexture(new Font("Arial", Font.PLAIN, 20), "ISO-8859-1", Color.WHITE);
     }
 
     @Override
