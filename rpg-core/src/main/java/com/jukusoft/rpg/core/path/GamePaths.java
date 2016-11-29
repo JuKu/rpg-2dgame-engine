@@ -34,6 +34,10 @@ public class GamePaths {
         }
     }
 
+    public static String getCacheDir () {
+        return "./cache/";
+    }
+
     public static String getLogDir () {
         return "./logs/";
     }
