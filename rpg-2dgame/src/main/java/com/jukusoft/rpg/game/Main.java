@@ -48,10 +48,8 @@ public class Main {
             //initialize game
             game.init();
 
-            throw new Exception("test");
-
             //start game
-            //game.start();
+            game.start();
         } catch (FilePermissionException e) {
             writeCrashLog(e);
             ExceptionWindow.createAndWait("Exception: wrong file permissions", "Wrong file permissons!\nStacktrace:\n" + e.getLocalizedMessage());
