@@ -4,10 +4,6 @@ import com.jukusoft.rpg.game.engine.config.GameConfig;
 import com.jukusoft.rpg.game.engine.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
-import com.jukusoft.rpg.window.system.IWindow;
-import com.jukusoft.rpg.window.system.callback.AbstractKeyCallback;
-import com.jukusoft.rpg.window.system.glfw.GLFWUtils;
-import com.jukusoft.rpg.window.system.glfw.GLFWWindow;
 
 import java.io.File;
 
@@ -38,38 +34,14 @@ public class Main {
         //log
         GameLogger.info("GameMain", "config parsed successfully.");
 
-        GameLogger.info("GameMain", "create window now.");
+        //create new instance of game application
+        MyGameApp game = new MyGameApp(true, -1, 60, false);
 
-        //you have to initialize GLFW first (only once)
-        GLFWUtils.init();
+        //initialize game
+        game.init();
 
-        //create window
-        IWindow window = new GLFWWindow(1280, 720, "2D RPG", false);
-        window.create();
-
-        //show window
-        window.setVisible(true);
-
-        window.setExitOnClose(true);
-
-        //prepare rendering
-        window.prepareRendering();
-
-        //set clear color
-        window.setClearColor(0, 0, 0, 0);
-
-        while (!window.shouldClose()) {
-            //process input
-            window.processInput();
-
-            window.clear();
-
-            window.swap();
-
-            Thread.currentThread().sleep(100);
-        }
-
-        System.exit(0);
+        //start game
+        game.start();
     }
 
 }
