@@ -30,6 +30,7 @@ Contributors:
 ### Open issues
   - reimplement class Color, use Off Heap memory
   - use GameLogger instead of Logger.getRootLogger() from log4j
+  - implement GameConfig
   
 ### Window System
 
