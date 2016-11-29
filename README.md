@@ -115,6 +115,8 @@ window.addKeyCallback(new AbstractKeyCallback() {
 });
 ```
 
+If you return false, other key callbacks arent called anymore. So your UI can easely catch some input events, which game doesnt know about it.
+
 IMPORTANT: This only works, if you call window.processInput() in your gameloop.
 
 ### Logging
