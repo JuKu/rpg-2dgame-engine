@@ -58,7 +58,7 @@ public class Main {
         //set clear color
         window.setClearColor(0, 0, 0, 0);
 
-        while (true) {
+        while (!window.shouldClose()) {
             //process input
             window.processInput();
 
