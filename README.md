@@ -87,6 +87,9 @@ while (true) {
 }
 ```
 
+Result:
+![GLFW Window](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/window.PNG)
+
 ### Logging
 
 To log, there is an class GameLogger.
