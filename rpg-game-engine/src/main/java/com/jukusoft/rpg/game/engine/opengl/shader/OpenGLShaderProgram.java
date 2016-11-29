@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.shader;
+package com.jukusoft.rpg.game.engine.opengl.shader;
 
 import com.jukusoft.rpg.game.engine.exception.OpenGLVersionException;
 import com.jukusoft.rpg.game.engine.exception.ShaderException;

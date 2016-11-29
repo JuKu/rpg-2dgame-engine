@@ -5,7 +5,7 @@ package com.jukusoft.rpg.game.engine.resource;
  */
 public class ResourceManager {
 
-    /*public static void getImage (String path) {
+    /*public static void getPNGImage (String path) {
         //
     }*/
 
@@ -14,7 +14,7 @@ public class ResourceManager {
      *
      * @param path path to image
     */
-    public static void prepareImage (String path) {
+    public static void preparePNGImage (String path) {
         //
     }
 
