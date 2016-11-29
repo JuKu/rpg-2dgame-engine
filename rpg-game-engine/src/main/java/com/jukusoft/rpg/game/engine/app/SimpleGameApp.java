@@ -149,10 +149,10 @@ public abstract class SimpleGameApp implements GameApp {
         this.window = new GLFWWindow(600, 400, "Simple Game App", this.vSync);
         this.window.create();
 
-        this.onCreateWindow(window);
-
         //set window title
         window.setTitle("Window Title");
+
+        this.onCreateWindow(window);
 
         //set key callback
         window.addKeyCallback(new AbstractKeyCallback() {
