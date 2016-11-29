@@ -1,0 +1,81 @@
+package com.jukusoft.rpg.core.asset.image;
+
+import com.jukusoft.rpg.core.asset.Asset;
+import com.jukusoft.rpg.core.exception.AssetNotFoundException;
+import com.jukusoft.rpg.core.exception.FilePermissionException;
+import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
+import com.jukusoft.rpg.core.path.GamePaths;
+import com.jukusoft.rpg.core.utils.BufferUtils;
+import de.matthiasmann.twl.utils.PNGDecoder;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+
+/**
+ * Created by Justin on 29.11.2016.
+ */
+public class Image extends Asset {
+
+    //width and height of image
+    protected int width = 0;
+    protected int height = 0;
+
+    //path to image file
+    protected String path = "";
+
+    /**
+    * byte buffer with RGBA values for each pixl, size of width * height * 4
+    */
+    protected ByteBuffer buffer = null;
+
+    public Image (String path) throws UnsupportedAssetException, AssetNotFoundException, IOException {
+        //check, if image is an png graphic
+        if (!path.endsWith(".png") && !path.endsWith(".PNG")) {
+            throw new UnsupportedAssetException("only PNG assets are supported! file path: " + path);
+        }
+
+        //get image path
+        this.path = GamePaths.getImagePath(path);
+
+        File file = new File(this.path);
+
+        //check, if file exists
+        if (!file.exists()) {
+            throw new AssetNotFoundException("Could not found PNG image asset: " + this.path + ", original path: " + path);
+        }
+
+        //check read permissions
+        if (!file.canRead()) {
+            throw new FilePermissionException("Wrong file permissions, cannot read PNG image asset: " + this.path + ", original path: " + path);
+        }
+
+        this.load();
+    }
+
+    protected void load () throws IOException {
+        File file = new File(this.path);
+
+        //create new PNG decoder
+        PNGDecoder pngDecoder = new PNGDecoder(new FileInputStream(file));
+
+        //get width and height
+        this.width = pngDecoder.getWidth();
+        this.height = pngDecoder.getHeight();
+
+        //create new byte buffer
+        this.buffer = ByteBuffer.allocateDirect(this.width * this.height * 4);
+
+        //decode image and insert pixel values into byte buffer
+        pngDecoder.decode(this.buffer, this.width * 4, PNGDecoder.Format.RGBA);
+    }
+
+    @Override
+    public void cleanUp () {
+        //cleanUp buffer
+        BufferUtils.releaseMemory(this.buffer);
+    }
+
+}
