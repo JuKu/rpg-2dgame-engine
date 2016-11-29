@@ -12,11 +12,18 @@
     <artifactId>rpg-2dgame</artifactId>
 
     <dependencies>
+        <!-- 2D RPG Game Engine -->
+        <dependency>
+            <groupId>com.jukusoft</groupId>
+            <artifactId>rpg-game-engine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- JUnit tests -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 

@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>rpg-2dgame</module>
         <module>rpg-game-engine</module>
+        <module>rpg-2dgame</module>
     </modules>
 
     <properties>
@@ -29,6 +29,13 @@
         <!-- LWJGL version -->
         <lwjgl.version>3.1.0</lwjgl.version>
 
+        <!-- JUnit version -->
+        <junit.version>4.12</junit.version>
+        <slf4j.version>1.7.10</slf4j.version>
+        <ini4j.version>0.5.4</ini4j.version>
+
+        <json.version>20160810</json.version>
+
         <log4j.version>1.2.17</log4j.version>
     </properties>
 
@@ -37,66 +44,8 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- LWJGL Api without natives -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-
-        <!-- LWJGL GLFW module Api -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-glfw</artifactId>
-            <version>${lwjgl.version}</version>
-        </dependency>
-
-        <!-- LWJGL GLFW module natives -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-glfw</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-
-        <!-- LWJGL jemalloc module Api -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-jemalloc</artifactId>
-            <version>${lwjgl.version}</version>
-        </dependency>
-
-        <!-- LWJGL jemalloc module natives -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-jemalloc</artifactId>
-            <version>${lwjgl.version}</version>
-            <classifier>natives-${platform}</classifier>
-        </dependency>
-
-        <!-- LWJGL OpenGL module -->
-        <dependency>
-            <groupId>org.lwjgl</groupId>
-            <artifactId>lwjgl-opengl</artifactId>
-            <version>${lwjgl.version}</version>
-        </dependency>
-
-        <!-- Log4j -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 
