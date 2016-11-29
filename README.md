@@ -138,6 +138,84 @@ game.init();
 game.start();
 ```
 
+### Game State System
+
+The game state has also an game state system (optional).
+To use this system, you have to extends SimpleGameStateApp<GameState> in your application class.
+In onInitGame(GameStateManager<GameState> stateManager) you have to register your game states and push (activate) them.
+
+example:
+```java
+public class MyGameApp extends SimpleGameStateApp<GameState> {
+
+    public MyGameApp (boolean useMultiThreading, int fixedFPS, int fixedUPS, boolean vSync) {
+        super(useMultiThreading, fixedFPS, fixedUPS, vSync);
+    }
+
+    @Override
+    protected void onInitGame(GameStateManager<GameState> stateManager) {
+        //create and register new intro game state
+        IntroGameState intro = new IntroGameState();
+        stateManager.addGameState("intro", intro);
+
+        //push game state to activate game state --> set intro to active game state
+        try {
+            stateManager.pushGameState("intro");
+        } catch (GameStateNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onCreateWindow(IWindow window) {
+        //set window size
+        window.setSize(1280, 720);
+
+        //set window title
+        window.setTitle("2D RPG");
+
+        //set clear color to black
+        window.setClearColor(0, 0, 0, 0);
+
+        //centralize window
+        window.center();
+    }
+
+}
+```
+
+An example for IntroGameState:
+```java
+public class IntroGameState extends BasicGameState {
+
+    @Override
+    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
+        Logger.getRootLogger().info("GameState4::onInit().");
+    }
+
+    @Override
+    public void update(GameApp app, double delta) {
+        //update
+    }
+
+    @Override
+    public void render (GameApp app) {
+        //clear window
+        getWindow().clear();
+
+        //check, if window was resized
+        if (getWindow().wasResized()) {
+            //reset viewport
+            getWindow().setViewPort(0, 0, getWindow().getWidth(), getWindow().getHeight());
+
+            //reset resized flag
+            getWindow().setResizedFlag(false);
+        }
+    }
+
+}
+```
+
 ### Input Handling
 
 There is an basic way to get all raw inputs from window. You can register 1 ore more key callbacks to get notified, if keyboard events received:
