@@ -17,6 +17,11 @@ public class IntroGameState extends BasicGameState {
     }
 
     @Override
+    public void update(GameApp app, double delta) {
+        //update
+    }
+
+    @Override
     public void render (GameApp app) {
         //clear window
         getWindow().clear();
