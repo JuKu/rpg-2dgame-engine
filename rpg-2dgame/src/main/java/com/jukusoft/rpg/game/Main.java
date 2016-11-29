@@ -1,11 +1,18 @@
 package com.jukusoft.rpg.game;
 
+import com.jukusoft.rpg.core.path.GamePaths;
+import com.jukusoft.rpg.core.utils.ExceptionWindow;
+import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.game.engine.config.GameConfig;
 import com.jukusoft.rpg.core.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Justin on 29.11.2016.
@@ -34,14 +41,38 @@ public class Main {
         //log
         GameLogger.info("GameMain", "config parsed successfully.");
 
-        //create new instance of game application with 2 threads for renderer and update thread, unlimited fps rate and 60 updates per second, also vSync isnt enabled.
-        MyGameApp game = new MyGameApp(true, -1, 60, false);
+        try {
+            //create new instance of game application with 2 threads for renderer and update thread, unlimited fps rate and 60 updates per second, also vSync isnt enabled.
+            MyGameApp game = new MyGameApp(true, -1, 60, false);
 
-        //initialize game
-        game.init();
+            //initialize game
+            game.init();
 
-        //start game
-        game.start();
+            throw new Exception("test");
+
+            //start game
+            //game.start();
+        } catch (FilePermissionException e) {
+            writeCrashLog(e);
+            ExceptionWindow.createAndWait("Exception: wrong file permissions", "Wrong file permissons!\nStacktrace:\n" + e.getLocalizedMessage());
+        } catch (Exception e) {
+            writeCrashLog(e);
+            ExceptionWindow.createAndWait("Application Crash", "Application crashed!\nPlease copy this full message text and send it to the developer!\n\nStacktrace:\n" + e.getLocalizedMessage());
+        }
+    }
+
+    /**
+    * write crash log
+    */
+    public static void writeCrashLog (Throwable e) {
+        Calendar calendar = new GregorianCalendar();
+
+        //try to write lo
+        try {
+            FileUtils.writeFile(GamePaths.getLogDir() + "/app.log", "[GameMain Exception " + calendar.getTime() + ", " + System.currentTimeMillis() + "] " + e.getMessage() + ", " + e.getLocalizedMessage(), StandardCharsets.UTF_8);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 
 }

@@ -34,4 +34,8 @@ public class GamePaths {
         }
     }
 
+    public static String getLogDir () {
+        return "./logs/";
+    }
+
 }
