@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 /**
  * Created by Justin on 29.11.2016.
  */
-public class OpenGLTexture {
+public class OpenGL2DTexture {
 
     /**
     * id of texture on gpu
@@ -25,7 +25,7 @@ public class OpenGLTexture {
     */
     protected boolean isUploaded = false;
 
-    public OpenGLTexture () {
+    public OpenGL2DTexture() {
         this.create();
 
         //http://stackoverflow.com/questions/30488155/opengl-fastest-way-to-draw-2d-image
@@ -113,9 +113,9 @@ public class OpenGLTexture {
      *
      * @param image texture image to upload on gpu
     */
-    public static OpenGLTexture createAndUpload (Image image) {
+    public static OpenGL2DTexture createAndUpload (Image image) {
         //create new OpenGL texture
-        OpenGLTexture texture = new OpenGLTexture();
+        OpenGL2DTexture texture = new OpenGL2DTexture();
 
         //bind texture on gpu first
         texture.bind();
