@@ -13,6 +13,7 @@
         <module>rpg-window-system</module>
         <module>rpg-game-engine</module>
         <module>rpg-2dgame</module>
+        <module>rpg-graphic-engine</module>
     </modules>
 
     <properties>

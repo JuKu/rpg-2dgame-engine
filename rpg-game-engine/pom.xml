@@ -12,9 +12,17 @@
     <artifactId>rpg-game-engine</artifactId>
 
     <dependencies>
+        <!-- GLFW window system -->
         <dependency>
             <groupId>com.jukusoft</groupId>
             <artifactId>rpg-window-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- RPG graphic engine -->
+        <dependency>
+            <groupId>com.jukusoft</groupId>
+            <artifactId>rpg-graphic-engine</artifactId>
             <version>${project.version}</version>
         </dependency>
 
