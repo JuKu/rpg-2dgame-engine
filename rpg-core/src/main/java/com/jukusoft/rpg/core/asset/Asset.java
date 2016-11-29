@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.core.asset;
 
+import com.jukusoft.rpg.core.utils.LocalUniqueID;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,6 +20,11 @@ public abstract class Asset {
     * list with cleanUp listeners
     */
     private final List<AssetCleanUpListener> cleanUpListenerList = new ArrayList<>();
+
+    /**
+    * local unique asset id
+    */
+    private final long assetID = LocalUniqueID.generateID();
 
     public final void release () {
         //decrement reference counter and check, if reference counter is 0
@@ -44,6 +51,13 @@ public abstract class Asset {
     */
     public final int refCount () {
         return this.refCounter.get();
+    }
+
+    /**
+    * get local unique asset ID
+    */
+    public long getAssetID () {
+        return this.assetID;
     }
 
     public final void cleanUp () {
