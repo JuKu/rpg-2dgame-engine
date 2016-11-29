@@ -1,10 +1,9 @@
 package com.jukusoft.rpg.game.engine.config;
 
-import com.jukusoft.rpg.game.engine.exception.FilePermissionException;
+import com.jukusoft.rpg.core.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**

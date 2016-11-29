@@ -1,7 +1,7 @@
 package com.jukusoft.rpg.game;
 
 import com.jukusoft.rpg.game.engine.config.GameConfig;
-import com.jukusoft.rpg.game.engine.exception.FilePermissionException;
+import com.jukusoft.rpg.core.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
 
