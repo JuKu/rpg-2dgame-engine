@@ -13,7 +13,7 @@ public class IntroGameState extends BasicGameState {
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
-        Logger.getRootLogger().info("GameState4::onInit().");
+        Logger.getRootLogger().info("IntroGameState::onInit().");
     }
 
     @Override
