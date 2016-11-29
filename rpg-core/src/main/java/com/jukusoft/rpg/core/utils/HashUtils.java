@@ -7,7 +7,7 @@
 * Many projects use this class.
 */
 
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.core.utils;
 
 import java.io.*;
 import java.security.MessageDigest;

@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.core.utils;
 
 /**
  * Created by Justin on 24.08.2016.

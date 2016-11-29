@@ -19,4 +19,19 @@ public class GamePaths {
         return getDataDir() + "shader/";
     }
 
+    public static String getGraphicDir () {
+        return getDataDir() + "graphic/";
+    }
+
+    public static String getImagePath (String path) {
+        //check, if user wants to access current directory
+        if (path.startsWith("./")) {
+            return path;
+        } else if (path.startsWith("data/")) {
+            return getDataDir() + path.replace("data/", "");
+        } else {
+            return getGraphicDir() + path;
+        }
+    }
+
 }

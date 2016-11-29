@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.core.utils;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;

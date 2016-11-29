@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.core.utils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
