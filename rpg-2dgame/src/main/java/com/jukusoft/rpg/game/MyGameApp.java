@@ -21,7 +21,17 @@ public class MyGameApp extends SimpleGameStateApp<GameState> {
 
     @Override
     protected void onCreateWindow(IWindow window) {
-        //
+        //set window size
+        window.setSize(1280, 720);
+
+        //set window title
+        window.setTitle("2D RPG");
+
+        //set clear color to black
+        window.setClearColor(0, 0, 0, 0);
+
+        //centralize window
+        window.center();
     }
 
 }

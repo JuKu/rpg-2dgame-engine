@@ -409,6 +409,19 @@ public class GLFWWindow implements IWindow {
     }
 
     @Override
+    public void center() {
+        //get resolution of the primary monitor
+        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+        //center window
+        glfwSetWindowPos(
+                this.window,
+                (vidmode.width() - width) / 2,
+                (vidmode.height() - height) / 2
+        );
+    }
+
+    @Override
     public void processInput() {
         // Poll for window events. The key callback above will only be
         // invoked during this call.

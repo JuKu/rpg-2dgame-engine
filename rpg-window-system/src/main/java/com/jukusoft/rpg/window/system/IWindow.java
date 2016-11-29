@@ -187,6 +187,11 @@ public interface IWindow {
     public void swap();
 
     /**
+    * set window position to center
+    */
+    public void center ();
+
+    /**
     * poll input events
     */
     public void processInput();
