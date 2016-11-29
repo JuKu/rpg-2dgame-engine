@@ -7,7 +7,10 @@ public interface AssetCleanUpListener {
 
     /**
     * cleanUp asset
+     *
+     * @param assetID local unique asset ID
+     * @param asset instance of asset
     */
-    public void cleanUp (Asset asset);
+    public void cleanUp (final long assetID, final Asset asset);
 
 }

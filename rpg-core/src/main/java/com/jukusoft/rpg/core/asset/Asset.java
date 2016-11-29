@@ -67,7 +67,7 @@ public abstract class Asset {
         //iterate through listeners
         for (AssetCleanUpListener listener : this.cleanUpListenerList) {
             //call listener
-            listener.cleanUp(this);
+            listener.cleanUp(this.getAssetID(), this);
         }
 
         //clear list
