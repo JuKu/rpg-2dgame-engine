@@ -12,6 +12,12 @@
     <artifactId>rpg-game-engine</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.jukusoft</groupId>
+            <artifactId>rpg-window-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- JUnit tests -->
         <dependency>
             <groupId>junit</groupId>

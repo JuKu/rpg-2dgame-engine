@@ -20,9 +20,40 @@ Contributors:
 ## Documentation
 
 ### Modules
+  - Core
   - Game
   - Game Engine
   - GLFW Window System (platform dependent)
+  
+### Open issues
+  - reimplement class Color, use Off Heap memory
+  
+### Window System
+
+The RPG 2D Game Engine only supports 1 window on primary monitor.
+GLFW library is used to create window and get OpenGL context.
+
+How to create an window:
+```java
+//you have to initialize GLFW first (only once)
+GLFWUtils.init();
+
+//create window
+IWindow window = new GLFWWindow(1280, 720, "2D RPG", false);
+window.create();
+
+//show window
+window.setVisible(true);
+
+while (true) {
+    //process input
+    window.processInput();
+
+    Thread.currentThread().sleep(100);
+}
+```
+
+IMPORTANT: The window is frozing, if you dont poll window events with window.processInput()!
 
 ### Logging
 

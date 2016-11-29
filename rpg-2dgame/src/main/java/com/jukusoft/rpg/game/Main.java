@@ -4,6 +4,9 @@ import com.jukusoft.rpg.game.engine.config.GameConfig;
 import com.jukusoft.rpg.game.engine.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
+import com.jukusoft.rpg.window.system.IWindow;
+import com.jukusoft.rpg.window.system.glfw.GLFWUtils;
+import com.jukusoft.rpg.window.system.glfw.GLFWWindow;
 
 import java.io.File;
 
@@ -12,7 +15,7 @@ import java.io.File;
  */
 public class Main {
 
-    public static void main (String[] args) {
+    public static void main (String[] args) throws InterruptedException {
         //initialize game logger
         GameLogger.init();
 
@@ -33,6 +36,25 @@ public class Main {
 
         //log
         GameLogger.info("GameMain", "config parsed successfully.");
+
+        GameLogger.info("GameMain", "create window now.");
+
+        //you have to initialize GLFW first (only once)
+        GLFWUtils.init();
+
+        //create window
+        IWindow window = new GLFWWindow(1280, 720, "2D RPG", false);
+        window.create();
+
+        //show window
+        window.setVisible(true);
+
+        while (true) {
+            //process input
+            window.processInput();
+
+            Thread.currentThread().sleep(100);
+        }
     }
 
 }

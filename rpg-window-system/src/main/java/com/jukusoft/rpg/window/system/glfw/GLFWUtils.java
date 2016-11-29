@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.glfw;
+package com.jukusoft.rpg.window.system.glfw;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
