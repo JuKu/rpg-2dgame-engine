@@ -4,6 +4,7 @@ import com.jukusoft.rpg.game.engine.app.GameApp;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
+import com.jukusoft.rpg.game.engine.logger.GameLogger;
 import org.apache.log4j.Logger;
 
 /**
@@ -13,7 +14,7 @@ public class IntroGameState extends BasicGameState {
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
-        Logger.getRootLogger().info("IntroGameState::onInit().");
+        GameLogger.info("IntroGameState", "IntroGameState::onInit().");
     }
 
     @Override
