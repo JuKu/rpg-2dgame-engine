@@ -3,6 +3,7 @@ package com.jukusoft.rpg.core.asset;
 import com.jukusoft.rpg.core.utils.LocalUniqueID;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,7 +37,7 @@ public abstract class Asset {
 
     public final void incrementReference () {
         //check, if reference counter is 0
-        if (this.refCounter.get() == 0) {
+        if (this.refCounter.get() <= 0) {
             throw new IllegalStateException("Cannot increment reference counter, reference counter was already 0, so maybe asset was already cleaned up.");
         }
 
@@ -56,8 +57,22 @@ public abstract class Asset {
     /**
     * get local unique asset ID
     */
-    public long getAssetID () {
+    public final long getAssetID () {
         return this.assetID;
+    }
+
+    public final void addCleanUpListener (AssetCleanUpListener listener) {
+        if (this.refCounter.get() <= 0) {
+            throw new IllegalStateException("You cannot add an cleanUp listener to an asset (id " + getAssetID() + "), if asset was already cleaned up.");
+        }
+
+        //add listener to list
+        Collections.synchronizedList(this.cleanUpListenerList).add(listener);
+    }
+
+    public final void removeCleanUpListener (AssetCleanUpListener listener) {
+        //remove listener from list
+        Collections.synchronizedList(this.cleanUpListenerList).remove(listener);
     }
 
     public final void cleanUp () {
