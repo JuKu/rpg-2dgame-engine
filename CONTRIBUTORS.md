@@ -13,6 +13,7 @@ Open Source Graphics:
 Third Party Graphics (free to use for this project):
   - https://www.iconfinder.com/icons/512535/control_controller_game_gamepad_play_icon#size=256
   - http://opengameart.org/content/2d-lost-garden-zelda-style-tiles-resized-to-32x32-with-additions
+  - http://www.lostgarden.com/2006/07/more-free-game-graphics.html
 
 ## Fonts
   - SparTakus (SIL Open Font License by Peter Wiegel, http://www.peter-wiegel.de/

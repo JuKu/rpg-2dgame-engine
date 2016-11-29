@@ -1,0 +1,3 @@
+I’d imagine that if you are making a 2D game with any sort of wilderness or villages, these would be an ideal starting place and are a lot less painful than tracking down a competent artist. As always, these tiles are free to be used in whatever projects you desire. (I need to get a copyleft license available at some point.) If you do use the graphics, drop me a note. I love hearing about projects.
+
+Link: http://www.lostgarden.com/2006/07/more-free-game-graphics.html
