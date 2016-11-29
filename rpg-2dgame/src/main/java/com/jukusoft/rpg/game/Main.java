@@ -5,6 +5,7 @@ import com.jukusoft.rpg.game.engine.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
 import com.jukusoft.rpg.window.system.IWindow;
+import com.jukusoft.rpg.window.system.callback.AbstractKeyCallback;
 import com.jukusoft.rpg.window.system.glfw.GLFWUtils;
 import com.jukusoft.rpg.window.system.glfw.GLFWWindow;
 

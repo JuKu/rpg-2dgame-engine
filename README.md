@@ -90,6 +90,31 @@ while (true) {
 Result:
 ![GLFW Window](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/window.PNG)
 
+### Input Handling
+
+There is an basic way to get all raw inputs from window. You can register 1 ore more key callbacks to get notified, if keyboard events received:
+```
+window.addKeyCallback(new AbstractKeyCallback() {
+    @Override
+    public boolean keyPressed(int key) {
+        System.out.println("key pressed: " + key);
+
+        //return true, so other key callbacks are also executed
+        return true;
+    }
+
+    @Override
+    public boolean keyReleased(int key) {
+        System.out.println("key released: " + key);
+
+        //return true, so other key callbacks are also executed
+        return true;
+    }
+});
+```
+
+IMPORTANT: This only works, if you call window.processInput() in your gameloop.
+
 ### Logging
 
 To log, there is an class GameLogger.
