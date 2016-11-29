@@ -11,8 +11,11 @@ Current version: 0.0.1 alpha
 Game Engine is based on Java 2D Renderer Prototype: https://github.com/JuKu/java-2drenderer-prototyp
 Its only supporting OpenGL 3.2+, Vulkan support isnt planned. 
 
-Contributors:
+Source Code Contributors:
   - JuKu (jukusoft.com)
+
+This game uses free or open source graphics!
+Please read LICENSE file for source code and each tilesets has an extra LICENSE file.
   
 ## Requirements
   - Java 8
