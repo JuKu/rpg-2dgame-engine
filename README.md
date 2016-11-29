@@ -1,8 +1,10 @@
 # rpg-2dgame-engine
 
-An little Open Source Java RPG in 2D, mainly for educational purposes.
+An little Open Source Java RPG in 2D.
 
 ![Logo](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/data/graphic/intro/intro_screen.png)
+
+Current version: 0.0.1 alpha
 
 ## Java 2D RPG Game Engine
 
