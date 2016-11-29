@@ -2,8 +2,8 @@
 
 Here you can see an list of all contributors
 
-## Programmer
-  - Justin Künzel
+## Programmers
+  - Justin KÃ¼nzel
 
 ## Graphics / FX
 
