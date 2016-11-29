@@ -31,6 +31,9 @@ public class Image extends Asset {
     */
     protected ByteBuffer buffer = null;
 
+    /**
+    * default constructor
+    */
     public Image (String path) throws UnsupportedAssetException, AssetNotFoundException, IOException {
         //check, if image is an png graphic
         if (!path.endsWith(".png") && !path.endsWith(".PNG")) {
@@ -55,6 +58,9 @@ public class Image extends Asset {
         this.load();
     }
 
+    /**
+    * load image
+    */
     protected void load () throws IOException {
         File file = new File(this.path);
 
@@ -70,6 +76,36 @@ public class Image extends Asset {
 
         //decode image and insert pixel values into byte buffer
         pngDecoder.decode(this.buffer, this.width * 4, PNGDecoder.Format.RGBA);
+
+        //flip buffer, so reader index will be set to first position of buffer
+        this.buffer.flip();
+    }
+
+    /**
+    * get width of image
+     *
+     * @return width of image
+    */
+    public int getWidth () {
+        return this.width;
+    }
+
+    /**
+    * get height of image
+     *
+     * @return height of image
+    */
+    public int getHeight () {
+        return this.height;
+    }
+
+    /**
+    * get instance of direct byte buffer (Off Heap memory)
+     *
+     * @return instance of byte buffer
+    */
+    public ByteBuffer getBuffer () {
+        return this.buffer;
     }
 
     @Override
