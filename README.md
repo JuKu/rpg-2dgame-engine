@@ -1,4 +1,4 @@
-# rpg-2dgame-engine
+# Java 2D RPG Game Engine + Game
 
 An little Open Source Java RPG in 2D.
 
