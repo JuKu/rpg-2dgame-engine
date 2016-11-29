@@ -19,6 +19,11 @@ Contributors:
   
 ## Documentation
 
+### Modules
+  - Game
+  - Game Engine
+  - GLFW Window System (platform dependent)
+
 ### Logging
 
 To log, there is an class GameLogger.
