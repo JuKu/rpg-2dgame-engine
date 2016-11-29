@@ -93,6 +93,51 @@ while (!window.shouldClose()) {
 Result:
 ![GLFW Window](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/window.PNG)
 
+### Create an simple application with game states
+
+First, you have to create an class extends SimpleGameStateApp<GameState>, for example:
+```java
+public class MyGameApp extends SimpleGameStateApp<GameState> {
+
+    public MyGameApp (boolean useMultiThreading, int fixedFPS, int fixedUPS, boolean vSync) {
+        super(useMultiThreading, fixedFPS, fixedUPS, vSync);
+    }
+
+    @Override
+    protected void onInitGame(GameStateManager<GameState> stateManager) {
+        //
+    }
+
+    @Override
+    protected void onCreateWindow(IWindow window) {
+        //set window size
+        window.setSize(1280, 720);
+
+        //set window title
+        window.setTitle("2D RPG");
+
+        //set clear color to black
+        window.setClearColor(0, 0, 0, 0);
+
+        //centralize window
+        window.center();
+    }
+
+}
+```
+
+On main class, you have to start the application:
+```java
+//create new instance of game application with 2 threads for renderer and update thread, unlimited fps rate and 60 updates per second, also vSync isnt enabled.
+MyGameApp game = new MyGameApp(true, -1, 60, false);
+
+//initialize game
+game.init();
+
+//start game
+game.start();
+```
+
 ### Input Handling
 
 There is an basic way to get all raw inputs from window. You can register 1 ore more key callbacks to get notified, if keyboard events received:
