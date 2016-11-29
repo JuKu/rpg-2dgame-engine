@@ -47,7 +47,7 @@ window.create();
 //show window
 window.setVisible(true);
 
-while (true) {
+while (!window.shouldClose()) {
     //process input
     window.processInput();
 
@@ -77,7 +77,7 @@ window.prepareRendering();
 //set clear color
 window.setClearColor(0, 0, 0, 0);
 
-while (true) {
+while (!window.shouldClose()) {
     //process input
     window.processInput();
 
