@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.core.utils;
 
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 
@@ -21,6 +22,48 @@ public class BufferUtils {
 
         //convert and return float buffer
         return byteBuffer.asFloatBuffer();
+    }
+
+    /**
+    * release memory of byte buffer
+     *
+     * @param buffer instance of byte buffer
+    */
+    public static void releaseMemory (ByteBuffer buffer) {
+        Field cleanerField = null;
+        try {
+            cleanerField = buffer.getClass().getDeclaredField("cleaner");
+            cleanerField.setAccessible(true);
+            sun.misc.Cleaner cleaner = (sun.misc.Cleaner) cleanerField.get(buffer);
+            cleaner.clean();
+        } catch (NoSuchFieldException e) {
+            //e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            //e.printStackTrace();
+        }
+
+        buffer = null;
+    }
+
+    /**
+     * release memory of float buffer
+     *
+     * @param buffer instance of byte buffer
+     */
+    public static void releaseMemory (FloatBuffer buffer) {
+        Field cleanerField = null;
+        try {
+            cleanerField = buffer.getClass().getDeclaredField("cleaner");
+            cleanerField.setAccessible(true);
+            sun.misc.Cleaner cleaner = (sun.misc.Cleaner) cleanerField.get(buffer);
+            cleaner.clean();
+        } catch (NoSuchFieldException e) {
+            //e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            //e.printStackTrace();
+        }
+
+        buffer = null;
     }
 
 }

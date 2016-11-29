@@ -31,7 +31,7 @@ public abstract class Asset {
         //decrement reference counter and check, if reference counter is 0
         if (this.refCounter.decrementAndGet() == 0) {
             //cleanUp asset, because it isnt used anymore
-            this.cleanUp();
+            this.callCleanUp();
         }
     }
 
@@ -75,7 +75,7 @@ public abstract class Asset {
         Collections.synchronizedList(this.cleanUpListenerList).remove(listener);
     }
 
-    public final void cleanUp () {
+    public final void callCleanUp () {
         //set reference counter to 0
         this.refCounter.set(0);
 
@@ -87,6 +87,13 @@ public abstract class Asset {
 
         //clear list
         this.cleanUpListenerList.clear();
+    }
+
+    /**
+    * cleanUp memory resources, can be overriden by sub classes
+    */
+    public void cleanUp () {
+        //
     }
 
 }
