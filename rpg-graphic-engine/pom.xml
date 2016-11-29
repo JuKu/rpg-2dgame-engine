@@ -78,6 +78,13 @@
             <version>${lwjgl.version}</version>
         </dependency>
 
+        <!-- Apache Common Lang Library for custom hashCodes -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons.lang.version}</version>
+        </dependency>
+
         <!-- Log4j -->
         <dependency>
             <groupId>log4j</groupId>

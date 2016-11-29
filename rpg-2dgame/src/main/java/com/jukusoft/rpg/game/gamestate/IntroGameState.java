@@ -22,6 +22,7 @@ public class IntroGameState extends BasicGameState {
 
         //load texture
         FontTexture texture = ResourceManager.getInstance().getFontTexture(new Font("Arial", Font.PLAIN, 20), "ISO-8859-1", Color.WHITE);
+        FontTexture texture1 = ResourceManager.getInstance().getFontTexture(new Font("Arial", Font.PLAIN, 20), "ISO-8859-1", Color.WHITE);
     }
 
     @Override

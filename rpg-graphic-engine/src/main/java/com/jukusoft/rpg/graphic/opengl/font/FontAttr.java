@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.font;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.awt.*;
 
 /**
@@ -39,14 +41,23 @@ public class FontAttr {
     }
 
     public boolean equals (FontAttr fontAttr) {
-        return this.font.equals(fontAttr) && this.charsetName.equals(fontAttr.getCharsetName()) && this.color.equals(fontAttr.getColor());
+        return fontAttr.hashCode() == this.hashCode();
     }
 
     public int hashCode () {
-        String str = this.toString();
-
-        //generate hashCode from string
-        return str.hashCode();
+        //generate hashCode and return hashCode
+        return new HashCodeBuilder(17, 31) //two randomly chosen prime numbers
+                        .append(font.getFamily())
+                        .append(font.getFontName())
+                        .append(font.getName())
+                        .append(font.getStyle())
+                        .append(font.getSize())
+                        .append(charsetName)
+                        .append(color.getRed())
+                        .append(color.getGreen())
+                        .append(color.getBlue())
+                        .append(color.getAlpha())
+                        .toHashCode();
     }
 
     @Override
