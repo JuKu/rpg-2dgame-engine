@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.core.path;
 
+import java.io.File;
+
 /**
  * Created by Justin on 29.11.2016.
  */
@@ -32,6 +34,19 @@ public class GamePaths {
         } else {
             return getGraphicDir() + path;
         }
+    }
+
+    public static String getFontCacheDir () {
+        String path = "./cache/font/";
+        File f = new File(path);
+
+        //check, if directory exists
+        if (!f.exists()) {
+            //create directory
+            f.mkdirs();
+        }
+
+        return path;
     }
 
     public static String getCacheDir () {

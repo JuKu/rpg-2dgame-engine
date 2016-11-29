@@ -41,6 +41,7 @@ Please read LICENSE file for source code and each tilesets has an extra LICENSE 
   - reimplement class Color, use Off Heap memory
   - use GameLogger instead of Logger.getRootLogger() from log4j
   - implement GameConfig
+  - add caching to FontTexture
   
 ### Window System
 
