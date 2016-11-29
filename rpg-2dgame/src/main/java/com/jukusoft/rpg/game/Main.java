@@ -68,6 +68,8 @@ public class Main {
 
             Thread.currentThread().sleep(100);
         }
+
+        System.exit(0);
     }
 
 }
