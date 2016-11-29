@@ -1,7 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.font;
 
 /**
- * Information for character, see LWJGL examples
+ * Information for each character, see LWJGL examples
  *
  * Created by Justin on 29.11.2016.
  */
