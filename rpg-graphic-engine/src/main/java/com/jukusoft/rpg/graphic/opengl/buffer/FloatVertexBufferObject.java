@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.opengl.buffer;
+package com.jukusoft.rpg.graphic.opengl.buffer;
 
 import org.lwjgl.BufferUtils;
 

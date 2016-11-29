@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.opengl.shader;
+package com.jukusoft.rpg.graphic.opengl.shader;
 
 /**
  * Created by Justin on 24.08.2016.

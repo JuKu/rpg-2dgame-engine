@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.opengl.buffer;
+package com.jukusoft.rpg.graphic.opengl.buffer;
 
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
