@@ -1,8 +1,10 @@
 package com.jukusoft.rpg.game;
 
 import com.jukusoft.rpg.game.engine.app.SimpleGameStateApp;
+import com.jukusoft.rpg.game.engine.exception.GameStateNotFoundException;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
+import com.jukusoft.rpg.game.gamestate.IntroGameState;
 import com.jukusoft.rpg.window.system.IWindow;
 
 /**
@@ -16,7 +18,16 @@ public class MyGameApp extends SimpleGameStateApp<GameState> {
 
     @Override
     protected void onInitGame(GameStateManager<GameState> stateManager) {
-        //
+        //create and register new intro game state
+        IntroGameState intro = new IntroGameState();
+        stateManager.addGameState("intro", intro);
+
+        //push game state to activate game state --> set intro to active game state
+        try {
+            stateManager.pushGameState("intro");
+        } catch (GameStateNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
