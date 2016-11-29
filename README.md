@@ -21,6 +21,13 @@ Contributors:
   
 ## Documentation
 
+### Used Libraries
+  - LWJGL 3.1.0
+  - GLFW
+  - JSON
+  - ini4j
+  - log4j
+
 ### Modules
   - Core
   - Game

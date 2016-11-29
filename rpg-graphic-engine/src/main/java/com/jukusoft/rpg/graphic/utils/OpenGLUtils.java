@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.graphic.utils;
 
 import static org.lwjgl.opengl.GL11.GL_VERSION;
 import static org.lwjgl.opengl.GL11.glGetString;

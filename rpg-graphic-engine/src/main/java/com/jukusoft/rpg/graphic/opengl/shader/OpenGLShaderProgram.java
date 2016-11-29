@@ -1,8 +1,8 @@
 package com.jukusoft.rpg.graphic.opengl.shader;
 
-import com.jukusoft.rpg.game.engine.exception.OpenGLVersionException;
-import com.jukusoft.rpg.game.engine.exception.ShaderException;
-import com.jukusoft.rpg.game.engine.utils.OpenGLUtils;
+import com.jukusoft.rpg.graphic.exception.OpenGLVersionException;
+import com.jukusoft.rpg.graphic.exception.ShaderException;
+import com.jukusoft.rpg.graphic.utils.OpenGLUtils;
 import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL40;

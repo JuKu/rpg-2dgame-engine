@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.exception;
+package com.jukusoft.rpg.graphic.exception;
 
 /**
  * Created by Justin on 24.08.2016.
