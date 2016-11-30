@@ -198,6 +198,22 @@ public class FontTexture extends Asset {
         image.callCleanUp();
     }
 
+    public int getWidth () {
+        return this.width;
+    }
+
+    public int getHeight () {
+        return this.height;
+    }
+
+    public CharacterInfo getCharacterInfo(char c) {
+        return this.characterMap.get(c);
+    }
+
+    public OpenGL2DTexture getTexture () {
+        return this.texture;
+    }
+
     public String getCachePath () {
         String path = GamePaths.getFontCacheDir() + "/" + this.font.getFontName() + "-" + this.font.getStyle() + "-" + this.font.getSize() + "-" + charsetName + "_" + this.color.getRed() + "-" + this.color.getGreen() + "-" + this.color.getBlue() + "-" + this.color.getAlpha() + ".png";
 

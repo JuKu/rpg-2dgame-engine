@@ -14,6 +14,10 @@ public class Material {
     private float reflectance = 0;
     protected OpenGL2DTexture texture = null;
 
+    public Material (OpenGL2DTexture texture) {
+        this.texture = texture;
+    }
+
     public Material () {
         //
     }
