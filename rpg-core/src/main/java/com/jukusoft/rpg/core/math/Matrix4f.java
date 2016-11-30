@@ -319,6 +319,21 @@ public class Matrix4f implements Serializable, Cloneable {
         }
     }
 
+    /**
+    * generate orthogonal matrix
+    */
+    public void setOrtho2D (final float left, final float right, final float bottom, final float top) {
+        //set identity matrix first
+        this.identity();
+
+        //set values
+        this.set(0, 0, (2.0f / (right - left)));
+        this.set(1, 1, (2.0f / (top - bottom)));
+        this.set(2, 2, -1f);
+        this.set(3, 0, -(right + left) / (right - left));
+        this.set(3, 1, -(top + bottom) / (top - bottom));
+    }
+
     public Matrix4f copy () {
         //create new matrix
         Matrix4f matrix = new Matrix4f();
