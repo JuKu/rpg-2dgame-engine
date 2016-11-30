@@ -298,6 +298,27 @@ public class Matrix4f implements Serializable, Cloneable {
         return v1 - v2 + v3 - v4;
     }
 
+    /**
+    * reset all entries to 0 values
+    */
+    public void reset () {
+        //iterate through all values
+        for (int i = 0; i < 16; i++) {
+            this.floatBuffer.put(i, 0);
+        }
+    }
+
+    /**
+    * set all values to identity matrix (Einheitsmatrix)
+    */
+    public void identity () {
+        this.reset();
+
+        for (int i = 0; i < 4; i++) {
+            this.set(i, i, 1);
+        }
+    }
+
     public Matrix4f copy () {
         //create new matrix
         Matrix4f matrix = new Matrix4f();
