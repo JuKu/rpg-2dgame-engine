@@ -15,6 +15,11 @@ local.properties
 .loadpath
 .recommenders
 
+.cache
+*.cache
+*cache/
+cache/
+
 # Eclipse Core
 .project
 
