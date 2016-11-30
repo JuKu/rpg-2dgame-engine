@@ -2,6 +2,8 @@ package com.jukusoft.rpg.game.engine.utils;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * UIPlatform to make ui updates thread safe
@@ -19,6 +21,23 @@ public class GamePlatform {
      * thread safe queue for runnables which have to be run in update thread
      */
     protected static Queue<Runnable> updateQueue = new ConcurrentLinkedQueue<>();
+
+    protected static final int DEFAULT_THREADS = 2;
+
+    /**
+    * scheduled executor service
+    */
+    protected static ScheduledExecutorService scheduledExecutorService = null;
+
+    public static void init (int nOfThreads) {
+        scheduledExecutorService = Executors.newScheduledThreadPool(nOfThreads);
+    }
+
+    protected static void initIfAbsent () {
+        if (scheduledExecutorService == null) {
+            init(DEFAULT_THREADS);
+        }
+    }
 
     /**
     * run runnable later in ui thread
@@ -54,6 +73,16 @@ public class GamePlatform {
             //execute runnable
             runnable.run();
         }
+    }
+
+    /**
+    * run an task asynchronous in thread pool
+    */
+    public static void runAsync (Runnable runnable) {
+        initIfAbsent();
+
+        //execute runnable in thread pool
+        scheduledExecutorService.execute(runnable);
     }
 
 }

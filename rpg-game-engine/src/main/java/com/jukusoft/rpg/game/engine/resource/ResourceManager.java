@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.game.engine.resource;
 
 import com.jukusoft.rpg.game.engine.logger.GameLogger;
+import com.jukusoft.rpg.game.engine.utils.GamePlatform;
 import com.jukusoft.rpg.graphic.opengl.font.FontAttr;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 
@@ -42,7 +43,10 @@ public class ResourceManager {
      * @param path path to image
      */
     public void preparePNGImage (String path) {
-        //
+        //preload texture in thread pool
+        GamePlatform.runAsync(() -> {
+            //TODO: add code here
+        });
     }
 
     public FontTexture getFontTexture (Font font, String charset, Color color) {
@@ -74,6 +78,17 @@ public class ResourceManager {
 
             return texture;
         }
+    }
+
+    /**
+     * preload font
+     */
+    public void preloadFont (Font font, String charset, Color color) {
+        //preload font in thread pool
+        GamePlatform.runAsync(() -> {
+            //load font
+            FontTexture fontTexture = getFontTexture(font, charset, color);
+        });
     }
 
 }
