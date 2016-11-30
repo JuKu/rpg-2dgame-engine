@@ -132,6 +132,10 @@ public class Mesh {
         return this.vertexCount;
     }
 
+    public int getVaoID () {
+        return this.vao.getVaoID();
+    }
+
     public Material getMaterial () {
         return this.material;
     }
@@ -156,6 +160,8 @@ public class Mesh {
         if (this.indexVBO != null) {
             this.indexVBO.delete();
         }
+
+        this.vao.delete();
     }
 
 }

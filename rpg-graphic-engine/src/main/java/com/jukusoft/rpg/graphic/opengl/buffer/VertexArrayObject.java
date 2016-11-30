@@ -45,6 +45,10 @@ public class VertexArrayObject {
         glEnableVertexAttribArray(0);
     }
 
+    public int getVaoID () {
+        return this.vaoID;
+    }
+
     public void delete () {
         glBindVertexArray(0);
         glDeleteVertexArrays(this.vaoID);
