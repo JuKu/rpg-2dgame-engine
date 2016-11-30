@@ -3,6 +3,7 @@ package com.jukusoft.rpg.graphic.opengl.buffer;
 import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.*;
@@ -11,7 +12,7 @@ import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 /**
  * Created by Justin on 24.08.2016.
  */
-public class FloatVertexBufferObject {
+public class IntegerVertexBufferObject {
 
     /**
     * id of vertex buffer object on gpu
@@ -25,13 +26,13 @@ public class FloatVertexBufferObject {
 
     protected final int target;
 
-    public FloatVertexBufferObject(final int target) {
+    public IntegerVertexBufferObject(final int target) {
         this.target = target;
 
         this.create();
     }
 
-    public FloatVertexBufferObject() {
+    public IntegerVertexBufferObject() {
         this.target = GL_ARRAY_BUFFER;
         this.create();
     }
@@ -63,14 +64,14 @@ public class FloatVertexBufferObject {
         this.isBind = false;
     }
 
-    public void putData (FloatBuffer buffer) {
+    public void putData (IntBuffer buffer) {
         //put buffer
         glBufferData(this.target, buffer, GL_STATIC_DRAW);
     }
 
-    public void putData (float[] vertices) {
+    public void putData (int[] vertices) {
         //create new float buffer
-        FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer(vertices.length);
+        IntBuffer verticesBuffer = BufferUtils.createIntBuffer(vertices.length);
 
         //put vertices to float buffer
         verticesBuffer.put(vertices).flip();
@@ -102,8 +103,8 @@ public class FloatVertexBufferObject {
         glDeleteBuffers(this.vboID);
     }
 
-    public static FloatVertexBufferObject createAndPutBuffer (float[] vertices) {
-        FloatVertexBufferObject vbo = new FloatVertexBufferObject();
+    public static IntegerVertexBufferObject createAndPutBuffer (int[] vertices) {
+        IntegerVertexBufferObject vbo = new IntegerVertexBufferObject();
 
         //bind VBO
         vbo.bind();
