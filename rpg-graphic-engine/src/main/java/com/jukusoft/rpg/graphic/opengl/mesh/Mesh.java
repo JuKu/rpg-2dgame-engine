@@ -3,13 +3,20 @@ package com.jukusoft.rpg.graphic.opengl.mesh;
 import com.jukusoft.rpg.graphic.opengl.buffer.FloatVertexBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.IntegerVertexBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.VertexArrayObject;
+import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
+import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 /**
  * Created by Justin on 30.11.2016.
@@ -142,6 +149,35 @@ public class Mesh {
 
     public void setMaterial (Material material) {
         this.material = material;
+    }
+
+    public void render() {
+        OpenGL2DTexture texture = material.getTexture();
+
+        if (texture != null) {
+            //activate firs texture bank
+            glActiveTexture(GL_TEXTURE0);
+
+            //bind the texture
+            glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
+        }
+
+        //TODO: replace OpenGL commands with FloatVertexBufferObject methods
+
+        //draw the mesh
+        glBindVertexArray(this.getVaoID());
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(2);
+
+        glDrawElements(GL_TRIANGLES, getVertexCount(), GL_UNSIGNED_INT, 0);
+
+        // Restore state
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
+        glBindVertexArray(0);
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     public void cleanUp () {
