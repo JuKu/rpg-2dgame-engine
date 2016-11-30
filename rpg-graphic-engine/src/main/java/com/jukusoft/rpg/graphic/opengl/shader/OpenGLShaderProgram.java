@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.shader;
 
+import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.exception.OpenGLVersionException;
 import com.jukusoft.rpg.graphic.exception.ShaderException;
 import com.jukusoft.rpg.graphic.utils.OpenGLUtils;
@@ -7,6 +8,9 @@ import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL40;
 import org.lwjgl.opengl.GL43;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.lwjgl.opengl.GL20.*;
 
@@ -49,6 +53,11 @@ public class OpenGLShaderProgram /*extends Asset*/ {
      * id of tessellation control shader on gpu
      */
     protected int tessellationControlShaderID = 0;
+
+    /**
+    * map with all uniforms
+    */
+    protected final Map<String, Integer> uniformsMap = new ConcurrentHashMap<>();
 
     /**
     * default constructor
@@ -232,6 +241,22 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         } else {
             throw new OpenGLVersionException("tessellation evaluation shaders require OpenGL 4.0+, you are currently using OpenGL " + OpenGLUtils.getMajorVersion() + "." + OpenGLUtils.getMinorVersion() + ".");
         }
+    }
+
+    /**
+    * create new uniform
+     *
+     * @param name name of uniform
+    */
+    public void createUniform (final String name) throws OpenGLShaderException {
+        int uniformID = glGetUniformLocation(this.programID, name);
+
+        if (uniformID < 0) {
+            throw new OpenGLShaderException("Could not find uniform:" + name);
+        }
+
+        //put uniform to map
+        this.uniformsMap.put(name, uniformID);
     }
 
     /**
