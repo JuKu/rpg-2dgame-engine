@@ -145,6 +145,11 @@ public class FontTexture extends Asset {
             height = Math.max(height, fontMetrics.getHeight());
         }
 
+        //some graphics cards only supports textures with an size of a power of two
+        if (this.width % 2 != 0) {
+            this.width += 1;
+        }
+
         //dispose Graphics2D
         g2D.dispose();
 
