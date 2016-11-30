@@ -73,6 +73,14 @@ public class DrawableObject {
         return this.meshID;
     }
 
+    public Mesh getMesh () {
+        return this.mesh;
+    }
+
+    public void setMesh (Mesh mesh) {
+        this.mesh = mesh;
+    }
+
     public void cleanUp () {
         if (mesh != null) {
             this.mesh.cleanUp();
