@@ -1,9 +1,7 @@
 package com.jukusoft.rpg.game.engine.utils;
 
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.*;
 
 /**
  * UIPlatform to make ui updates thread safe
@@ -83,6 +81,16 @@ public class GamePlatform {
 
         //execute runnable in thread pool
         scheduledExecutorService.execute(runnable);
+    }
+
+    /**
+     * run an task asynchronous in thread pool
+     */
+    public static <V> ScheduledFuture<V> runAsync (Callable<V> callable) {
+        initIfAbsent();
+
+        //execute runnable in thread pool
+        return scheduledExecutorService.schedule(callable, 0l, TimeUnit.MILLISECONDS);
     }
 
 }
