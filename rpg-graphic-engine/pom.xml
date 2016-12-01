@@ -19,6 +19,13 @@
             <version>${project.version}</version>
         </dependency>
 
+        <!-- RPG Window System -->
+        <dependency>
+            <groupId>com.jukusoft</groupId>
+            <artifactId>rpg-window-system</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- JUnit tests -->
         <dependency>
             <groupId>junit</groupId>
