@@ -255,6 +255,30 @@ If you return false, other key callbacks arent called anymore. So your UI can ea
 
 IMPORTANT: This only works, if you call window.processInput() in your gameloop.
 
+### Multi Threading
+
+This game engine supports multi threading with an little limitation by GLFW: All OpenGL functions has to be called in main thread.
+By default there is an thread pool with size of 2 where you can execute tasks asynchronous:
+```java
+GamePlatform.runAsync(() -> {
+    //add your code here
+});
+```
+
+Example, how to execute task later in UI thread (OpenGL / renderer thread):
+```java
+GamePlatform.runOnUIThread(() -> {
+    //add your code here
+});
+```
+
+If you use an extra thread, you can also execute tasks later in update thread (if no update thread exists in ui thread):
+```java
+GamePlatform.runOnUpdateThread(() -> {
+    //add your code here
+});
+```
+
 ### Logging
 
 To log, there is an class GameLogger.
