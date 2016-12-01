@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.shader;
 
+import com.jukusoft.rpg.core.math.Matrix4f;
+import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.exception.OpenGLVersionException;
 import com.jukusoft.rpg.graphic.exception.ShaderException;
@@ -9,6 +11,7 @@ import org.lwjgl.opengl.GL32;
 import org.lwjgl.opengl.GL40;
 import org.lwjgl.opengl.GL43;
 
+import java.nio.FloatBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -257,6 +260,69 @@ public class OpenGLShaderProgram /*extends Asset*/ {
 
         //put uniform to map
         this.uniformsMap.put(name, uniformID);
+    }
+
+    /**
+    * set matrix value to uniform
+    */
+    public void setUniform (final String name, Matrix4f matrix) {
+        //first get float buffer of matrix
+        FloatBuffer buffer = matrix.getFloatBuffer();
+
+        //get uniform id
+        int uniformLocation = uniformsMap.get(uniformsMap);
+
+        //check, if uniform exists
+        if (!this.uniformsMap.containsKey(name) || uniformLocation <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //check, if float buffer is an direct buffer (Off heap), because OpenGL method only supports direct buffers
+        if (!buffer.isDirect()) {
+            throw new IllegalStateException("Only direct buffers are allowed, but Matrix4f implementation doesnt use direct float buffer.");
+        }
+
+        //set matrix value as direct buffer
+        glUniformMatrix4fv(uniformLocation, false, buffer);
+    }
+
+    public void setUniform (final String name, final int value) {
+        //get uniform id
+        int uniformID = uniformsMap.get(uniformsMap);
+
+        //check, if uniform exists
+        if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //set integer value to uniform
+        glUniform1i(uniformID, value);
+    }
+
+    public void setUniform (final String name, final float value) {
+        //get uniform id
+        int uniformID = uniformsMap.get(uniformsMap);
+
+        //check, if uniform exists
+        if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //set float value to uniform
+        glUniform1f(uniformID, value);
+    }
+
+    public void setUniform (final String name, Vector3f vector) {
+        //get uniform id
+        int uniformID = uniformsMap.get(uniformsMap);
+
+        //check, if uniform exists
+        if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //set vector value to uniform
+        glUniform3f(uniformID, vector.getX(), vector.getY(), vector.getZ());
     }
 
     /**
