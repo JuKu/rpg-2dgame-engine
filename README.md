@@ -272,7 +272,7 @@ GamePlatform.runOnUIThread(() -> {
 });
 ```
 
-If you use an extra thread, you can also execute tasks later in update thread (if no update thread exists in ui thread):
+If you use an extra update thread, you can also execute tasks later in update thread (if no update thread exists in ui thread):
 ```java
 GamePlatform.runOnUpdateThread(() -> {
     //add your code here
