@@ -20,11 +20,11 @@
         </dependency>
 
         <!-- RPG Window System -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.jukusoft</groupId>
             <artifactId>rpg-window-system</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- JUnit tests -->
         <dependency>
