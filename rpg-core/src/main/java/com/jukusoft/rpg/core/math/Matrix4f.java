@@ -320,6 +320,13 @@ public class Matrix4f implements Serializable, Cloneable {
     }
 
     /**
+     * alias to identity()
+     */
+    public void setIdentityMatrix () {
+        this.identity();
+    }
+
+    /**
     * generate orthogonal matrix
     */
     public void setOrtho2D (final float left, final float right, final float bottom, final float top) {
