@@ -105,6 +105,16 @@ public class Matrix4f implements Serializable, Cloneable {
         this.floatBuffer.put(index(column, row), value);
     }
 
+    public void set (Matrix4f matrix) {
+        //get original float buffer
+        FloatBuffer buffer = matrix.getFloatBuffer();
+
+        //copy all values
+        for (int i = 0; i < 16; i++) {
+            this.floatBuffer.put(i, buffer.get(i));
+        }
+    }
+
     /**
     * set an full row
     */
@@ -324,6 +334,25 @@ public class Matrix4f implements Serializable, Cloneable {
      */
     public void setIdentityMatrix () {
         this.identity();
+    }
+
+    /**
+    * translate matrix
+    */
+    public void translate (Vector3f vector) {
+        throw new UnsupportedOperationException("method isnt implemented yet.");
+    }
+
+    public void rotateX (float angel) {
+        throw new UnsupportedOperationException("method isnt implemented yet.");
+    }
+
+    public void rotateY (float angel) {
+        throw new UnsupportedOperationException("method isnt implemented yet.");
+    }
+
+    public void rotateZ (float angel) {
+        throw new UnsupportedOperationException("method isnt implemented yet.");
     }
 
     /**
