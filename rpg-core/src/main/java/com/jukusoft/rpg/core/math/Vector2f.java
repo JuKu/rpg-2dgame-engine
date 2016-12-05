@@ -54,7 +54,23 @@ public class Vector2f implements Cloneable, Serializable {
     /**
      * default constructor
      */
-    public Vector2f() {
+    public Vector2f (ByteBuffer buffer) {
+        //allocate new direct (Off Heap) byte buffer with size of 2 bytes
+        this.buffer = buffer;
+
+        //convert to float buffer to access data easely
+        this.floatBuffer = this.buffer.asFloatBuffer();
+
+        //check size
+        if (this.floatBuffer.limit() < 2) {
+            throw new IllegalArgumentException("FloatBuffer requires size of 2 float values, current limit: " + this.floatBuffer.limit());
+        }
+    }
+
+    /**
+     * default constructor
+     */
+    public Vector2f () {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
         this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * 2);
 
