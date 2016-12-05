@@ -2,6 +2,8 @@ package com.jukusoft.rpg.window.system.glfw;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -10,6 +12,8 @@ import static org.lwjgl.glfw.GLFW.*;
 public class GLFWUtils {
 
     private static GLFWErrorCallback errorCallback = null;
+
+    private static AtomicBoolean wasShutdown = new AtomicBoolean(false);
 
     /**
     * initialize GLFW system
@@ -25,9 +29,20 @@ public class GLFWUtils {
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW!");
         }
+
+        //register shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            //execute code on shutdown
+            shutdownGLFW();
+        }));
     }
 
     public static void shutdownGLFW () {
+        //GLFW only needs to shutdown one time
+        if (wasShutdown.get()) {
+            return;
+        }
+
         // Terminate GLFW and release the GLFWerrorfun
         glfwTerminate();
 
