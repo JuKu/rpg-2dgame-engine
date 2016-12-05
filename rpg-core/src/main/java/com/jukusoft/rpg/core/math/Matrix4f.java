@@ -75,7 +75,20 @@ public class Matrix4f implements Serializable, Cloneable {
         set(3, 3, p);
     }
 
-    public Matrix4f() {
+    public Matrix4f (ByteBuffer buffer) {
+        //allocate new direct (Off Heap) byte buffer with size of 2 bytes
+        this.buffer = buffer;
+
+        //convert to float buffer to access data easely
+        this.floatBuffer = this.buffer.asFloatBuffer();
+
+        //check size
+        if (this.floatBuffer.limit() < 16) {
+            throw new IllegalArgumentException("FloatBuffer requires size of 16 float values, current limit: " + this.floatBuffer.limit());
+        }
+    }
+
+    public Matrix4f () {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
         this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
 

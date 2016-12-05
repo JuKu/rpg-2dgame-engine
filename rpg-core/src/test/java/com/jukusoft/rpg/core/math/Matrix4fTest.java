@@ -2,6 +2,9 @@ package com.jukusoft.rpg.core.math;
 
 import org.junit.Test;
 
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -64,6 +67,78 @@ public class Matrix4fTest {
         assertEquals(4f, matrix.get(3, 3), 0);
 
         assertEquals(0f, matrix.get(1, 0), 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFloatBufferConstructor () {
+        //create new buffer for matrix
+        ByteBuffer buffer = ByteBuffer.allocateDirect(15 * 4);
+        FloatBuffer floatBuffer = buffer.asFloatBuffer();
+
+        Matrix4f matrix = new Matrix4f(buffer);
+    }
+
+    @Test
+    public void testEquals () {
+        Matrix4f matrix1 = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        Matrix4f matrix2 = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        assertEquals("matrix arent equals.", true, matrix1.equals(matrix2));
+
+        Matrix4f matrix3 = new Matrix4f(
+                1, 2, 5, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        assertEquals("matrix are equals.", false, matrix1.equals(matrix3));
+    }
+
+    //@Test
+    public void testTranslate () throws Exception {
+        //create new example matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        //print matrix
+        matrix.print(true);
+
+        //create new vector to translate
+        Vector3f vector = new Vector3f(3, 6, 9);
+
+        //translate matrix with vector
+        matrix.translate(vector);
+
+        System.out.println("translated matrix: ");
+
+        //print matrix
+        matrix.print(true);
+
+        Matrix4f resultMatrix = new Matrix4f(
+                1, 2, 4, 46,
+                5, 6, 7, 122,
+                9, 10, 11, 198,
+                13, 14, 15, 274
+        );
+
+        //check, if result matrix is equals to calculated matrix
+        assertEquals("calculated matrix isnt equals, result:\n" + matrix.toString(true) + "\n, expected result:\n" + resultMatrix.toString(true), matrix, resultMatrix);
     }
 
     @Test
