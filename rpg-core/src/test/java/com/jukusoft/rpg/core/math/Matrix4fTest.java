@@ -142,6 +142,37 @@ public class Matrix4fTest {
         assertEquals("calculated matrix isnt equals, result:\n" + matrix.toString(true) + "\n, expected result:\n" + resultMatrix.toString(true), matrix, resultMatrix);
     }
 
+
+    @Test
+    public void testIdentityMatrix () {
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 6
+        );
+
+        Matrix4f matrix1 = matrix.copy();
+
+        //set identity matrix (Einheitsmatrix)
+        matrix1.identity();
+
+        //test identity matrix
+        for (int i = 0; i < 4; i++) {
+            assertEquals("(" + i+ ", " + i + ") has to be 1.", 1, matrix1.get(i, i), 0);
+        }
+    }
+
+    @Test
+    public void testOrtho2DMatrix () {
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 6
+                );
+    }
+
     @Test
     public void testCopy () {
         //create new matrix
