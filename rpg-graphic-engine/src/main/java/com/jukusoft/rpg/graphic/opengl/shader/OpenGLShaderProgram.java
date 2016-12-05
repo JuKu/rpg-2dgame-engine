@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL40;
 import org.lwjgl.opengl.GL43;
 
 import java.nio.FloatBuffer;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,7 +61,7 @@ public class OpenGLShaderProgram /*extends Asset*/ {
     /**
     * map with all uniforms
     */
-    protected final Map<String, Integer> uniformsMap = new ConcurrentHashMap<>();
+    protected final Map<String, Integer> uniformsMap = new HashMap<>();
 
     /**
     * default constructor
@@ -269,13 +270,17 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         //first get float buffer of matrix
         FloatBuffer buffer = matrix.getFloatBuffer();
 
+        if (!this.uniformsMap.containsKey(name)) {
+            throw new OpenGLShaderException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
         //get uniform id
-        int uniformLocation = uniformsMap.get(uniformsMap);
+        int uniformLocation = uniformsMap.get(name);
 
         //check, if uniform exists
-        if (!this.uniformsMap.containsKey(name) || uniformLocation <= 0) {
-            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
-        }
+        /*if (!this.uniformsMap.containsKey(name) || uniformLocation <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists, uniformLocation: " + uniformLocation);
+        }*/
 
         //check, if float buffer is an direct buffer (Off heap), because OpenGL method only supports direct buffers
         if (!buffer.isDirect()) {
@@ -288,7 +293,7 @@ public class OpenGLShaderProgram /*extends Asset*/ {
 
     public void setUniform (final String name, final int value) {
         //get uniform id
-        int uniformID = uniformsMap.get(uniformsMap);
+        int uniformID = uniformsMap.get(name);
 
         //check, if uniform exists
         if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
@@ -301,7 +306,7 @@ public class OpenGLShaderProgram /*extends Asset*/ {
 
     public void setUniform (final String name, final float value) {
         //get uniform id
-        int uniformID = uniformsMap.get(uniformsMap);
+        int uniformID = uniformsMap.get(name);
 
         //check, if uniform exists
         if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
@@ -313,13 +318,17 @@ public class OpenGLShaderProgram /*extends Asset*/ {
     }
 
     public void setUniform (final String name, Vector3f vector) {
+        if (!this.uniformsMap.containsKey(name)) {
+            throw new OpenGLShaderException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
         //get uniform id
-        int uniformID = uniformsMap.get(uniformsMap);
+        int uniformID = uniformsMap.get(name);
 
         //check, if uniform exists
-        if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
+        /*if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
             throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
-        }
+        }*/
 
         //set vector value to uniform
         glUniform3f(uniformID, vector.getX(), vector.getY(), vector.getZ());

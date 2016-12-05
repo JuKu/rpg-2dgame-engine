@@ -96,9 +96,9 @@ public class UIRenderer {
             this.modelViewMatrix.translate(obj.getPosition());
 
             //rotate matrix
-            this.modelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
-            this.modelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
-            this.modelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
+            //this.modelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
+            //this.modelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
+            //this.modelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
 
             //scale game object
             this.modelViewMatrix.scale(obj.getScale());
@@ -107,9 +107,16 @@ public class UIRenderer {
             this.viewCurrent.set(projMatrix);
             this.viewCurrent.mul(this.modelViewMatrix);
 
+            //get color
+            Vector3f color = obj.getMesh().getMaterial().getColor();
+
+            if (color == null) {
+                throw new RuntimeException("color cannot be null.");
+            }
+
             //set shader program parameter
             this.uiShaderProgram.setUniform("projModelMatrix", this.viewCurrent);
-            this.uiShaderProgram.setUniform("colour", obj.getMesh().getMaterial().getColor());
+            this.uiShaderProgram.setUniform("baseColor", color);
             this.uiShaderProgram.setUniform("hasTexture", obj.getMesh().getMaterial().isTextured() ? 1 : 0);
 
             //render mesh
