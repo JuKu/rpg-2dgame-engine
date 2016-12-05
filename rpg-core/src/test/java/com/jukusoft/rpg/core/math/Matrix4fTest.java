@@ -169,21 +169,42 @@ public class Matrix4fTest {
                 }
             }
         }
-
-        //test identity matrix
-        /*for (int i = 0; i < 4; i++) {
-            assertEquals("(" + i + ", " + i + ") has to be 1.", 1, matrix1.get(i, i), 0);
-        }*/
     }
 
     @Test
-    public void testOrtho2DMatrix () {
+    public void testOrtho2DMatrix () throws Exception {
         Matrix4f matrix = new Matrix4f(
                 1, 2, 3, 4,
                 5, 6, 7, 8,
                 9, 10, 11, 12,
                 13, 14, 15, 6
                 );
+
+        final int windowWidth = 600;
+        final int windowHeight = 480;
+
+        //generate projection matrix / view matrix
+        Matrix4f projMatrix = new Matrix4f();
+        projMatrix.setIdentityMatrix();
+        projMatrix.setOrtho2D(0, windowWidth, windowHeight, 0);
+
+        projMatrix.print(true);
+
+        //create matrix with results from JOML
+        Matrix4f resultMatrix = new Matrix4f(
+                0.0033333334f, 0f, 0f, 0f,
+                0f, -0.004167f, 0f, 0f,
+                0f, 0, -1f, 0f,
+                -1f, 0f, 1f, 1f
+        );
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                assertEquals("value of (" + i + ", " + j + ") isnt the same, result value: " + projMatrix.get(i, j) + ", expected value: " + resultMatrix.get(i, j) + "\n\nresult matrix:\n" + projMatrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true) + "", resultMatrix.get(i, j), projMatrix.get(i, j), 0);
+            }
+        }
+
+        //assertEquals("matrix arent equals, result matrix:\n" + projMatrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true) + "", true, resultMatrix.equals(projMatrix));
     }
 
     @Test
