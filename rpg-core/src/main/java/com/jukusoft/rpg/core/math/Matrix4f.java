@@ -339,8 +339,18 @@ public class Matrix4f implements Serializable, Cloneable {
     /**
     * translate matrix
     */
+    public void translate (final float x, final float y, final float z) {
+        this.set(3, 0, get(0, 0) * x + get(1, 0) * y + get(2, 0) * z + get(3, 0));
+        this.set(3, 1, get(0, 1) * x + get(1, 1) * y + get(2, 1) * z + get(3, 1));
+        this.set(3, 2, get(0, 2) * x + get(1, 2) * y + get(2, 2) * z + get(3, 2));
+        this.set(3, 3, get(0, 3) * x + get(1, 3) * y + get(2, 3) * z + get(3, 3));
+    }
+
+    /**
+     * translate matrix
+     */
     public void translate (Vector3f vector) {
-        throw new UnsupportedOperationException("method isnt implemented yet.");
+        this.translate(vector.getX(), vector.getY(), vector.getZ());
     }
 
     public void rotateX (float angel) {
@@ -353,6 +363,31 @@ public class Matrix4f implements Serializable, Cloneable {
 
     public void rotateZ (float angel) {
         throw new UnsupportedOperationException("method isnt implemented yet.");
+    }
+
+    public void print (boolean lineBreak) {
+        System.out.println(this.toString(lineBreak));
+    }
+
+    public String toString (boolean lineBreak) {
+        String ln = "\n";
+        String str = "";
+
+        if (!lineBreak) {
+            ln = "";
+        }
+
+        str += "(" + get(0, 0) + ", " + get(1, 0) + ", " + get(2, 0) + ", " + get(3, 0) + "), " + ln;
+        str += "(" + get(0, 1) + ", " + get(1, 1) + ", " + get(2, 1) + ", " + get(3, 1) + "), " + ln;
+        str += "(" + get(0, 2) + ", " + get(1, 2) + ", " + get(2, 2) + ", " + get(3, 2) + "), " + ln;
+        str += "(" + get(0, 3) + ", " + get(1, 3) + ", " + get(2, 3) + ", " + get(3, 3) + ")" + ln;
+
+        return str;
+    }
+
+    @Override
+    public String toString () {
+        return this.toString(false);
     }
 
     /**
