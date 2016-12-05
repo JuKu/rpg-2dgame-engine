@@ -23,11 +23,15 @@ public interface Camera3D {
      */
     public void setPosition (final float x, final float y, final float z);
 
+    public void movePosition (final float x, final float y, final float z);
+
     /**
     * set camera rotation
      *
      * @param rotation camera rotation
     */
     public void setRotation (Vector3f rotation);
+
+    public void moveRotation (final float offsetX, final float offsetY, final float offsetZ);
 
 }

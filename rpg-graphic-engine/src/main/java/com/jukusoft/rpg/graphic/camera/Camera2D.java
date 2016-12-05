@@ -12,6 +12,8 @@ public interface Camera2D {
     */
     public void set2DPosition (final float x, final float y);
 
+    public void move2DPosition (final float x, final float y);
+
     /**
     * get current camera position
     */

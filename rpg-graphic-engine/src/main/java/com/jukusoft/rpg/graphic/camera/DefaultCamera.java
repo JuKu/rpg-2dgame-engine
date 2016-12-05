@@ -25,6 +25,11 @@ public class DefaultCamera implements Camera2D, Camera3D {
     }
 
     @Override
+    public void move2DPosition(float x, float y) {
+        this.movePosition(x, y, 0);
+    }
+
+    @Override
     public Vector2f getPosition() {
         return new Vector2f(this.position.getDirectByteBuffer());
     }
@@ -50,7 +55,29 @@ public class DefaultCamera implements Camera2D, Camera3D {
     }
 
     @Override
+    public void movePosition(float offsetX, float offsetY, float offsetZ) {
+        //from LWJGL documentation
+
+        if ( offsetZ != 0 ) {
+            this.position.setX(position.getX() + (float) Math.sin(Math.toRadians(rotation.getY())) * -1.0f * offsetZ);
+            this.position.setZ(position.getZ() + (float) Math.cos(Math.toRadians(rotation.getY())) * offsetZ);
+        }
+
+        if ( offsetX != 0) {
+            this.position.setX(position.getX() + (float) Math.sin(Math.toRadians(rotation.getY() - 90)) * -1.0f * offsetX);
+            this.position.setZ(position.getZ() + (float) Math.cos(Math.toRadians(rotation.getY() - 90)) * offsetX);
+        }
+
+        this.position.setY(position.getY() + offsetY);
+    }
+
+    @Override
     public void setRotation(Vector3f rotation) {
         this.rotation = rotation;
+    }
+
+    @Override
+    public void moveRotation(float offsetX, float offsetY, float offsetZ) {
+        this.position.add(offsetX, offsetY, offsetZ);
     }
 }
