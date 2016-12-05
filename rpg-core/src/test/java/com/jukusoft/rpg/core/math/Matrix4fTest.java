@@ -159,8 +159,21 @@ public class Matrix4fTest {
 
         //test identity matrix
         for (int i = 0; i < 4; i++) {
-            assertEquals("(" + i+ ", " + i + ") has to be 1.", 1, matrix1.get(i, i), 0);
+            for (int j = 0; j < 4; j++) {
+                if (i != j) {
+                    //value has to be 0
+                    assertEquals("(" + i + ", " + j + ") has to be 0.", 0, matrix1.get(i, j), 0);
+                } else {
+                    //value has to be 1
+                    assertEquals("(" + i + ", " + j + ") has to be 1.", 1, matrix1.get(i, j), 0);
+                }
+            }
         }
+
+        //test identity matrix
+        /*for (int i = 0; i < 4; i++) {
+            assertEquals("(" + i + ", " + i + ") has to be 1.", 1, matrix1.get(i, i), 0);
+        }*/
     }
 
     @Test
