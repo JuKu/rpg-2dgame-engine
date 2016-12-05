@@ -48,6 +48,9 @@ public class GLFWUtils {
 
         //release memory of error callback
         errorCallback.free();
+
+        //set flag
+        wasShutdown.set(true);
     }
 
 }
