@@ -193,7 +193,7 @@ public class Matrix4fTest {
         //create matrix with results from JOML
         Matrix4f resultMatrix = new Matrix4f(
                 0.0033333334f, 0f, 0f, 0f,
-                0f, -0.004167f, 0f, 0f,
+                0f, -0.004166667f, 0f, 0f,
                 0f, 0, -1f, 0f,
                 -1f, 1f, 0f, 1f
         );
