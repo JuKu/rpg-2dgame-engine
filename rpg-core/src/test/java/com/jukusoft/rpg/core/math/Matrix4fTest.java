@@ -195,7 +195,7 @@ public class Matrix4fTest {
                 0.0033333334f, 0f, 0f, 0f,
                 0f, -0.004167f, 0f, 0f,
                 0f, 0, -1f, 0f,
-                -1f, 0f, 1f, 1f
+                -1f, 1f, 0f, 1f
         );
 
         for (int i = 0; i < 4; i++) {
