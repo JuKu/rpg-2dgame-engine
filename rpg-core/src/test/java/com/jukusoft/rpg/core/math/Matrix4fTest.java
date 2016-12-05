@@ -130,6 +130,7 @@ public class Matrix4fTest {
         //print matrix
         matrix.print(true);
 
+        //create matrix and set result values, calculated with JOML library
         Matrix4f resultMatrix = new Matrix4f(
                 1, 2, 3, 46,
                 5, 6, 7, 122,
