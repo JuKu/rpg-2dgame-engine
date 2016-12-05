@@ -106,7 +106,7 @@ public class Matrix4fTest {
         assertEquals("matrix are equals.", false, matrix1.equals(matrix3));
     }
 
-    //@Test
+    @Test
     public void testTranslate () throws Exception {
         //create new example matrix
         Matrix4f matrix = new Matrix4f(
@@ -131,7 +131,7 @@ public class Matrix4fTest {
         matrix.print(true);
 
         Matrix4f resultMatrix = new Matrix4f(
-                1, 2, 4, 46,
+                1, 2, 3, 46,
                 5, 6, 7, 122,
                 9, 10, 11, 198,
                 13, 14, 15, 274
