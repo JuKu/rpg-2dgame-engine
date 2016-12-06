@@ -107,6 +107,35 @@ public class Matrix4fTest {
     }
 
     @Test
+    public void testMul () {
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        Matrix4f matrix1 = new Matrix4f(
+                17, 18, 19, 20,
+                21, 22, 23, 24,
+                25, 26, 27, 28,
+                29, 30, 31, 32
+        );
+
+        matrix.mul(matrix1);
+
+        //expected, with JOML calculated result matrix
+        Matrix4f resultMatrix = new Matrix4f(
+                724, 752, 780, 808,
+                816, 848, 880, 912,
+                908, 944, 980, 1016,
+                1000, 1040, 1080, 1120
+        );
+
+        assertEquals("matrizes arent equals,\n\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+    }
+
+    @Test
     public void testTranslate () throws Exception {
         //create new example matrix
         Matrix4f matrix = new Matrix4f(
