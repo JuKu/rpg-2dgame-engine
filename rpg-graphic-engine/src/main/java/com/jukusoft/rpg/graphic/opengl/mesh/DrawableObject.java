@@ -34,7 +34,6 @@ public class DrawableObject {
     * default constructor
     */
     public DrawableObject(Mesh mesh1) {
-        this.position = null;
         this.mesh = mesh1;
     }
 
@@ -79,6 +78,11 @@ public class DrawableObject {
 
     public void setMesh (Mesh mesh) {
         this.mesh = mesh;
+    }
+
+    @Override
+    public String toString () {
+        return "Drawable Object class: " + this.getClass().getName() + ", position: " + this.position.toString() + ", rotation: " + this.rotation.toString() + ", scale: " + this.scale + ", meshID: " + this.meshID + ", mesh: " + this.mesh.toString();
     }
 
     public void cleanUp () {
