@@ -386,10 +386,10 @@ public class Matrix4f implements Serializable, Cloneable {
         dest.set(2, 3, this.get(1, 3) * rm21 + this.get(2, 3) * cos);
 
         //copy values to destination matrix
-        dest.set(1, 0, get(1, 0));
-        dest.set(1, 1, get(1, 1));
-        dest.set(1, 2, get(1, 2));
-        dest.set(1, 3, get(1, 3));
+        dest.set(1, 0, nm10);
+        dest.set(1, 1, nm11);
+        dest.set(1, 2, nm12);
+        dest.set(1, 3, nm13);
         dest.set(0, 0, get(0, 0));
         dest.set(0, 1, get(0, 01));
         dest.set(0, 2, get(0, 02));

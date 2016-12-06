@@ -186,10 +186,10 @@ public class Matrix4fTest {
 
         //result matrix, calculated with JOML
         Matrix4f resultMatrix = new Matrix4f(
-                1f, 1.143f, 3.4196477f, 4f,
-                5f, 3.953f, 8.329f, 8f,
-                9f, 6.764f, 13.24f, 12f,
-                13f, 9.574f, 18.147738f, 16f
+                1f, 1.1428075f, 3.4196477f, 4f,
+                5f, 3.953172f, 8.329011f, 8f,
+                9f, 6.7635365f, 13.238375f, 12f,
+                13f, 9.573902f, 18.147738f, 16f
         );
 
         assertEquals("matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
