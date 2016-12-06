@@ -436,7 +436,36 @@ public class Matrix4f implements Serializable, Cloneable {
     }
 
     public void rotateZ (float angel) {
-        throw new UnsupportedOperationException("method isnt implemented yet.");
+        this.rotateZ(angel, this);
+    }
+
+    public void rotateZ (float angel, Matrix4f dest) {
+        //calculate sinus and cosinus
+        float sin = (float) Math.sin((double) angel);
+        float cos = (float) Math.cos((double) angel);
+
+        float rm10 = -sin;
+        float nm00 = get(0, 0) * cos + get(1, 0) * sin;
+        float nm01 = get(0, 1) * cos + get(1, 1) * sin;
+        float nm02 = get(0, 2) * cos + get(1, 2) * sin;
+        float nm03 = get(0, 3) * cos + get(1, 3) * sin;
+
+        dest.set(1, 0, get(0, 0) * rm10 + get(1, 0) * cos);
+        dest.set(1, 1, get(0, 1) * rm10 + get(1, 1) * cos);
+        dest.set(1, 2, get(0, 2) * rm10 + get(1, 2) * cos);
+        dest.set(1, 3, get(0, 3) * rm10 + get(1, 3) * cos);
+        dest.set(0, 0, nm00);
+        dest.set(0, 1, nm01);
+        dest.set(0, 2, nm02);
+        dest.set(0, 3, nm03);
+        dest.set(2, 0, get(2, 0));
+        dest.set(2, 1, get(2, 1));
+        dest.set(2, 2, get(2, 2));
+        dest.set(2, 3, get(2, 3));
+        dest.set(3, 0, get(3, 0));
+        dest.set(3, 1, get(3, 1));
+        dest.set(3, 2, get(3, 2));
+        dest.set(3, 3, get(3, 3));
     }
 
     public void print (boolean lineBreak) {
