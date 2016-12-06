@@ -367,7 +367,37 @@ public class Matrix4f implements Serializable, Cloneable {
     }
 
     public void rotateX (float angel) {
-        throw new UnsupportedOperationException("method isnt implemented yet.");
+        this.rotateX(angel, this);
+    }
+
+    public void rotateX (float angel, Matrix4f dest) {
+        float sin = (float) Math.sin((double) angel);
+        float cos = (float) Math.cos((double) angel);
+
+        float rm21 = -sin;
+        float nm10 = this.get(1, 0) * cos + this.get(2, 0) * sin;
+        float nm11 = this.get(1, 1) * cos + this.get(2, 1) * sin;
+        float nm12 = this.get(1, 2) * cos + this.get(2, 2) * sin;
+        float nm13 = this.get(1, 3) * cos + this.get(2, 3) * sin;
+
+        dest.set(2, 0, this.get(1, 0) * rm21 + this.get(2, 0) * cos);
+        dest.set(2, 1, this.get(1, 1) * rm21 + this.get(2, 1) * cos);
+        dest.set(2, 2, this.get(1, 2) * rm21 + this.get(2, 2) * cos);
+        dest.set(2, 3, this.get(1, 3) * rm21 + this.get(2, 3) * cos);
+
+        //copy values to destination matrix
+        dest.set(1, 0, get(1, 0));
+        dest.set(1, 1, get(1, 1));
+        dest.set(1, 2, get(1, 2));
+        dest.set(1, 3, get(1, 3));
+        dest.set(0, 0, get(0, 0));
+        dest.set(0, 1, get(0, 01));
+        dest.set(0, 2, get(0, 02));
+        dest.set(0, 3, get(0, 03));
+        dest.set(3, 0, get(3, 0));
+        dest.set(3, 1, get(3, 1));
+        dest.set(3, 2, get(3, 2));
+        dest.set(3, 3, get(3, 3));
     }
 
     public void rotateY (float angel) {
