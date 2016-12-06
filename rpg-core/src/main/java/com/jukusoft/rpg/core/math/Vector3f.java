@@ -305,6 +305,11 @@ public class Vector3f {
         return this.readonly.get();
     }
 
+    @Override
+    public String toString () {
+        return "(" + getX() + ", " + getY() + ", " + getZ() + ")";
+    }
+
     /**
      * cleanUp and release memory
      */
