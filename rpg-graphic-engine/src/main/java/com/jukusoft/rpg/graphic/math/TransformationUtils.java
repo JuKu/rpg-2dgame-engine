@@ -16,7 +16,7 @@ public class TransformationUtils {
         return dest;
     }
 
-    public static Matrix4f getOrtoProjModelMatrix (DrawableObject obj, Matrix4f orthoProjMatrix, Matrix4f dest) {
+    /*public static Matrix4f getOrtoProjModelMatrix (DrawableObject obj, Matrix4f orthoProjMatrix, Matrix4f dest) {
         return getOrtoProjModelMatrix(obj.getPosition(), obj.getRotation(), obj.getScale(), orthoProjMatrix, dest);
     }
 
@@ -34,6 +34,28 @@ public class TransformationUtils {
         dest.mul(modelMatrix);
 
         return dest;
+    }*/
+
+    public static Matrix4f getOrtoProjModelMatrix(DrawableObject gameItem, Matrix4f orthoMatrix) {
+        return getOrtoProjModelMatrix(gameItem.getRotation(), gameItem.getPosition(), gameItem.getScale(), orthoMatrix);
+    }
+
+    /**
+    * get orthogonal projection model matrix
+     *
+     * from LWJGL examples
+    */
+    public static Matrix4f getOrtoProjModelMatrix(Vector3f rotation, Vector3f position, float scale, Matrix4f orthoMatrix) {
+        Matrix4f modelMatrix = new Matrix4f();
+        modelMatrix.identity();
+        modelMatrix.translate(position);
+        modelMatrix.rotateX((float)Math.toRadians(-rotation.getX()));
+        modelMatrix.rotateY((float)Math.toRadians(-rotation.getY()));
+        modelMatrix.rotateZ((float)Math.toRadians(-rotation.getZ()));
+        modelMatrix.scale(scale);
+        Matrix4f orthoMatrixCurr = new Matrix4f(orthoMatrix);
+        orthoMatrixCurr.mul(modelMatrix);
+        return orthoMatrixCurr;
     }
 
 }

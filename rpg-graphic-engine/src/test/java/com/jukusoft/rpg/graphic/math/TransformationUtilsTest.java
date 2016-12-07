@@ -109,7 +109,7 @@ public class TransformationUtilsTest {
         assertEquals("multiplized matrizes arent equals,\nresult matrix:\n" + dest.toString(true) + "\n\nexpected matrix:\n" + resultMulMatrix.toString(true), true, dest.equals(resultMulMatrix));
     }
 
-    //@Test
+    @Test
     public void testOrtoProjModelMatrix () {
         //create new matrix
         Matrix4f ortho = new Matrix4f();
@@ -132,12 +132,13 @@ public class TransformationUtilsTest {
         //create new matrix
         Matrix4f matrix = new Matrix4f();
 
-        matrix = TransformationUtils.getOrtoProjModelMatrix(rotation, position, scale, ortho, matrix);
+        matrix = TransformationUtils.getOrtoProjModelMatrix(rotation, position, scale, ortho);
+                //.getOrtoProjModelMatrix(rotation, position, scale, ortho, matrix);
 
         //result matrix, calculated with JOML
         Matrix4f resultMatrix = new Matrix4f(
-                0.0014682697f, 0, 0, -0.9844f,
-                0, -0.002778f, 0, 0.9444f,
+                0.0015625f, 0, 0, -0.984375f,
+                0, -0.0027777778f, 0, 0.9444444f,
                 0, 0, -1f, 0,
                 0, 0, 0, 1f
         );

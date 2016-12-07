@@ -51,9 +51,13 @@ public class Main {
             //start game
             game.start();
         } catch (FilePermissionException e) {
+            e.printStackTrace();
+
             writeCrashLog(e);
             ExceptionWindow.createAndWait("Exception: wrong file permissions", "Wrong file permissons!\nStacktrace:\n" + e.getLocalizedMessage());
         } catch (Exception e) {
+            e.printStackTrace();
+
             writeCrashLog(e);
             ExceptionWindow.createAndWait("Application Crash", "Application crashed!\nPlease copy this full message text and send it to the developer!\n\nStacktrace:\n" + e.getLocalizedMessage());
         }

@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.text;
 
+import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.Mesh;
@@ -22,13 +23,7 @@ public class OpenGLText extends DrawableObject {
     //font image texture
     protected FontTexture fontTexture = null;
 
-    //text position
-    protected float x = 0f;
-    protected float y = 0f;
-
     public OpenGLText (final float x, final float y, String text, FontTexture fontTexture) {
-        this.x = x;
-        this.y = y;
         this.text = text;
         this.fontTexture = fontTexture;
 
@@ -37,6 +32,12 @@ public class OpenGLText extends DrawableObject {
 
         //set mesh
         this.setMesh(mesh);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
+
+        //set position
+        this.setPosition(x, y, 0);
 
         //https://github.com/lwjglgamedev/lwjglbook/blob/82a4ae9741fcc69ecd1f0173dba162ea84559c27/chapter12/c12-p3/src/main/java/org/lwjglb/game/Hud.java
     }

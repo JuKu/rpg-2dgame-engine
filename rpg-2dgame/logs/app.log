@@ -1,1 +1,1 @@
-[GameMain Exception Tue Nov 29 19:40:39 CET 2016, 1480444839971] test, test
+[GameMain Exception Wed Dec 07 20:09:48 CET 2016, 1481137788861] UIRenderer wasnt initialized yet, call init() method first., UIRenderer wasnt initialized yet, call init() method first.Error: Cannot set value for uniform 'projModelMatrix', because uniform doesnt exists, uniformLocation: 0

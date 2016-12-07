@@ -4,6 +4,7 @@ import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
+import com.jukusoft.rpg.graphic.math.TransformationUtils;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.Mesh;
 import com.jukusoft.rpg.graphic.opengl.shader.OpenGLShaderProgram;
@@ -110,8 +111,10 @@ public class UIRenderer {
             //get rotation
             Vector3f rotation = obj.getRotation();
 
+            Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, projMatrix);
+
             //set identity matrix
-            this.modelViewMatrix.setIdentityMatrix();
+            /*this.modelViewMatrix.setIdentityMatrix();
 
             //translate matrix with position of game object
             this.modelViewMatrix.translate(obj.getPosition());
@@ -126,7 +129,7 @@ public class UIRenderer {
 
             this.viewCurrent.reset();
             this.viewCurrent.set(projMatrix);
-            this.viewCurrent.mul(this.modelViewMatrix);
+            this.viewCurrent.mul(this.modelViewMatrix);*/
 
             //System.out.println(obj.toString());
 
@@ -140,7 +143,7 @@ public class UIRenderer {
             }
 
             //set shader program parameter
-            this.uiShaderProgram.setUniform("projModelMatrix", this.viewCurrent);
+            this.uiShaderProgram.setUniform("projModelMatrix", projMatrix);
             this.uiShaderProgram.setUniform("baseColor", color);
             this.uiShaderProgram.setUniform("hasTexture", obj.getMesh().getMaterial().isTextured() ? 1 : 0);
 
@@ -153,10 +156,7 @@ public class UIRenderer {
     }
 
     protected Matrix4f getProjMatrix (final int windowWidth, final int windowHeight) {
-        this.projMatrix.setIdentityMatrix();
-        this.projMatrix.setOrtho2D(0, windowWidth, windowHeight, 0);
-
-        return this.projMatrix;
+        return TransformationUtils.getOrthoProjMatrix(0, windowWidth, windowHeight, 0, new Matrix4f());
     }
 
 }
