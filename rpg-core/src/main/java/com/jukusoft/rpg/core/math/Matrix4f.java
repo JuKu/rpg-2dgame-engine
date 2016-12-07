@@ -88,6 +88,17 @@ public class Matrix4f implements Serializable, Cloneable {
         }
     }
 
+    public Matrix4f (Matrix4f matrix) {
+        //allocate new direct (Off Heap) byte buffer with size of 2 bytes
+        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
+
+        //convert to float buffer to access data easely
+        this.floatBuffer = this.buffer.asFloatBuffer();
+
+        //copy values
+        this.buffer.put(matrix.getBuffer());
+    }
+
     public Matrix4f () {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
         this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
@@ -362,8 +373,10 @@ public class Matrix4f implements Serializable, Cloneable {
     /**
      * translate matrix
      */
-    public void translate (Vector3f vector) {
+    public Matrix4f translate (Vector3f vector) {
         this.translate(vector.getX(), vector.getY(), vector.getZ());
+
+        return this;
     }
 
     public void rotateX (float angel) {
