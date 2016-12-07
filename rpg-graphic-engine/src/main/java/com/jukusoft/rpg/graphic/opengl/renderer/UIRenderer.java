@@ -84,7 +84,7 @@ public class UIRenderer {
 
         //create uniforms for ortographic model projection matrix and base color
         this.uiShaderProgram.createUniform("projModelMatrix");
-        this.uiShaderProgram.createUniform("baseColor");
+        this.uiShaderProgram.createUniform("colour");
         this.uiShaderProgram.createUniform("hasTexture");
 
         this.isInitialized.set(true);
@@ -109,8 +109,6 @@ public class UIRenderer {
         //generate projection matrix / view matrix
         final Matrix4f projMatrix = getProjMatrix(windowWidth, windowHeight);
 
-        //System.out.println("ortho matrix with width: " + windowWidth + " and height: " + windowHeight + " on renderer:\n" + this.projMatrix.toString(true));
-
         //iterate through all drawable objects
         for (DrawableObject obj : drawableObjects) {
             //first get mesh
@@ -121,30 +119,6 @@ public class UIRenderer {
 
             Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, projMatrix);
 
-            //set identity matrix
-            /*this.modelViewMatrix.setIdentityMatrix();
-
-            //translate matrix with position of game object
-            this.modelViewMatrix.translate(obj.getPosition());
-
-            //rotate matrix
-            this.modelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
-            this.modelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
-            this.modelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
-
-            //scale game object
-            this.modelViewMatrix.scale(obj.getScale());
-
-            this.viewCurrent.reset();
-            this.viewCurrent.set(projMatrix);
-            this.viewCurrent.mul(this.modelViewMatrix);*/
-
-            //System.out.println(obj.toString());
-
-            //System.out.println(this.viewCurrent.toString(true));
-
-            //System.out.println("projModelMatrix:\n" + projModelMatrix.toString(true) + "\n\n");
-
             //get color
             Vector3f color = obj.getMesh().getMaterial().getColor();
 
@@ -153,8 +127,8 @@ public class UIRenderer {
             }
 
             //set shader program parameter
-            this.uiShaderProgram.setUniform("projModelMatrix", projMatrix);
-            this.uiShaderProgram.setUniform("baseColor", color);
+            this.uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
+            this.uiShaderProgram.setUniform("colour", color);
             this.uiShaderProgram.setUniform("hasTexture", obj.getMesh().getMaterial().isTextured() ? 1 : 0);
 
             //render mesh
