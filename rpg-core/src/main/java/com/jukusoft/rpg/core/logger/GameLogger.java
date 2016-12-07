@@ -3,10 +3,14 @@ package com.jukusoft.rpg.core.logger;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by Justin on 29.11.2016.
  */
 public class GameLogger {
+
+    protected static AtomicBoolean rendererDebugMode = new AtomicBoolean(false);
 
     /**
     * initialize game logger
@@ -54,6 +58,14 @@ public class GameLogger {
      */
     public static void error (String loggerName, String message) {
         Logger.getRootLogger().error("[" + loggerName + "] " + message);
+    }
+
+    public static boolean isRendererDebugMode () {
+        return rendererDebugMode.get();
+    }
+
+    public static void setRendererDebugMode (boolean debugMode) {
+        rendererDebugMode.set(debugMode);
     }
 
 }

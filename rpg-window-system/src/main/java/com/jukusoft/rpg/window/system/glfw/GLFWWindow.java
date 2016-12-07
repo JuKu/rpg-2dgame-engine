@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.window.system.glfw;
 
 import com.jukusoft.rpg.core.color.Color;
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.window.system.IWindow;
 import com.jukusoft.rpg.window.system.callback.KeyCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -331,6 +332,10 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void prepareRendering() {
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("GLFWWindow", "prepareRendering() for window " + getWindowID() + ".");
+        }
+
         // This line is critical for LWJGL's interoperation with GLFW's
         // OpenGL context, or any context that is managed externally.
         // LWJGL detects the context that is current in the current thread,
@@ -395,6 +400,10 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void setViewPort(int x, int y, int width, int height) {
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("GLFWWindow", "set new viewport (x: " + x + ", y:" + y + ", width: " + width + ", height: " + height + ") for window " + getWindowID() + ".");
+        }
+
         glViewport(x, y, width, height);
     }
 
@@ -407,6 +416,10 @@ public class GLFWWindow implements IWindow {
     public void clear() {
         if (!wasPreparedRendering.get()) {
             throw new IllegalStateException("You have to prepare rendering with method prepareRendering() first, before you can use clear() method.");
+        }
+
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("GLFWWindow", "clear window " + getWindowID() + ".");
         }
 
         //get clear color
@@ -423,6 +436,10 @@ public class GLFWWindow implements IWindow {
     public void swap() {
         if (!wasPreparedRendering.get()) {
             throw new IllegalStateException("You have to prepare rendering with method prepareRendering() first, before you can swap buffers.");
+        }
+
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("GLFWWindow", "swap window " + getWindowID() + ".");
         }
 
         //swap back and front buffer
@@ -444,6 +461,10 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void processInput() {
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("GLFWWindow", "process input from window " + getWindowID() + ".");
+        }
+
         // Poll for window events. The key callback above will only be
         // invoked during this call.
         glfwPollEvents();

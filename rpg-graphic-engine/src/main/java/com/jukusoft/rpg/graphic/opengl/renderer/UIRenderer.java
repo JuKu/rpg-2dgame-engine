@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.renderer;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
@@ -93,6 +94,10 @@ public class UIRenderer {
     * render UI
     */
     public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjects) {
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("UIRenderer", "render UI");
+        }
+
         //check, if UI renderer was initialized
         if (!this.isInitialized.get()) {
             throw new IllegalStateException("UIRenderer wasnt initialized yet, call init() method first.");

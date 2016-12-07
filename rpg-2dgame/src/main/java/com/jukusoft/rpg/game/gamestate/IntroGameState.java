@@ -59,9 +59,6 @@ public class IntroGameState extends BasicGameState {
 
     @Override
     public void render (GameApp app) {
-        //clear window
-        getWindow().clear();
-
         //check, if window was resized
         if (getWindow().wasResized()) {
             //reset viewport

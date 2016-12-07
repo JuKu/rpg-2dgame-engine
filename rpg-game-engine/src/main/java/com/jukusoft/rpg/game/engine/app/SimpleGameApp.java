@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.game.engine.app;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.utils.GamePlatform;
 import com.jukusoft.rpg.game.engine.utils.Timer;
 import com.jukusoft.rpg.window.system.IWindow;
@@ -232,6 +233,10 @@ public abstract class SimpleGameApp implements GameApp {
                 //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
                 window.clear();
 
+                if (GameLogger.isRendererDebugMode()) {
+                    GameLogger.debug("SimpleGameApp", "render.");
+                }
+
                 //render
                 this.render();
 
@@ -282,6 +287,10 @@ public abstract class SimpleGameApp implements GameApp {
                 //clear framebuffer
                 //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
                 window.clear();
+
+                if (GameLogger.isRendererDebugMode()) {
+                    GameLogger.debug("SimpleGameApp", "render.");
+                }
 
                 //render
                 this.render();
