@@ -201,10 +201,15 @@ public class Matrix4f implements Serializable, Cloneable {
             for (int r = 0; r <= 3; r++) {
                 float value = 0;
 
+                //System.out.println("multiplize for (" + c + ", " + r + "):");
+
                 //multiply
                 for (int i = 3; i >= 0; i--) {
                     value += currentMatrix.get(3 - i, r) * matrix.get(c, 3 - i);
+                    //System.out.println("value += (" + (3 - i) + ", " + r + ") * (" + c + ", " + (3 - i) + ") --> " + currentMatrix.get(3 - i, r) + " * " + matrix.get(c, 3 - i) + " = " + (currentMatrix.get(3 - i, r) * matrix.get(c, 3 - i)));
                 }
+
+                //System.out.println("value: " + value + "\n\n");
 
                 //set new value
                 this.set(c, r, value);

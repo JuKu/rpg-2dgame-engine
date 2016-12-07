@@ -132,7 +132,7 @@ public class Matrix4fTest {
                 1354, 1412, 1470, 1528
         );
 
-        assertEquals("matrizes arent equals,\n\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+        assertEquals("multiplized matrizes arent equals,\n\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
     }
 
     @Test
