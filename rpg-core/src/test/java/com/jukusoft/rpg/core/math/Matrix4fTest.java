@@ -126,10 +126,10 @@ public class Matrix4fTest {
 
         //expected, with JOML calculated result matrix
         Matrix4f resultMatrix = new Matrix4f(
-                724, 752, 780, 808,
-                816, 848, 880, 912,
-                908, 944, 980, 1016,
-                1000, 1040, 1080, 1120
+                250, 260, 270, 280,
+                618, 644, 670, 696,
+                986, 1028, 1070, 1112,
+                1354, 1412, 1470, 1528
         );
 
         assertEquals("matrizes arent equals,\n\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
