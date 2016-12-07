@@ -171,6 +171,29 @@ public class Matrix4fTest {
         assertEquals("calculated matrix isnt equals, result:\n" + matrix.toString(true) + "\n, expected result:\n" + resultMatrix.toString(true), matrix, resultMatrix);
     }
 
+    @Test
+    public void testScale () {
+        //create new example matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        //scale matrix
+        matrix.scale(2);
+
+        //with JOML calculated scaled matrix
+        Matrix4f resultMatrix = new Matrix4f(
+                2, 4, 6, 4,
+                10, 12, 14, 8,
+                18, 20, 22, 12,
+                26, 28, 30, 16
+        );
+
+        assertEquals("matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+    }
 
     @Test
     public void testIdentityMatrix () {

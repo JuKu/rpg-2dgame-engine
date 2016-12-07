@@ -220,12 +220,39 @@ public class Matrix4f implements Serializable, Cloneable {
     */
     public void scale (float factor) {
         //iterate through all matrix entries
-        for (int c = 0; c <= 3; c++) {
+        /*for (int c = 0; c <= 3; c++) {
             for (int r = 0; r <= 3; r++) {
                 //scale value
                 this.set(c, r, this.get(c, r) * factor);
             }
-        }
+        }*/
+
+        this.scale(factor, factor, factor, this);
+    }
+
+    /**
+    * scale matrix
+    */
+    public void scale (final float x, final float y, final float z, Matrix4f dest) {
+        //calculate and set new values
+        dest.set(0, 0, get(0, 0) * x);
+        dest.set(0, 1, get(0, 1) * x);
+        dest.set(0, 2, get(0, 2) * x);
+        dest.set(0, 3, get(0, 3) * x);
+        dest.set(1, 0, get(1, 0) * y);
+        dest.set(1, 1, get(1, 1) * y);
+        dest.set(1, 2, get(1, 2) * y);
+        dest.set(1, 3, get(1, 3) * y);
+        dest.set(2, 0, get(2, 0) * z);
+        dest.set(2, 1, get(2, 1) * z);
+        dest.set(2, 2, get(2, 2) * z);
+        dest.set(2, 3, get(2, 3) * z);
+
+        //copy values
+        dest.set(3, 0, get(3, 0));
+        dest.set(3, 1, get(3, 1));
+        dest.set(3, 2, get(3, 2));
+        dest.set(3, 3, get(3, 3));
     }
 
     /**
