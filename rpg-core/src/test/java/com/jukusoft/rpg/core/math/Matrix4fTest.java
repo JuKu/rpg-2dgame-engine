@@ -281,22 +281,29 @@ public class Matrix4fTest {
                 13, 14, 15, 6
                 );
 
-        final int windowWidth = 600;
-        final int windowHeight = 480;
+        final int windowWidth = 1280;
+        final int windowHeight = 720;
 
         //generate projection matrix / view matrix
         Matrix4f projMatrix = new Matrix4f();
-        projMatrix.setIdentityMatrix();
+        //projMatrix.setIdentityMatrix();
         projMatrix.setOrtho2D(0, windowWidth, windowHeight, 0);
 
         projMatrix.print(true);
 
         //create matrix with results from JOML
-        Matrix4f resultMatrix = new Matrix4f(
+        /*Matrix4f resultMatrix = new Matrix4f(
                 0.0033333334f, 0f, 0f, 0f,
                 0f, -0.004166667f, 0f, 0f,
                 0f, 0, -1f, 0f,
                 -1f, 1f, 0f, 1f
+        );*/
+
+        Matrix4f resultMatrix = new Matrix4f(
+                0.0015625f, 0f, 0f, -1f,
+                0f, -0.0027777778f, 0f, 1f,
+                0f, 0, -1f, 0f,
+                0f, 0f, 0f, 1f
         );
 
         for (int i = 0; i < 4; i++) {

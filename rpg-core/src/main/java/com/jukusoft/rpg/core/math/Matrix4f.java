@@ -504,8 +504,8 @@ public class Matrix4f implements Serializable, Cloneable {
         this.set(0, 0, (2.0f / (right - left)));
         this.set(1, 1, (2.0f / (top - bottom)));
         this.set(2, 2, -1f);
-        this.set(0, 3, -(right + left) / (right - left));
-        this.set(1, 3, -(top + bottom) / (top - bottom));
+        this.set(3, 0, -(right + left) / (right - left));
+        this.set(3, 1, -(top + bottom) / (top - bottom));
     }
 
     public Matrix4f copy () {
