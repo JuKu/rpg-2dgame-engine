@@ -100,8 +100,8 @@ public class TransformationUtilsTest {
         dest.mul(modelMatrix);
 
         Matrix4f resultMulMatrix = new Matrix4f(
-                0.001563f, 0, 0, -0.9953f,
-                0, -0.002778f, 0, 0.9833f,
+                0.0015625f, 0, 0, -0.9953125f,
+                0, -0.0027777778f, 0, 0.98333335f,
                 0, 0, -1, -9,
                 0, 0, 0, 1
         );
