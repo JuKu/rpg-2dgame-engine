@@ -33,6 +33,13 @@
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons.lang.version}</version>
         </dependency>
+
+        <!-- Log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
     </dependencies>
 
 

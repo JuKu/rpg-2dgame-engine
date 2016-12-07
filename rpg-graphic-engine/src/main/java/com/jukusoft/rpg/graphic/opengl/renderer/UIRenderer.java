@@ -69,6 +69,9 @@ public class UIRenderer {
         //create new UI shader program
         this.uiShaderProgram = new OpenGLShaderProgram();
 
+        System.out.println("HUD vertex shader:\n" + FileUtils.readFile(vertexShaderPath, StandardCharsets.UTF_8));
+        System.out.println("HUD fragment shader:\n" + FileUtils.readFile(fragmentShaderPath, StandardCharsets.UTF_8));
+
         //add vertex shader
         this.uiShaderProgram.setVertexShader(FileUtils.readFile(vertexShaderPath, StandardCharsets.UTF_8));
 
@@ -134,6 +137,8 @@ public class UIRenderer {
             //System.out.println(obj.toString());
 
             //System.out.println(this.viewCurrent.toString(true));
+
+            //System.out.println("projModelMatrix:\n" + projModelMatrix.toString(true) + "\n\n");
 
             //get color
             Vector3f color = obj.getMesh().getMaterial().getColor();

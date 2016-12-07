@@ -6,7 +6,7 @@ import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.game.engine.config.GameConfig;
 import com.jukusoft.rpg.core.exception.FilePermissionException;
 import com.jukusoft.rpg.game.engine.exception.GameConfigException;
-import com.jukusoft.rpg.game.engine.logger.GameLogger;
+import com.jukusoft.rpg.core.logger.GameLogger;
 
 import java.io.File;
 import java.io.IOException;

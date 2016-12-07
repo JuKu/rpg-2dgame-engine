@@ -3,8 +3,11 @@ package com.jukusoft.rpg.graphic.opengl.texture;
 import com.jukusoft.rpg.core.asset.image.Image;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
+import de.matthiasmann.twl.utils.PNGDecoder;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
@@ -23,6 +26,9 @@ public class OpenGL2DTexture {
      * flag, if texture is bind
      */
     protected boolean isBind = false;
+
+    protected int width = 0;
+    protected int height = 0;
 
     /**
     * flag, if texture was already uploaded to gpu
@@ -78,7 +84,26 @@ public class OpenGL2DTexture {
         //generate MipMap for scaling, see https://wiki.delphigl.com/index.php/MipMaps, https://www.opengl.org/sdk/docs/man/html/glGenerateMipmap.xhtml and https://www.opengl.org/wiki/Common_Mistakes#Automatic_mipmap_generation
         glGenerateMipmap(GL_TEXTURE_2D);
 
+        this.width = image.getWidth();
+        this.height = image.getHeight();
+
         //set uploaded flag to true
+        this.isUploaded = true;
+    }
+
+    public void upload (InputStream is) throws Exception {
+        // Load Texture file
+        PNGDecoder decoder = new PNGDecoder(is);
+
+        this.width = decoder.getWidth();
+        this.height = decoder.getHeight();
+
+        // Load texture contents into a byte buffer
+        ByteBuffer buf = ByteBuffer.allocateDirect(
+                4 * decoder.getWidth() * decoder.getHeight());
+        decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
+        buf.flip();
+
         this.isUploaded = true;
     }
 
@@ -150,6 +175,27 @@ public class OpenGL2DTexture {
 
         //upload texture data
         texture.upload(image);
+
+        //unbind texture on gpu
+        texture.unbind();
+
+        return texture;
+    }
+
+    /**
+     * create texture on gpu and upload texture data
+     *
+     * @param is input stream to texture to upload on gpu
+     */
+    public static OpenGL2DTexture createAndUpload (InputStream is) throws Exception {
+        //create new OpenGL texture
+        OpenGL2DTexture texture = new OpenGL2DTexture();
+
+        //bind texture on gpu first
+        texture.bind();
+
+        //upload texture data
+        texture.upload(is);
 
         //unbind texture on gpu
         texture.unbind();

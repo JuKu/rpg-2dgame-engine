@@ -399,7 +399,7 @@ public class GLFWWindow implements IWindow {
         glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAalpha());
 
         //clear framebuffer
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT/* | GL_STENCIL_BUFFER_BIT*/);
     }
 
     @Override

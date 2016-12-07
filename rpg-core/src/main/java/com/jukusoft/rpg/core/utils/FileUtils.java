@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.core.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -25,6 +26,14 @@ public class FileUtils {
      * @return content of file as string
     */
     public static String readFile (String path, Charset encoding) throws IOException {
+        if (!new File(path).exists()) {
+            throw new IOException("File doesnt exists: " + path);
+        }
+
+        if (!new File(path).canRead()) {
+            throw new IOException("File isnt readable, please correct permissions: " + path);
+        }
+
         //read bytes from file
         byte[] encoded = Files.readAllBytes(Paths.get(path));
 

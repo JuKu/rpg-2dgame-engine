@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.logger;
+package com.jukusoft.rpg.core.logger;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;

@@ -4,14 +4,13 @@ import com.jukusoft.rpg.game.engine.app.GameApp;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
-import com.jukusoft.rpg.game.engine.logger.GameLogger;
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
-import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.io.IOException;
