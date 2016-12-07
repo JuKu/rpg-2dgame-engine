@@ -128,9 +128,9 @@ public class UIRenderer {
             this.viewCurrent.set(projMatrix);
             this.viewCurrent.mul(this.modelViewMatrix);
 
-            System.out.println(obj.toString());
+            //System.out.println(obj.toString());
 
-            System.out.println(this.viewCurrent.toString(true));
+            //System.out.println(this.viewCurrent.toString(true));
 
             //get color
             Vector3f color = obj.getMesh().getMaterial().getColor();
