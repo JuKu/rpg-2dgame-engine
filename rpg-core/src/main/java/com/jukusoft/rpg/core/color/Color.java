@@ -62,7 +62,7 @@ public class Color implements Cloneable {
         return b;
     }
 
-    public float getAalpha () {
+    public float getAlpha() {
         return a;
     }
 

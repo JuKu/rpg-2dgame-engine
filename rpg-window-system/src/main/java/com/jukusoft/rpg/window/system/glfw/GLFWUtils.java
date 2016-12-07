@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.window.system.glfw;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -21,6 +22,8 @@ public class GLFWUtils {
      * @link https://github.com/lwjglgamedev/lwjglbook/blob/master/chapter01/src/main/java/org/lwjglb/game/Main.java
     */
     public static void init () {
+        GameLogger.info("GLFWUtils", "initialize GLFW.");
+
         // Setup an error callback. The default implementation
         // will print the error message in System.err.
         glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
@@ -42,6 +45,8 @@ public class GLFWUtils {
         if (wasShutdown.get()) {
             return;
         }
+
+        GameLogger.info("GLFWUtils", "shutdown GLFW now.");
 
         // Terminate GLFW and release the GLFWerrorfun
         glfwTerminate();

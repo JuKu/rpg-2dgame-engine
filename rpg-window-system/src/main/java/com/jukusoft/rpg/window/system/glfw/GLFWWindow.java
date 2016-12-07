@@ -68,6 +68,11 @@ public class GLFWWindow implements IWindow {
     protected AtomicBoolean wasResized = new AtomicBoolean(false);
 
     /**
+    * flag, if rendering was prepared
+    */
+    protected AtomicBoolean wasPreparedRendering = new AtomicBoolean(false);
+
+    /**
     * flag for v sync
     */
     protected AtomicBoolean vSync = new AtomicBoolean(false);
@@ -338,6 +343,14 @@ public class GLFWWindow implements IWindow {
         // Set the clear color
         //glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
+        glEnable(GL_DEPTH_TEST);
+
+        // Support for transparencies
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        this.wasPreparedRendering.set(true);
+
         //clear screen
         this.clear();
     }
@@ -392,11 +405,15 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void clear() {
+        if (!wasPreparedRendering.get()) {
+            throw new IllegalStateException("You have to prepare rendering with method prepareRendering() first, before you can use clear() method.");
+        }
+
         //get clear color
         final Color color = this.clearColor;
 
         // Set the clear color
-        glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAalpha());
+        glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 
         //clear framebuffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT/* | GL_STENCIL_BUFFER_BIT*/);
@@ -404,6 +421,10 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void swap() {
+        if (!wasPreparedRendering.get()) {
+            throw new IllegalStateException("You have to prepare rendering with method prepareRendering() first, before you can swap buffers.");
+        }
+
         //swap back and front buffer
         glfwSwapBuffers(this.window);
     }
