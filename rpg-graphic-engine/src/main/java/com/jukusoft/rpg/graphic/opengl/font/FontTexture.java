@@ -1,7 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.font;
 
 import com.jukusoft.rpg.core.asset.Asset;
-import com.jukusoft.rpg.core.asset.image.*;
 import com.jukusoft.rpg.core.asset.image.Image;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
@@ -13,8 +12,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,11 +63,16 @@ public class FontTexture extends Asset {
         }
 
         //create image texture from charset
-        this.createTexture();
+        try {
+            this.createTexture();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         //load font texture from cache
-        try {
-            this.loadFontTexture();
+        /*try {
+            this.loadFontTextureFromCache();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -80,7 +82,7 @@ public class FontTexture extends Asset {
         } catch (AssetNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     /**
@@ -92,15 +94,21 @@ public class FontTexture extends Asset {
     public FontTexture (Font font, String charsetName) {
         this.font = font;
         this.charsetName = charsetName;
+        this.color = Color.WHITE;
 
         //check cache first and remove file, if neccessary
 
         //create image texture from charset
-        this.createTexture();
+        try {
+            this.createTexture();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
 
         //load font texture from cache
-        try {
-            this.loadFontTexture();
+        /*try {
+            this.loadFontTextureFromCache();
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -110,13 +118,13 @@ public class FontTexture extends Asset {
         } catch (AssetNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     /**
     * generate image texture from charset
     */
-    protected void createTexture () {
+    protected void createTexture () throws Exception {
         //reset width and height
         this.width = 0;
         this.height = 0;
@@ -165,7 +173,21 @@ public class FontTexture extends Asset {
         g2D.drawString(chars, 0, fontMetrics.getAscent());
         g2D.dispose();
 
+        // Dump image to a byte buffer
+        InputStream is = null;
+        try (
+                ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            ImageIO.write(img, IMAGE_FORMAT, out);
+            out.flush();
+            is = new ByteArrayInputStream(out.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.texture = OpenGL2DTexture.createAndUpload(is);
+
         try {
+            //save image to file cache
             ImageIO.write(img, IMAGE_FORMAT, new File(this.getCachePath()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -176,7 +198,8 @@ public class FontTexture extends Asset {
         return this.texture != null && this.texture.isUploaded();
     }
 
-    public void loadFontTexture () throws IOException, UnsupportedAssetException, AssetNotFoundException {
+    @Deprecated
+    public void loadFontTextureFromCache () throws IOException, UnsupportedAssetException, AssetNotFoundException {
         String path = this.getCachePath();
 
         //check, if font exists in cache first

@@ -3,6 +3,7 @@ package com.jukusoft.rpg.graphic.opengl.texture;
 import com.jukusoft.rpg.core.asset.image.Image;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
+import com.jukusoft.rpg.core.logger.GameLogger;
 import de.matthiasmann.twl.utils.PNGDecoder;
 
 import java.io.IOException;
@@ -70,7 +71,12 @@ public class OpenGL2DTexture {
         this.isBind = false;
     }
 
+    @Deprecated
     public void upload (Image image) {
+        if (!isBind) {
+            throw new IllegalStateException("OpenGL2DTexture has to be bind before texture can be uploaded to gpu.");
+        }
+
         //tell OpenGL how to unpack the RBGA bytes. Each component (pixel) is 1 byte size
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -87,22 +93,46 @@ public class OpenGL2DTexture {
         this.width = image.getWidth();
         this.height = image.getHeight();
 
+        GameLogger.debug("OpenGL2DTexture", "uploaded texture with ID " + this.getTextureID() + ", width: " + getWidth() + " and height: " + getHeight() + ".");
+
         //set uploaded flag to true
         this.isUploaded = true;
     }
 
     public void upload (InputStream is) throws Exception {
+        if (!isBind) {
+            throw new IllegalStateException("OpenGL2DTexture has to be bind before texture can be uploaded to gpu.");
+        }
+
         // Load Texture file
         PNGDecoder decoder = new PNGDecoder(is);
 
         this.width = decoder.getWidth();
         this.height = decoder.getHeight();
 
-        // Load texture contents into a byte buffer
+        //load texture into an byte buffer
         ByteBuffer buf = ByteBuffer.allocateDirect(
                 4 * decoder.getWidth() * decoder.getHeight());
+
+        //decode image
         decoder.decode(buf, decoder.getWidth() * 4, PNGDecoder.Format.RGBA);
+
+        //flip byte buffer to reset reader index
         buf.flip();
+
+        //tell OpenGL how to unpack the RGBA bytes. Each component is 1 byte size
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        //upload texture to gpu
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this.width, this.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buf);
+
+        //generate MipMap
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        GameLogger.debug("OpenGL2DTexture", "uploaded texture with ID " + this.getTextureID() + ", width: " + getWidth() + " and height: " + getHeight() + ".");
 
         this.isUploaded = true;
     }
@@ -161,11 +191,20 @@ public class OpenGL2DTexture {
         glDeleteTextures(this.textureID);
     }
 
+    public int getWidth () {
+        return this.width;
+    }
+
+    public int getHeight () {
+        return this.height;
+    }
+
     /**
     * create texture on gpu and upload texture data
      *
      * @param image texture image to upload on gpu
     */
+    @Deprecated
     public static OpenGL2DTexture createAndUpload (Image image) {
         //create new OpenGL texture
         OpenGL2DTexture texture = new OpenGL2DTexture();
