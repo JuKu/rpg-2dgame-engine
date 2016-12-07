@@ -11,9 +11,9 @@
     <modules>
         <module>rpg-core</module>
         <module>rpg-window-system</module>
+        <module>rpg-graphic-engine</module>
         <module>rpg-game-engine</module>
         <module>rpg-2dgame</module>
-        <module>rpg-graphic-engine</module>
     </modules>
 
     <properties>

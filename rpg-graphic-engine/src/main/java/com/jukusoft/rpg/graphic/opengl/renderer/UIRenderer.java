@@ -26,7 +26,7 @@ public class UIRenderer {
     /**
     * shader program for UI
     */
-    protected OpenGLShaderProgram uiShaderProgram = new OpenGLShaderProgram();
+    protected OpenGLShaderProgram uiShaderProgram = null;
 
     /**
     * orthogonal projection matrix
@@ -43,8 +43,18 @@ public class UIRenderer {
     */
     protected Matrix4f viewCurrent = new Matrix4f();
 
+    /**
+    * default constructor
+    */
     public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
         this.init(vertexShaderPath, fragmentShaderPath);
+    }
+
+    /**
+    * constructor without initialization
+    */
+    protected UIRenderer () {
+        //
     }
 
     /**
@@ -54,6 +64,9 @@ public class UIRenderer {
         if (isInitialized.get()) {
             throw new IllegalStateException("UIRenderer was already initialized.");
         }
+
+        //create new UI shader program
+        this.uiShaderProgram = new OpenGLShaderProgram();
 
         //add vertex shader
         this.uiShaderProgram.setVertexShader(FileUtils.readFile(vertexShaderPath, StandardCharsets.UTF_8));
@@ -68,18 +81,26 @@ public class UIRenderer {
         this.uiShaderProgram.createUniform("projModelMatrix");
         this.uiShaderProgram.createUniform("baseColor");
         this.uiShaderProgram.createUniform("hasTexture");
+
+        this.isInitialized.set(true);
     }
 
     /**
     * render UI
     */
     public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjects) {
+        //check, if UI renderer was initialized
+        if (!this.isInitialized.get()) {
+            throw new IllegalStateException("UIRenderer wasnt initialized yet, call init() method first.");
+        }
+
         //bind shader program
         this.uiShaderProgram.bind();
 
         //generate projection matrix / view matrix
-        this.projMatrix.setIdentityMatrix();
-        this.projMatrix.setOrtho2D(0, windowWidth, windowHeight, 0);
+        final Matrix4f projMatrix = getProjMatrix(windowWidth, windowHeight);
+
+        //System.out.println("ortho matrix with width: " + windowWidth + " and height: " + windowHeight + " on renderer:\n" + this.projMatrix.toString(true));
 
         //iterate through all drawable objects
         for (DrawableObject obj : drawableObjects) {
@@ -96,9 +117,9 @@ public class UIRenderer {
             this.modelViewMatrix.translate(obj.getPosition());
 
             //rotate matrix
-            //this.modelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
-            //this.modelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
-            //this.modelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
+            this.modelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
+            this.modelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
+            this.modelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
 
             //scale game object
             this.modelViewMatrix.scale(obj.getScale());
@@ -106,6 +127,10 @@ public class UIRenderer {
             this.viewCurrent.reset();
             this.viewCurrent.set(projMatrix);
             this.viewCurrent.mul(this.modelViewMatrix);
+
+            System.out.println(obj.toString());
+
+            System.out.println(this.viewCurrent.toString(true));
 
             //get color
             Vector3f color = obj.getMesh().getMaterial().getColor();
@@ -125,6 +150,13 @@ public class UIRenderer {
 
         //unbind shader program
         this.uiShaderProgram.unbind();
+    }
+
+    protected Matrix4f getProjMatrix (final int windowWidth, final int windowHeight) {
+        this.projMatrix.setIdentityMatrix();
+        this.projMatrix.setOrtho2D(0, windowWidth, windowHeight, 0);
+
+        return this.projMatrix;
     }
 
 }
