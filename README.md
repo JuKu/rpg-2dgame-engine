@@ -58,6 +58,7 @@ Some implemented features:
   - create GLFW Window
   - Input Handling
   - draw text (you can specify Font Family, Size, Style and Color)
+  - draw images (currently only full images, spritesheets are planned)
   - Game State System
   - Logging
 
