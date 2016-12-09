@@ -13,8 +13,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
@@ -191,6 +190,27 @@ public class Mesh {
         glDisableVertexAttribArray(2);
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public void deleteBuffers() {
+        glDisableVertexAttribArray(0);
+
+        // Delete the VBOs
+        /*glBindBuffer(GL_ARRAY_BUFFER, 0);
+        for (int vboId : vboIdList) {
+            glDeleteBuffers(vboId);
+        }*/
+
+        this.positionVBO.delete();
+        this.textureCoordinatesVBO.delete();
+        this.vertexNormalsVBO.delete();
+        this.indexVBO.delete();
+
+        // Delete the VAO
+        this.vao.unbind();
+        this.vao.delete();
+        //glBindVertexArray(0);
+        //glDeleteVertexArrays(vaoId);
     }
 
     public void cleanUp () {
