@@ -62,7 +62,10 @@ Some implemented features:
   - Logging
 
 Draw text:
-![GLFW Window](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/text.PNG)
+![Draw text](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/text.PNG)
+
+Draw image:
+![Draw image](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/image.PNG)
 
 ### Window System
 
