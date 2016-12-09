@@ -77,9 +77,14 @@ public class Matrix4f implements Serializable, Cloneable {
         set(3, 3, p);
     }
 
-    public Matrix4f (ByteBuffer buffer) {
-        //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = buffer;
+    public Matrix4f (final ByteBuffer bufferParam, final boolean useSameByteBuffer) {
+        if (useSameByteBuffer) {
+            //allocate new direct (Off Heap) byte buffer with size of 16 * 4 bytes
+            this.buffer = bufferParam;
+        } else {
+            //allocate new direct (Off Heap) byte buffer with size of 16 * 4 bytes
+            this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * (4 * 4));
+        }
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -88,6 +93,22 @@ public class Matrix4f implements Serializable, Cloneable {
         if (this.floatBuffer.limit() < 16) {
             throw new IllegalArgumentException("FloatBuffer requires size of 16 float values, current limit: " + this.floatBuffer.limit());
         }
+
+        if (bufferParam.asFloatBuffer().limit() < 16) {
+            throw new IllegalArgumentException("FloatBuffer parameter requires size of 16 float values, current limit: " + this.floatBuffer.limit());
+        }
+
+        //copy values, if neccessary
+        if (!useSameByteBuffer) {
+            //copy values
+            for (int i = 0; i < 16; i++) {
+                this.floatBuffer.put(i, bufferParam.asFloatBuffer().get(i));
+            }
+        }
+    }
+
+    public Matrix4f (final ByteBuffer buffer) {
+        this(buffer, false);
     }
 
     public Matrix4f (Matrix4f matrix) {

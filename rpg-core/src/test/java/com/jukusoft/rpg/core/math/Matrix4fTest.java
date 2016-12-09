@@ -71,12 +71,40 @@ public class Matrix4fTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFloatBufferConstructor () {
+    public void testFloatBufferConstructorUseSameBuffer () {
+        //create new buffer for matrix
+        ByteBuffer buffer = BufferUtils.createByteBuffer(15 * 4);
+        FloatBuffer floatBuffer = buffer.asFloatBuffer();
+
+        Matrix4f matrix = new Matrix4f(buffer, true);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFloatBufferConstructor2 () {
         //create new buffer for matrix
         ByteBuffer buffer = BufferUtils.createByteBuffer(15 * 4);
         FloatBuffer floatBuffer = buffer.asFloatBuffer();
 
         Matrix4f matrix = new Matrix4f(buffer);
+    }
+
+    @Test
+    public void testFloatBufferConstructorUseOnlySameValues () {
+        //create new matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        //create new matrix with copied values
+        Matrix4f matrix1 = new Matrix4f(matrix);
+
+        //change one value of second matrix
+        matrix1.set(0, 0, 10);
+
+        assertEquals("value of (0, 0) in first matrix should always be 1.", 1, matrix.get(0, 0), 0);
     }
 
     @Test
