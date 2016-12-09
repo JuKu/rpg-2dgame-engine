@@ -557,6 +557,8 @@ public class Matrix4f implements Serializable, Cloneable {
 
     /**
     * check, if matrix only contains 0 values
+     *
+     * @return true, if matrix only contains 0 values
     */
     public boolean isNullMatrix () {
         for (int i = 0; i < 4; i++) {
