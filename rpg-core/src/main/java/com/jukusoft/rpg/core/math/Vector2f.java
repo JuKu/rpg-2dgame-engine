@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.core.math;
 
+import com.jukusoft.rpg.core.utils.BufferUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
@@ -41,7 +43,7 @@ public class Vector2f implements Cloneable, Serializable {
     */
     public Vector2f(final float x, final float y) {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * 2);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 2);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -72,7 +74,7 @@ public class Vector2f implements Cloneable, Serializable {
      */
     public Vector2f () {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * 2);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 2);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();

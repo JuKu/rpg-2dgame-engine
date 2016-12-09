@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.core.math;
 
+import com.jukusoft.rpg.core.utils.BufferUtils;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;
@@ -72,7 +73,7 @@ public class Matrix4fTest {
     @Test(expected = IllegalArgumentException.class)
     public void testFloatBufferConstructor () {
         //create new buffer for matrix
-        ByteBuffer buffer = ByteBuffer.allocateDirect(15 * 4);
+        ByteBuffer buffer = BufferUtils.createByteBuffer(15 * 4);
         FloatBuffer floatBuffer = buffer.asFloatBuffer();
 
         Matrix4f matrix = new Matrix4f(buffer);

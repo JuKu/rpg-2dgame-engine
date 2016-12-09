@@ -29,6 +29,9 @@
         <!-- png decoder version -->
         <pngdecoder.version> 1.0 </pngdecoder.version>
 
+        <!-- JOML Version -->
+        <joml.version>1.9.0</joml.version>
+
         <!-- LWJGL version -->
         <lwjgl.version>3.1.0</lwjgl.version>
 

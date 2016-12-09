@@ -2,6 +2,7 @@ package com.jukusoft.rpg.core.utils;
 
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
@@ -20,8 +21,29 @@ public class BufferUtils {
         //create new Off Heap byte buffer with capacity float values, one float requires 4 bytes
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * capacity);
 
+        //set native order
+        byteBuffer.order(ByteOrder.nativeOrder());
+
         //convert and return float buffer
         return byteBuffer.asFloatBuffer();
+    }
+
+    /**
+     * create new Off Heap ByteBuffer
+     *
+     * @param capacity number of capacity of float values in buffer
+     *
+     * @return instance of Off Heap FloatBuffer
+     */
+    public static ByteBuffer createByteBuffer (int capacity) {
+        //create new Off Heap byte buffer with capacity float values, one float requires 4 bytes
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(capacity);
+
+        //set native order
+        byteBuffer.order(ByteOrder.nativeOrder());
+
+        //convert and return float buffer
+        return byteBuffer;
     }
 
     /**

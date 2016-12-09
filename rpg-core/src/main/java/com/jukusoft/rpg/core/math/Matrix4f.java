@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.core.math;
 
+import com.jukusoft.rpg.core.utils.BufferUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
@@ -43,7 +45,7 @@ public class Matrix4f implements Serializable, Cloneable {
                     final float i, final float j, final float k, final float l,
                     final float m, final float n, final float o, final float p) {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * (4 * 4));
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -90,7 +92,7 @@ public class Matrix4f implements Serializable, Cloneable {
 
     public Matrix4f (Matrix4f matrix) {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * (4 * 4));
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -101,7 +103,7 @@ public class Matrix4f implements Serializable, Cloneable {
 
     public Matrix4f () {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * (4 * 4));
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * (4 * 4));
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();

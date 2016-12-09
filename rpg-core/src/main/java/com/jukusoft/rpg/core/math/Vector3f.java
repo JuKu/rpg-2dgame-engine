@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.core.math;
 
+import com.jukusoft.rpg.core.utils.BufferUtils;
+
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -38,7 +40,7 @@ public class Vector3f {
      */
     public Vector3f(final float x, final float y, final float z) {
         //allocate new direct (Off Heap) byte buffer with size of 3 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * 3);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -54,7 +56,7 @@ public class Vector3f {
      */
     public Vector3f() {
         //allocate new direct (Off Heap) byte buffer with size of 3 bytes
-        this.buffer = ByteBuffer.allocateDirect(FLOAT_IN_BYTES * 3);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();

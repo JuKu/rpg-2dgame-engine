@@ -177,6 +177,8 @@ public class GLFWWindow implements IWindow {
             // Enable v-sync
             glfwSwapInterval(1);
         }
+
+        this.prepareRendering();
     }
 
     /**
@@ -332,6 +334,10 @@ public class GLFWWindow implements IWindow {
 
     @Override
     public void prepareRendering() {
+        if (wasPreparedRendering.get()) {
+            throw new IllegalStateException("Window was already prepared.");
+        }
+
         if (GameLogger.isRendererDebugMode()) {
             GameLogger.debug("GLFWWindow", "prepareRendering() for window " + getWindowID() + ".");
         }
@@ -344,6 +350,9 @@ public class GLFWWindow implements IWindow {
 
         //see https://github.com/lwjglgamedev/lwjglbook/blob/master/chapter01/src/main/java/org/lwjglb/game/Main.java
         GL.createCapabilities();
+
+        //set OpenGL ViewPort
+        this.setViewPort(0, 0, getWidth(), getHeight());
 
         // Set the clear color
         //glClearColor(1.0f, 0.0f, 0.0f, 0.0f);

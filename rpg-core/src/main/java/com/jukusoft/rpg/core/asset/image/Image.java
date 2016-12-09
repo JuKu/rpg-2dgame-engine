@@ -72,7 +72,8 @@ public class Image extends Asset {
         this.height = pngDecoder.getHeight();
 
         //create new byte buffer
-        this.buffer = ByteBuffer.allocateDirect(this.width * this.height * 4);
+        this.buffer = BufferUtils.createByteBuffer(this.width * this.height * 4);
+        //BufferUtils.createByteBuffer(this.width * this.height * 4);
 
         //decode image and insert pixel values into byte buffer
         pngDecoder.decode(this.buffer, this.width * 4, PNGDecoder.Format.RGBA);
