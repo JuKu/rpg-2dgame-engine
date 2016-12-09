@@ -101,6 +101,39 @@ public class Matrix4fTest {
         //create new matrix with copied values
         Matrix4f matrix1 = new Matrix4f(matrix);
 
+        //expected order from OpenGL
+        float[] expectedBuffer = new float[16];
+        expectedBuffer[0] = 1;
+        expectedBuffer[1] = 5;
+        expectedBuffer[2] = 9;
+        expectedBuffer[3] = 13;
+        expectedBuffer[4] = 2;
+        expectedBuffer[5] = 6;
+        expectedBuffer[6] = 10;
+        expectedBuffer[7] = 14;
+        expectedBuffer[8] = 3;
+        expectedBuffer[9] = 7;
+        expectedBuffer[10] = 11;
+        expectedBuffer[11] = 15;
+        expectedBuffer[12] = 4;
+        expectedBuffer[13] = 8;
+        expectedBuffer[14] = 12;
+        expectedBuffer[15] = 16;
+
+        //check copied values
+        for (int i = 0; i < 16; i++) {
+            assertEquals("value of index buffer[" + i + "] should be " + expectedBuffer[i] + ", but is " + matrix1.getFloatBuffer().get(i), expectedBuffer[i], matrix1.getFloatBuffer().get(i), 0);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                float isValue = matrix1.get(i, j);
+                float expectedValue = i + (j * 4) + 1;
+
+                assertEquals("value of (" + i + ", " + j + ") isnt the same, should be " + expectedValue + ", but is " + isValue, expectedValue, isValue, 0);
+            }
+        }
+
         //change one value of second matrix
         matrix1.set(0, 0, 10);
 
