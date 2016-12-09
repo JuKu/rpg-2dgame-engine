@@ -48,6 +48,7 @@ public class GameLogger {
      */
     public static void warn (String loggerName, String message) {
         Logger.getRootLogger().warn("[" + loggerName + "] " + message);
+        System.err.println("WARN [" + loggerName + "] " + message);
     }
 
     /**
@@ -58,6 +59,7 @@ public class GameLogger {
      */
     public static void error (String loggerName, String message) {
         Logger.getRootLogger().error("[" + loggerName + "] " + message);
+        System.err.println("ERROR [" + loggerName + "] " + message);
     }
 
     public static boolean isRendererDebugMode () {
