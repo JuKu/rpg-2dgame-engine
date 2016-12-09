@@ -126,7 +126,13 @@ public class Matrix4f implements Serializable, Cloneable {
         this.floatBuffer = this.buffer.asFloatBuffer();
 
         //copy values
-        this.buffer.put(matrix.getBuffer());
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                this.set(i, j, matrix.get(i, j));
+            }
+        }
+
+        //this.buffer.put(matrix.getBuffer());
     }
 
     public Matrix4f () {
