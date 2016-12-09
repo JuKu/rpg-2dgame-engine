@@ -38,8 +38,6 @@ public class UIRenderer {
 
     private static final String CHARSET = "ISO-8859-1";
 
-    private OpenGLText text;
-
 
     /**
     * default constructor
@@ -51,10 +49,6 @@ public class UIRenderer {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
-        FontTexture fontTexture = new FontTexture(FONT, CHARSET, Color.BLUE);
-
-        this.text = new OpenGLText(0, 0, "DEMO", fontTexture);
     }
 
     /**
