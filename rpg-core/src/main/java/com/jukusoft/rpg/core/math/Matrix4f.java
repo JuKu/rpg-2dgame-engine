@@ -555,6 +555,21 @@ public class Matrix4f implements Serializable, Cloneable {
         this.set(3, 1, -(top + bottom) / (top - bottom));
     }
 
+    /**
+    * check, if matrix only contains 0 values
+    */
+    public boolean isNullMatrix () {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (get(i, j) != 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public Matrix4f copy () {
         //create new matrix
         Matrix4f matrix = new Matrix4f();

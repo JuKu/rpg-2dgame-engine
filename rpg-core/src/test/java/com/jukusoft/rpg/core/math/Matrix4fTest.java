@@ -378,6 +378,27 @@ public class Matrix4fTest {
     }
 
     @Test
+    public void testNullMatrix () {
+        Matrix4f matrix = new Matrix4f(
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0
+        );
+
+        assertEquals("matrix should be an 0 matrix, but isnt an 0 matrix (should only contains 0 values).", true, matrix.isNullMatrix());
+
+        Matrix4f matrix1 = new Matrix4f(
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 0
+        );
+
+        assertEquals("matrix shouldnt be an 0 matrix, but is an 0 matrix (shouldnt only contains 0 values).", false, matrix1.isNullMatrix());
+    }
+
+    @Test
     public void testCopy () {
         //create new matrix
         Matrix4f matrix = new Matrix4f(
