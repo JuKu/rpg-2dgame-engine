@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.image;
 
 import com.jukusoft.rpg.core.asset.image.Image;
+import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.Mesh;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
@@ -27,6 +28,12 @@ public class OpenGL2DImage extends DrawableObject {
     public OpenGL2DImage(final float x, final float y, final float width, final float height, Image image) {
         //create mesh
         Mesh mesh = buildMesh(x, y, width, height, image);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
+
+        //set position
+        this.setPosition(x, y, 0);
     }
 
     /**
@@ -56,6 +63,9 @@ public class OpenGL2DImage extends DrawableObject {
 
         //set new mesh
         setMesh(mesh);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
 
         //delete old mesh from gpu
         oldMesh.cleanUp();
