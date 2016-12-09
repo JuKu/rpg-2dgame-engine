@@ -48,6 +48,10 @@ public class DrawableObject {
         this.position.set(x, y, z);
     }
 
+    public void setPosition (final float x, final float y) {
+        this.position.set(x, y, 0);
+    }
+
     public void setScale (final float scale) {
         this.scale = scale;
     }
