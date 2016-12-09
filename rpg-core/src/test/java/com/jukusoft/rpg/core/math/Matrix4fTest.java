@@ -340,6 +340,44 @@ public class Matrix4fTest {
     }
 
     @Test
+    public void testByteOrderForOpenGL () {
+        //create new matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        //expected order from OpenGL
+        float[] expectedBuffer = new float[16];
+        expectedBuffer[0] = 1;
+        expectedBuffer[1] = 5;
+        expectedBuffer[2] = 9;
+        expectedBuffer[3] = 13;
+        expectedBuffer[4] = 2;
+        expectedBuffer[5] = 6;
+        expectedBuffer[6] = 10;
+        expectedBuffer[7] = 14;
+        expectedBuffer[8] = 3;
+        expectedBuffer[9] = 7;
+        expectedBuffer[10] = 11;
+        expectedBuffer[11] = 15;
+        expectedBuffer[12] = 4;
+        expectedBuffer[13] = 8;
+        expectedBuffer[14] = 12;
+        expectedBuffer[15] = 16;
+
+        //get float buffer
+        FloatBuffer fb = matrix.getFloatBuffer();
+
+        //check value order
+        for (int i = 0; i < 16; i++) {
+            assertEquals("value of buffer[" + i + "] has to be " + expectedBuffer[i] + ", but is " + fb.get(i), expectedBuffer[i], fb.get(i), 0);
+        }
+    }
+
+    @Test
     public void testCopy () {
         //create new matrix
         Matrix4f matrix = new Matrix4f(
