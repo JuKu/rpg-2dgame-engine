@@ -26,6 +26,8 @@ public class IntroGameState extends BasicGameState {
 
     protected List<DrawableObject> drawableObjects = new ArrayList<>();
 
+    protected OpenGLText text = null;
+
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         GameLogger.info("IntroGameState", "IntroGameState::onInit().");
@@ -44,7 +46,7 @@ public class IntroGameState extends BasicGameState {
         FontTexture fontTexture = ResourceManager.getInstance().getFontTexture(new Font("Arial", Font.PLAIN, 20), "ISO-8859-1", Color.WHITE);
 
         //add text to UI
-        OpenGLText text = new OpenGLText(10f, getWindow().getHeight() - 50, "DEMO", fontTexture);
+        text = new OpenGLText(10f, getWindow().getHeight() - 50, "DEMO", fontTexture);
         text.setPosition(20, getWindow().getHeight() - 50);
 
         text.setText("JuKuSoft - Draw Text Example");
@@ -55,6 +57,11 @@ public class IntroGameState extends BasicGameState {
     @Override
     public void update(GameApp app, double delta) {
         //update
+        this.text.setPosition(text.getPosition().getX() + 1, getWindow().getHeight() - 50);
+
+        if (text.getPosition().getX() > getWindow().getWidth() - 100) {
+            text.setPosition(0, getWindow().getHeight() - 50);
+        }
     }
 
     @Override

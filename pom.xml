@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- main class -->
-        <main.class>com.jukusoft.lwjgl.tutorial.Main</main.class>
+        <main.class>com.jukusoft.rpg.game.Main</main.class>
 
         <!-- java version -->
         <java.version>1.8</java.version>
@@ -164,6 +164,10 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>${main.class}</mainClass>
+
+                            <!-- update dependencie versions in MANIFEST.MF -->
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                     </archive>
                 </configuration>
