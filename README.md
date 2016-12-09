@@ -49,9 +49,8 @@ Also double requires 8 byte, while float only requires 4 bytes and OpenGL is sup
   
 ### Open issues
   - reimplement class Color, use Off Heap memory
-  - use GameLogger instead of Logger.getRootLogger() from log4j
   - implement GameConfig
-  - add caching to FontTexture
+  - maybe use NanoVG for drawing text
 
 ### Implemented Features
 
