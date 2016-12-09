@@ -30,6 +30,16 @@ Please read LICENSE file for source code and each tilesets has an extra LICENSE 
   - JSON
   - ini4j
   - log4j
+  
+This library DOESNT USE JOML, because JOML isnt really thread safe (problematic on games with many threads, also multiplayer games), it uses its own for OpenGL optimized Math Libray.
+Classes of Math Library:
+  - Matrix4f
+  - Vector4f
+  - Vector3f
+  - Vector2f
+  
+Double isnt currently supported in matrizes and vectors, because an double calculation requires more than 1 cpu cycle --> not so much efficient as float calculations.
+Also double requires 8 byte, while float only requires 4 bytes and OpenGL is supporting float as well.
 
 ### Modules
   - Core
