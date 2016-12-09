@@ -4,3 +4,33 @@ Links with some example image idea (license wasnt checked yet, but images also a
  - https://vxresource.wordpress.com/category/resources/characters/
  - https://vxresource.wordpress.com/2011/05/24/new-amazing-tilesets/
  - http://opengameart.org/content/ocean-background#
+
+ - http://opengameart.org/content/whispers-of-avalon-grassland-tileset
+ - http://opengameart.org/content/rpg-tiles-cobble-stone-paths-town-objects
+ - http://opengameart.org/content/grassland-tileset
+ - http://opengameart.org/content/roguelikerpg-pack-1700-tiles
+ - http://opengameart.org/content/sewer-tileset
+ - http://opengameart.org/content/rpg-indoor-tileset-expansion-1
+ - http://opengameart.org/content/trees-bushes
+ - http://opengameart.org/content/rpg-town-pixel-art-assets
+ - http://opengameart.org/content/98-pixel-art-rpg-icons
+ - http://opengameart.org/content/16x16-snowy-town-tiles
+ - http://opengameart.org/content/top-down-dungeon-tiles-64x64
+ - http://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+
+ - http://opengameart.org/users/surt
+ - http://pixeljoint.com/p/2254.htm
+ - http://opengameart.org/content/simple-nes-like-village-tiles
+ - http://opengameart.org/content/tux-bros
+ - http://opengameart.org/content/kenney-16x16
+ - http://opengameart.org/content/classical-temple-tiles
+ - http://opengameart.org/content/16x16-castle-tiles
+ - http://opengameart.org/content/98-pixel-art-rpg-icons
+ - http://opengameart.org/content/rpg-town-pixel-art-assets
+ - http://opengameart.org/content/rpg-indoor-tileset-expansion-1
+ - http://opengameart.org/content/16x16-indoor-rpg-tileset-the-baseline (CC By 3.0 - credit required)
+ - http://opengameart.org/content/rpg-item-set (CC0 license)
+ - http://opengameart.org/content/sewer-tileset (CC-BY-3.0 license)
+ - http://opengameart.org/content/grassland-tileset (CC-BY-SA 3.0 license)
+ - http://opengameart.org/content/rpg-tiles-cobble-stone-paths-town-objects (CC-BY-SA 3.0 license)
+ - http://opengameart.org/content/whispers-of-avalon-grassland-tileset (CC-BY-3.0 license)

@@ -205,7 +205,6 @@ public class OpenGL2DTexture {
      *
      * @param image texture image to upload on gpu
     */
-    @Deprecated
     public static OpenGL2DTexture createAndUpload (Image image) {
         //create new OpenGL texture
         OpenGL2DTexture texture = new OpenGL2DTexture();
