@@ -58,10 +58,10 @@ public class IntroGameState extends BasicGameState {
         //load texture
         OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
 
-        this.image = new OpenGL2DImage(100, 100, texture);
+        this.image = new OpenGL2DImage(0, 0, texture);
 
-        this.drawableObjects.add(text);
         this.drawableObjects.add(image);
+        this.drawableObjects.add(text);
     }
 
     @Override
