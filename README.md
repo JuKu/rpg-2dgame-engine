@@ -42,7 +42,19 @@ Please read LICENSE file for source code and each tilesets has an extra LICENSE 
   - use GameLogger instead of Logger.getRootLogger() from log4j
   - implement GameConfig
   - add caching to FontTexture
-  
+
+### Implemented Features
+
+Some implemented features:
+  - create GLFW Window
+  - Input Handling
+  - draw text (you can specify Font Family, Size, Style and Color)
+  - Game State System
+  - Logging
+
+Draw text:
+![GLFW Window](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/text.PNG)
+
 ### Window System
 
 The RPG 2D Game Engine only supports 1 window on primary monitor.
