@@ -1,1 +1,1 @@
-[GameMain Exception Wed Dec 07 20:09:48 CET 2016, 1481137788861] UIRenderer wasnt initialized yet, call init() method first., UIRenderer wasnt initialized yet, call init() method first.Error: Cannot set value for uniform 'projModelMatrix', because uniform doesnt exists, uniformLocation: 0
+[GameMain Exception Fri Dec 09 16:09:19 CET 2016, 1481296159085] Transformation orthoMatrixCurr is 0 matrix (only contains 0 values)., Transformation orthoMatrixCurr is 0 matrix (only contains 0 values).lor', because uniform doesnt exists.fore you can use clear() method.uniformLocation: 0

@@ -4,7 +4,6 @@ import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
-import com.jukusoft.rpg.graphic.added.*;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
