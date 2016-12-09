@@ -38,9 +38,7 @@ public class UIRenderer {
 
     private static final String CHARSET = "ISO-8859-1";
 
-    private TextItem statusTextItem;
     private OpenGLText text;
-    private Transformation transformation;
 
 
     /**
@@ -53,19 +51,10 @@ public class UIRenderer {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-        this.transformation = new Transformation();
 
         FontTexture fontTexture = new FontTexture(FONT, CHARSET, Color.BLUE);
 
-        try {
-            this.statusTextItem = new TextItem("DEMO", fontTexture);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-
-        this.statusTextItem.getMesh().getMaterial().setColor(new Vector3f(1, 1, 1));
-        this.text = new OpenGLText(0, 0, "TEXT", fontTexture);
+        this.text = new OpenGLText(0, 0, "DEMO", fontTexture);
     }
 
     /**
@@ -115,85 +104,29 @@ public class UIRenderer {
             GameLogger.debug("UIRenderer", "render UI.");
         }
 
-        /*if (GameLogger.isRendererDebugMode()) {
-            GameLogger.debug("UIRenderer", "render UI");
-        }
-
-        //check, if UI renderer was initialized
         if (!this.isInitialized.get()) {
             throw new IllegalStateException("UIRenderer wasnt initialized yet, call init() method first.");
         }
-
-        //bind shader program
-        this.uiShaderProgram.bind();
-
-        //generate projection matrix / view matrix
-        final Matrix4f projMatrix = getProjMatrix(windowWidth, windowHeight);
-
-        //iterate through all drawable objects
-        for (DrawableObject obj : drawableObjects) {
-            //first get mesh
-            Mesh mesh = obj.getMesh();
-
-            //get rotation
-            Vector3f rotation = obj.getRotation();
-
-            Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, projMatrix);
-
-            //get color
-            Vector3f color = obj.getMesh().getMaterial().getColor();
-
-            if (color == null) {
-                throw new RuntimeException("color cannot be null.");
-            }
-
-            System.out.println("position: " + obj.getPosition().toString());
-            System.out.println("rotation: " + obj.getRotation().toString());
-            System.out.println("scale: " + obj.getScale());
-            System.out.println("color: " + obj.getMesh().getMaterial().getColor());
-
-            System.out.println(projModelMatrix.toString(true));
-
-            //set shader program parameter
-            this.uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
-            this.uiShaderProgram.setUniform("colour", color);
-            this.uiShaderProgram.setUniform("hasTexture", obj.getMesh().getMaterial().isTextured() ? 1 : 0);
-
-            //render mesh
-            mesh.render();
-        }
-
-        //unbind shader program
-        this.uiShaderProgram.unbind();*/
 
         uiShaderProgram.bind();
 
         Matrix4f ortho = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0);
 
-        Mesh mesh = statusTextItem.getMesh();
-        // Set ortohtaphic and model matrix for this HUD item
-        Matrix4f projModelMatrix = transformation.getOrtoProjModelMatrix(statusTextItem, ortho);
+        //iterate through all drawable objects
+        for (DrawableObject obj : drawableObjects) {
+            //get mesh
+            final Mesh mesh = obj.getMesh();
 
-        uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
-        uiShaderProgram.setUniform("colour", statusTextItem.getMesh().getMaterial().getColor());
-        uiShaderProgram.setUniform("hasTexture", statusTextItem.getMesh().getMaterial().isTextured() ? 1 : 0);
+            //calculate projection model matrix
+            final Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, ortho);
 
-        // Render the mesh for this HUD item
-        mesh.render();
+            uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
+            uiShaderProgram.setUniform("colour", mesh.getMaterial().getColor());
+            uiShaderProgram.setUniform("hasTexture", mesh.getMaterial().isTextured() ? 1 : 0);
 
-        /**
-        * render text
-        */
-
-        /*Mesh mesh1 = text.getMesh();
-        Matrix4f projModelMatrix1 = transformation.getOrtoProjModelMatrix(text, ortho);
-
-        uiShaderProgram.setUniform("projModelMatrix", projModelMatrix1);
-        uiShaderProgram.setUniform("colour", text.getMesh().getMaterial().getColor());
-        uiShaderProgram.setUniform("hasTexture", text.getMesh().getMaterial().isTextured() ? 1 : 0);
-
-        // Render the mesh for this HUD item
-        mesh1.render();*/
+            //render mesh
+            mesh.render();
+        }
 
         uiShaderProgram.unbind();
     }
