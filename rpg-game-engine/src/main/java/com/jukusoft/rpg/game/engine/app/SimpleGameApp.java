@@ -178,7 +178,7 @@ public abstract class SimpleGameApp implements GameApp {
         window.setVisible(true);
 
         //prepare rendering and create GL capabilities like GL.createCapabilities()
-        window.prepareRendering();
+        //window.prepareRendering();
 
         //initialize game
         this.initialize();

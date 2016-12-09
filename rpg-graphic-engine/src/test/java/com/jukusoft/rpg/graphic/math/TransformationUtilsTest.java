@@ -17,7 +17,7 @@ public class TransformationUtilsTest {
         Matrix4f matrix = new Matrix4f();
 
         //calculate 2D orthogonal matrix
-        matrix = TransformationUtils.getOrthoProjMatrix(0, 1280, 720, 0, matrix);
+        matrix = TransformationUtils.getOrthoProjectionMatrix(0, 1280, 720, 0, matrix);
 
         //expected result matrix, calculated with JOML
         Matrix4f resultMatrix = new Matrix4f(
@@ -79,7 +79,7 @@ public class TransformationUtilsTest {
         assertEquals("matrizes arent equals, result matrix:\n" + modelMatrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, modelMatrix.equals(resultMatrix));
 
         Matrix4f orthoMatrix = new Matrix4f();
-        orthoMatrix = TransformationUtils.getOrthoProjMatrix(0, 1280, 720, 0, orthoMatrix);
+        orthoMatrix = TransformationUtils.getOrthoProjectionMatrix(0, 1280, 720, 0, orthoMatrix);
 
         //expected result matrix, calculated with JOML
         Matrix4f resultOrthoMatrix = new Matrix4f(
@@ -113,7 +113,7 @@ public class TransformationUtilsTest {
     public void testOrtoProjModelMatrix () {
         //create new matrix
         Matrix4f ortho = new Matrix4f();
-        ortho = TransformationUtils.getOrthoProjMatrix(0, 1280, 720, 0, ortho);
+        ortho = TransformationUtils.getOrthoProjectionMatrix(0, 1280, 720, 0, ortho);
 
         //expected result matrix, calculated with JOML
         Matrix4f resultOrthoMatrix = new Matrix4f(

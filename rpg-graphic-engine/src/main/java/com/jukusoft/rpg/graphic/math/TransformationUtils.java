@@ -9,11 +9,16 @@ import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
  */
 public class TransformationUtils {
 
-    public static Matrix4f getOrthoProjMatrix (final float left, final float right, final float bottom, final float top, Matrix4f dest) {
+    public static Matrix4f getOrthoProjectionMatrix (final float left, final float right, final float bottom, final float top, Matrix4f dest) {
         dest.setIdentityMatrix();
         dest.setOrtho2D(left, right, bottom, top);
 
         return dest;
+    }
+
+    public static Matrix4f getOrthoProjectionMatrix (final float left, final float right, final float bottom, final float top) {
+        Matrix4f dest = new Matrix4f();
+        return getOrthoProjectionMatrix(left, right, bottom, top, dest);
     }
 
     /*public static Matrix4f getOrtoProjModelMatrix (DrawableObject obj, Matrix4f orthoProjMatrix, Matrix4f dest) {

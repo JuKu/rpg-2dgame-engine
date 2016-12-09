@@ -45,7 +45,7 @@ public class IntroGameState extends BasicGameState {
 
         //add text to UI
         OpenGLText text = new OpenGLText(10f, getWindow().getHeight() - 50, "DEMO", fontTexture);
-        text.setPosition(10f, getWindow().getHeight() - 50, 0);
+        text.setPosition(0, /*getWindow().getHeight() - 50*/0, 0);
 
         text.setText("DEMO");
 

@@ -27,7 +27,7 @@ public class Main {
         GameLogger.info("GameMain", "app start now.");
         GameLogger.debug("GameMain", "initialize game configuration now.");
 
-        GameLogger.setRendererDebugMode(true);
+        //GameLogger.setRendererDebugMode(true);
 
         try {
             //initialize game configuration
