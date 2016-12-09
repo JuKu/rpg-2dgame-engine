@@ -17,7 +17,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by Justin on 29.11.2016.
  */
-public class Image extends Asset {
+public class Image2D extends Asset {
 
     //width and height of image
     protected int width = 0;
@@ -34,7 +34,7 @@ public class Image extends Asset {
     /**
     * default constructor
     */
-    public Image (String path) throws UnsupportedAssetException, AssetNotFoundException, IOException {
+    public Image2D(String path) throws UnsupportedAssetException, AssetNotFoundException, IOException {
         //check, if image is an png graphic
         if (!path.endsWith(".png") && !path.endsWith(".PNG")) {
             throw new UnsupportedAssetException("only PNG assets are supported! file path: " + path);

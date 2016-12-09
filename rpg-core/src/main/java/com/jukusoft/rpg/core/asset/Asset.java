@@ -27,6 +27,11 @@ public abstract class Asset {
     */
     private final long assetID = LocalUniqueID.generateID();
 
+    /**
+    * last access timestamp
+    */
+    protected long lastAccess = System.currentTimeMillis();
+
     public final void release () {
         //decrement reference counter and check, if reference counter is 0
         if (this.refCounter.decrementAndGet() == 0) {
@@ -73,6 +78,18 @@ public abstract class Asset {
     public final void removeCleanUpListener (AssetCleanUpListener listener) {
         //remove listener from list
         Collections.synchronizedList(this.cleanUpListenerList).remove(listener);
+    }
+
+    public long getLastAccess () {
+        return this.lastAccess;
+    }
+
+    public void setLastAccess () {
+        this.lastAccess = System.currentTimeMillis();
+    }
+
+    public void access () {
+        this.setLastAccess();
     }
 
     public final void callCleanUp () {

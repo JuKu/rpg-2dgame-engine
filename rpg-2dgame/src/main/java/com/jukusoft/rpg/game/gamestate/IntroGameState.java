@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.game.gamestate;
 
+import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.game.engine.app.GameApp;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
@@ -8,13 +9,14 @@ import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
+import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ public class IntroGameState extends BasicGameState {
     protected List<DrawableObject> drawableObjects = new ArrayList<>();
 
     protected OpenGLText text = null;
+    protected OpenGL2DImage image = null;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -50,6 +53,9 @@ public class IntroGameState extends BasicGameState {
         text.setPosition(20, getWindow().getHeight() - 50);
 
         text.setText("JuKuSoft - Draw Text Example");
+
+        //load image
+        Image2D image = ResourceManager.getInstance().getImage("intro/intro_screen.png");
 
         this.drawableObjects.add(text);
     }

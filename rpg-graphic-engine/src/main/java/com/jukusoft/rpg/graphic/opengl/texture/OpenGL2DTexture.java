@@ -1,6 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.texture;
 
-import com.jukusoft.rpg.core.asset.image.Image;
+import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
 import com.jukusoft.rpg.core.logger.GameLogger;
@@ -71,8 +71,8 @@ public class OpenGL2DTexture {
         //set bind flag to false
         this.isBind = false;
     }
-    
-    public void upload (Image image) {
+
+    public void upload (Image2D image) {
         if (!isBind) {
             throw new IllegalStateException("OpenGL2DTexture has to be bind before texture can be uploaded to gpu.");
         }
@@ -137,7 +137,7 @@ public class OpenGL2DTexture {
         this.isUploaded = true;
     }
 
-    public void uploadIfAbsent (Image image) {
+    public void uploadIfAbsent (Image2D image) {
         if (!this.isUploaded) {
             this.upload(image);
         }
@@ -145,7 +145,7 @@ public class OpenGL2DTexture {
 
     public void uploadIfAbsent (String path) throws IOException, UnsupportedAssetException, AssetNotFoundException {
         if (!this.isUploaded) {
-            Image image = new Image(path);
+            Image2D image = new Image2D(path);
 
             //bind texture on gpu first
             this.bind();
@@ -204,7 +204,7 @@ public class OpenGL2DTexture {
      *
      * @param image texture image to upload on gpu
     */
-    public static OpenGL2DTexture createAndUpload (Image image) {
+    public static OpenGL2DTexture createAndUpload (Image2D image) {
         //create new OpenGL texture
         OpenGL2DTexture texture = new OpenGL2DTexture();
 

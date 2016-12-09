@@ -1,11 +1,17 @@
 package com.jukusoft.rpg.game.engine.resource;
 
+import com.jukusoft.rpg.core.asset.image.Image2D;
+import com.jukusoft.rpg.core.exception.AssetException;
+import com.jukusoft.rpg.core.exception.AssetNotFoundException;
+import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
 import com.jukusoft.rpg.core.logger.GameLogger;
+import com.jukusoft.rpg.core.path.GamePaths;
 import com.jukusoft.rpg.game.engine.utils.GamePlatform;
 import com.jukusoft.rpg.graphic.opengl.font.FontAttr;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,6 +24,11 @@ public class ResourceManager {
     * font cache
     */
     protected Map<FontAttr,FontTexture> fontCache = new ConcurrentHashMap<>();
+
+    /**
+    * image cache
+    */
+    protected Map<String,Image2D> imageCache = new ConcurrentHashMap<>();
 
     protected static ResourceManager instance = null;
 
@@ -33,19 +44,70 @@ public class ResourceManager {
         return instance;
     }
 
-    /*public static void getPNGImage (String path) {
-        //
-    }*/
+    public Image2D getImage (String path) {
+        path = GamePaths.getImagePath(path);
+
+        //get image from cache
+        Image2D image = this.imageCache.get(path);
+
+        //check, if image is in cache
+        if (image == null) {
+            GameLogger.info("ResourceManager", "load new image from data directory: " + path);
+
+            //load image from File I/O
+            try {
+                image = new Image2D(path);
+            } catch (UnsupportedAssetException e) {
+                e.printStackTrace();
+                GameLogger.warn("ResourceManager", "UnsupportedAssetException: " + e.getLocalizedMessage());
+
+                throw new AssetException("UnsupportedAssetException: " + e.getLocalizedMessage(), e);
+            } catch (IOException e) {
+                e.printStackTrace();
+                GameLogger.warn("ResourceManager", "IOException: " + e.getLocalizedMessage());
+
+                throw new AssetException("IOException: " + e.getLocalizedMessage(), e);
+            } catch (AssetNotFoundException e) {
+                e.printStackTrace();
+                GameLogger.warn("ResourceManager", "AssetNotFoundException: " + e.getLocalizedMessage());
+
+                throw new AssetException("AssetNotFoundException: " + e.getLocalizedMessage(), e);
+            }
+
+            //add image to cache
+            this.imageCache.put(path, image);
+        } else {
+            GameLogger.debug("ResourceManager", "load image from cache: " + image);
+        }
+
+        //increment texture refCount
+        image.incrementReference();
+
+        //set last access timestamp
+        image.setLastAccess();
+
+        return image;
+    }
 
     /**
-     * preload image
-     *
-     * @param path path to image
+     * preload font
      */
-    public void preparePNGImage (String path) {
-        //preload texture in thread pool
+    public void preloadImage (final String path) {
+        //preload font in thread pool
         GamePlatform.runAsync(() -> {
-            //TODO: add code here
+            Image2D image = null;
+
+            try {
+                //load image
+                image = getImage(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (image == null) {
+                //set last access timestamp
+                image.setLastAccess();
+            }
         });
     }
 
@@ -65,6 +127,9 @@ public class ResourceManager {
                 //increment texture refCount
                 texture.incrementReference();
 
+                //set last access timestamp
+                texture.setLastAccess();
+
                 return texture;
             }
         } else {
@@ -72,6 +137,9 @@ public class ResourceManager {
 
             //load font
             texture = new FontTexture(font, charset, color);
+
+            //set last access timestamp
+            texture.setLastAccess();
 
             //add texture to cache
             this.fontCache.put(fontAttr, texture);
@@ -88,6 +156,9 @@ public class ResourceManager {
         GamePlatform.runAsync(() -> {
             //load font
             FontTexture fontTexture = getFontTexture(font, charset, color);
+
+            //set last access timestamp
+            fontTexture.setLastAccess();
         });
     }
 

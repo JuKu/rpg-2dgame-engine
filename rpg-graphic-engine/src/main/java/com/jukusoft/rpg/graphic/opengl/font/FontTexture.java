@@ -1,7 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.font;
 
 import com.jukusoft.rpg.core.asset.Asset;
-import com.jukusoft.rpg.core.asset.image.Image;
+import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
 import com.jukusoft.rpg.core.path.GamePaths;
@@ -208,7 +208,7 @@ public class FontTexture extends Asset {
         }
 
         //load image texture
-        com.jukusoft.rpg.core.asset.image.Image image = new Image(path);
+        Image2D image = new Image2D(path);
 
         //get width and height of image texture
         this.width = image.getWidth();
