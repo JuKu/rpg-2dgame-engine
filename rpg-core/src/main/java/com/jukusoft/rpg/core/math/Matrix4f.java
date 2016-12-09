@@ -227,7 +227,7 @@ public class Matrix4f implements Serializable, Cloneable {
         Matrix4f currentMatrix = this.copy();
 
         if (GameLogger.isRendererDebugMode() && currentMatrix.isNullMatrix()) {
-            GameLogger.warn("Matrix4f", "multiplize matrix with null matrix,\nmatrix:\n" + currentMatrix.toString(true) + "\n, matrix to multiplize with:\n" + matrix.toString(true) + "\n\nthis matrix:\n" + this.toString(true));
+            GameLogger.warn("Matrix4f", "multiplize matrix with null matrix,\nmatrix:\n" + currentMatrix.toString(true) + "\nmatrix to multiplize with:\n" + matrix.toString(true) + "\nthis matrix:\n" + this.toString(true));
         }
 
         //iterate through all matrix entries
