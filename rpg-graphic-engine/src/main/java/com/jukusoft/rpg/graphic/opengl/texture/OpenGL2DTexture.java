@@ -71,8 +71,7 @@ public class OpenGL2DTexture {
         //set bind flag to false
         this.isBind = false;
     }
-
-    @Deprecated
+    
     public void upload (Image image) {
         if (!isBind) {
             throw new IllegalStateException("OpenGL2DTexture has to be bind before texture can be uploaded to gpu.");
