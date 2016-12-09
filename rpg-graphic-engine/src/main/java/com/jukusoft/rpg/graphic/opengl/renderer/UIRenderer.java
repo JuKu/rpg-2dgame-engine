@@ -15,6 +15,8 @@ import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -92,7 +94,18 @@ public class UIRenderer {
     /**
     * render UI
     */
-    public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjects) {
+    public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjectsList) {
+        //create new list and add all entries to reverse list
+        List<DrawableObject> drawableObjects = new ArrayList<>();
+        drawableObjects.addAll(drawableObjectsList);
+
+        //reverse list
+        Collections.reverse(drawableObjects);
+
+        if (drawableObjects == null) {
+            throw new IllegalArgumentException("drawableObjects list cannot be null.");
+        }
+
         if (GameLogger.isRendererDebugMode()) {
             GameLogger.debug("UIRenderer", "render UI.");
         }
