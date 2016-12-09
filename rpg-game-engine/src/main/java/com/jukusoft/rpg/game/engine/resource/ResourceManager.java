@@ -9,6 +9,7 @@ import com.jukusoft.rpg.core.path.GamePaths;
 import com.jukusoft.rpg.game.engine.utils.GamePlatform;
 import com.jukusoft.rpg.graphic.opengl.font.FontAttr;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
+import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
 import java.awt.*;
 import java.io.IOException;
@@ -29,6 +30,11 @@ public class ResourceManager {
     * image cache
     */
     protected Map<String,Image2D> imageCache = new ConcurrentHashMap<>();
+
+    /**
+    * texture cache
+    */
+    protected Map<String,OpenGL2DTexture> textureMap = new ConcurrentHashMap<>();
 
     protected static ResourceManager instance = null;
 
@@ -107,6 +113,80 @@ public class ResourceManager {
             if (image == null) {
                 //set last access timestamp
                 image.setLastAccess();
+            }
+        });
+    }
+
+    public boolean isImageInCache (final String path) {
+        return this.imageCache.get(path) != null;
+    }
+
+    public OpenGL2DTexture getTexture (String path) {
+        path = GamePaths.getImagePath(path);
+
+        //get texture from cache
+        OpenGL2DTexture texture = this.textureMap.get(path);
+
+        //check, if texture is in cache
+        if (texture == null) {
+            GameLogger.info("ResourceManager", "load new OpenGL2DTexture from data directory: " + path);
+
+            Image2D image = null;
+
+            //check, if image is in cache
+            if (isImageInCache(path)) {
+                image = getImage(path);
+            } else {
+                try {
+                    image = new Image2D(path);
+                } catch (UnsupportedAssetException e) {
+                    e.printStackTrace();
+                    throw new AssetException("UnsupportedAssetException: " + e.getLocalizedMessage(), e);
+                } catch (AssetNotFoundException e) {
+                    e.printStackTrace();
+                    throw new AssetException("AssetNotFoundException: " + e.getLocalizedMessage(), e);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new AssetException("IOException: " + e.getLocalizedMessage(), e);
+                }
+            }
+
+            //create new texture
+            texture = OpenGL2DTexture.createAndUpload(image);
+
+            //add texture to cache
+            this.textureMap.put(path, texture);
+        } else {
+            GameLogger.debug("ResourceManager", "load OpenGL2DTexture from cache: " + path);
+        }
+
+        //increment texture refCount
+        texture.incrementReference();
+
+        //set last access timestamp
+        texture.setLastAccess();
+
+        return texture;
+    }
+
+    /**
+     * preload texture
+     */
+    public void preloadOpenGL2DTexture (final String path) {
+        //preload font in thread pool
+        GamePlatform.runAsync(() -> {
+            OpenGL2DTexture texture = null;
+
+            try {
+                //load texture
+                texture = getTexture(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (texture == null) {
+                //set last access timestamp
+                texture.setLastAccess();
             }
         });
     }

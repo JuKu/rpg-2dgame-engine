@@ -13,6 +13,7 @@ import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
+import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
 import java.awt.*;
 import java.io.IOException;
@@ -54,10 +55,13 @@ public class IntroGameState extends BasicGameState {
 
         text.setText("JuKuSoft - Draw Text Example");
 
-        //load image
-        Image2D image = ResourceManager.getInstance().getImage("intro/intro_screen.png");
+        //load texture
+        OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
+
+        this.image = new OpenGL2DImage(100, 100, texture);
 
         this.drawableObjects.add(text);
+        this.drawableObjects.add(image);
     }
 
     @Override

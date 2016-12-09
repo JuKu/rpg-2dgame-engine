@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.texture;
 
+import com.jukusoft.rpg.core.asset.Asset;
 import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
@@ -17,7 +18,7 @@ import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 /**
  * Created by Justin on 29.11.2016.
  */
-public class OpenGL2DTexture {
+public class OpenGL2DTexture extends Asset {
 
     /**
     * id of texture on gpu

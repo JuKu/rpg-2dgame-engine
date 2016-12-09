@@ -28,12 +28,34 @@ public class OpenGL2DImage extends DrawableObject {
     protected OpenGL2DTexture texture = null;
 
     /**
+     * default constructor
+     *
+     * @param x x coordinate of image
+     * @param y y coordinate of image
+     * @param texture instance of texture
+     */
+    public OpenGL2DImage(final float x, final float y, final float width, final float height, OpenGL2DTexture texture) {
+        //create mesh
+        //Mesh mesh = buildMesh(x, y, width, height, image);
+
+        //set image and build mesh
+        this.setTexture(x, y, width, height, texture);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
+
+        //set position
+        this.setPosition(x, y, 0);
+    }
+
+    /**
     * default constructor
      *
      * @param x x coordinate of image
      * @param y y coordinate of image
      * @param image instance of image
     */
+    @Deprecated
     public OpenGL2DImage(final float x, final float y, final float width, final float height, Image2D image) {
         //create mesh
         //Mesh mesh = buildMesh(x, y, width, height, image);
@@ -53,13 +75,25 @@ public class OpenGL2DImage extends DrawableObject {
      *
      * @param x x coordinate of image
      * @param y y coordinate of image
+     * @param texture instance of texture
+     */
+    public OpenGL2DImage(final float x, final float y, OpenGL2DTexture texture) {
+        this(x, y, texture.getWidth(), texture.getHeight(), texture);
+    }
+
+    /**
+     * default constructor
+     *
+     * @param x x coordinate of image
+     * @param y y coordinate of image
      * @param image instance of image
      */
+    @Deprecated
     public OpenGL2DImage(final float x, final float y, Image2D image) {
         this(x, y, image.getWidth(), image.getHeight(), image);
     }
 
-    protected Mesh buildMesh (final float x, final float y, final float width, final float height, Image2D image) {
+    protected Mesh buildMesh (final float x, final float y, final float width, final float height, OpenGL2DTexture texture) {
         List<Float> positions = new ArrayList();
         List<Float> textCoords = new ArrayList();
 
@@ -121,7 +155,7 @@ public class OpenGL2DImage extends DrawableObject {
         return mesh;
     }
 
-    public void setImage (final float x, final float y, final float width, final float height, final Image2D image) {
+    public void setTexture (final float x, final float y, final float width, final float height, final OpenGL2DTexture texture) {
         this.width = width;
         this.height = height;
 
@@ -129,10 +163,10 @@ public class OpenGL2DImage extends DrawableObject {
         OpenGL2DTexture oldTexture = this.texture;
 
         //create and upload new texture
-        this.texture = OpenGL2DTexture.createAndUpload(image);
+        this.texture = texture;
 
         //create new mesh
-        Mesh mesh = buildMesh(0, 0, width, height, image);
+        Mesh mesh = buildMesh(0, 0, width, height, texture);
 
         //get old mesh
         Mesh oldMesh = getMesh();
@@ -154,10 +188,54 @@ public class OpenGL2DImage extends DrawableObject {
         }
     }
 
+    @Deprecated
+    public void setImage (final float x, final float y, final float width, final float height, final Image2D image) {
+        this.width = width;
+        this.height = height;
+
+        //get old texture
+        OpenGL2DTexture oldTexture = this.texture;
+
+        //create and upload new texture
+        this.texture = OpenGL2DTexture.createAndUpload(image);
+
+        //create new mesh
+        Mesh mesh = buildMesh(0, 0, width, height, texture);
+
+        //get old mesh
+        Mesh oldMesh = getMesh();
+
+        //set new mesh
+        setMesh(mesh);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
+
+        if (oldMesh != null) {
+            //delete old mesh from gpu
+            oldMesh.cleanUp();
+        }
+
+        if (oldTexture != null) {
+            //delete old texture from gpu
+            oldTexture.delete();
+        }
+    }
+
+    public void setTexture (final float x, final float y, final OpenGL2DTexture texture) {
+        this.setTexture(x, y, texture.getWidth(), texture.getHeight(), texture);
+    }
+
+    @Deprecated
     public void setImage (final float x, final float y, final Image2D image) {
         this.setImage(x, y, image.getWidth(), image.getHeight(), image);
     }
 
+    public void setTexture (final OpenGL2DTexture texture) {
+        this.setTexture(0, 0, texture.getWidth(), texture.getHeight(), texture);
+    }
+
+    @Deprecated
     public void setImage (final Image2D image) {
         this.setImage(0, 0, image.getWidth(), image.getHeight(), image);
     }
