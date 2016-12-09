@@ -58,7 +58,8 @@ public class IntegerVertexBufferObject {
 
     public void unbind () {
         //unbind the VBO
-        glBindBuffer(this.target, 0);
+        //glBindBuffer(this.target, 0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         //set bind flag to false
         this.isBind = false;

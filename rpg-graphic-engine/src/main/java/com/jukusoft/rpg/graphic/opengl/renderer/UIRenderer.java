@@ -11,6 +11,7 @@ import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.Mesh;
 import com.jukusoft.rpg.graphic.opengl.shader.OpenGLShaderProgram;
+import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class UIRenderer {
     private static final String CHARSET = "ISO-8859-1";
 
     private TextItem statusTextItem;
+    private OpenGLText text;
     private Transformation transformation;
 
 
@@ -63,6 +65,7 @@ public class UIRenderer {
         }
 
         this.statusTextItem.getMesh().getMaterial().setColor(new Vector3f(1, 1, 1));
+        this.text = new OpenGLText(0, 0, "TEXT", fontTexture);
     }
 
     /**
@@ -167,7 +170,7 @@ public class UIRenderer {
 
         Matrix4f ortho = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0);
 
-        MeshCopy mesh = statusTextItem.getMesh();
+        Mesh mesh = statusTextItem.getMesh();
         // Set ortohtaphic and model matrix for this HUD item
         Matrix4f projModelMatrix = transformation.getOrtoProjModelMatrix(statusTextItem, ortho);
 
@@ -177,6 +180,20 @@ public class UIRenderer {
 
         // Render the mesh for this HUD item
         mesh.render();
+
+        /**
+        * render text
+        */
+
+        /*Mesh mesh1 = text.getMesh();
+        Matrix4f projModelMatrix1 = transformation.getOrtoProjModelMatrix(text, ortho);
+
+        uiShaderProgram.setUniform("projModelMatrix", projModelMatrix1);
+        uiShaderProgram.setUniform("colour", text.getMesh().getMaterial().getColor());
+        uiShaderProgram.setUniform("hasTexture", text.getMesh().getMaterial().isTextured() ? 1 : 0);
+
+        // Render the mesh for this HUD item
+        mesh1.render();*/
 
         uiShaderProgram.unbind();
     }

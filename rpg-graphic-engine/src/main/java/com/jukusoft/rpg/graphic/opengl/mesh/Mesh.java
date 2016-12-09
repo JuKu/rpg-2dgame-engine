@@ -129,7 +129,7 @@ public class Mesh {
         this.indexVBO.putData(indices);
 
         //define structure in 3D
-        this.indexVBO.defineStructure(2, 3, false, 0, 0);
+        //this.indexVBO.defineStructure(2, 3, false, 0, 0);
 
         //unbind VBO
         this.indexVBO.unbind();
