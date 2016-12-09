@@ -60,8 +60,8 @@ public class IntroGameState extends BasicGameState {
 
         this.image = new OpenGL2DImage(0, 0, texture);
 
-        this.drawableObjects.add(image);
         this.drawableObjects.add(text);
+        this.drawableObjects.add(image);
     }
 
     @Override
