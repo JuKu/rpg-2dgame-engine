@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.core.math;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.utils.BufferUtils;
 
 import java.io.Serializable;
@@ -225,6 +226,10 @@ public class Matrix4f implements Serializable, Cloneable {
         //create an copy of current matrix
         Matrix4f currentMatrix = this.copy();
 
+        if (GameLogger.isRendererDebugMode() && currentMatrix.isNullMatrix()) {
+            GameLogger.warn("Matrix4f", "multiplize matrix with null matrix,\nmatrix:\n" + currentMatrix.toString(true) + "\n, matrix to multiplize with:\n" + matrix.toString(true) + "\n\nthis matrix:\n" + this.toString(true));
+        }
+
         //iterate through all matrix entries
         for (int c = 0; c <= 3; c++) {
             for (int r = 0; r <= 3; r++) {
@@ -234,11 +239,11 @@ public class Matrix4f implements Serializable, Cloneable {
 
                 //multiply
                 for (int i = 3; i >= 0; i--) {
-                    value += currentMatrix.get(3 - i, r) * matrix.get(c, 3 - i);
-                    //System.out.println("value += (" + (3 - i) + ", " + r + ") * (" + c + ", " + (3 - i) + ") --> " + currentMatrix.get(3 - i, r) + " * " + matrix.get(c, 3 - i) + " = " + (currentMatrix.get(3 - i, r) * matrix.get(c, 3 - i)));
+                    value += ((float) currentMatrix.get(3 - i, r)) * matrix.get(c, 3 - i);
+                    System.out.println("value += (" + (3 - i) + ", " + r + ") * (" + c + ", " + (3 - i) + ") --> " + currentMatrix.get(3 - i, r) + " * " + matrix.get(c, 3 - i) + " = " + (currentMatrix.get(3 - i, r) * matrix.get(c, 3 - i)));
                 }
 
-                //System.out.println("value: " + value + "\n\n");
+                System.out.println("value of (" + c + ", " + r + "): " + value + "\n\n");
 
                 //set new value
                 this.set(c, r, value);
