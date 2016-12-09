@@ -4,6 +4,7 @@ import com.jukusoft.rpg.core.asset.image.Image;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
 import com.jukusoft.rpg.core.logger.GameLogger;
+import com.jukusoft.rpg.core.utils.BufferUtils;
 import de.matthiasmann.twl.utils.PNGDecoder;
 
 import java.io.IOException;
@@ -111,7 +112,7 @@ public class OpenGL2DTexture {
         this.height = decoder.getHeight();
 
         //load texture into an byte buffer
-        ByteBuffer buf = ByteBuffer.allocateDirect(
+        ByteBuffer buf = BufferUtils.createByteBuffer(
                 4 * decoder.getWidth() * decoder.getHeight());
 
         //decode image

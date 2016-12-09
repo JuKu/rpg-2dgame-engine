@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.mesh;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.graphic.opengl.buffer.FloatVertexBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.IntegerVertexBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.VertexArrayObject;
@@ -155,11 +156,19 @@ public class Mesh {
         OpenGL2DTexture texture = material.getTexture();
 
         if (texture != null) {
+            if (GameLogger.isRendererDebugMode()) {
+                GameLogger.debug("Mesh", "set active texture");
+            }
+
             //activate firs texture bank
             glActiveTexture(GL_TEXTURE0);
 
             //bind the texture
             glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
+        } else {
+            if (GameLogger.isRendererDebugMode()) {
+                GameLogger.debug("Mesh", "Mesh with vaoID " + getVaoID() + "doesnt have an texture.");
+            }
         }
 
         //TODO: replace OpenGL commands with FloatVertexBufferObject methods
@@ -169,6 +178,10 @@ public class Mesh {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
+
+        if (GameLogger.isRendererDebugMode()) {
+            GameLogger.debug("Mesh", "draw mesh with VaoID: " + getVaoID() + ", vertex count: " + getVertexCount() + ", textureID: " + texture.getTextureID());
+        }
 
         glDrawElements(GL_TRIANGLES, getVertexCount(), GL_UNSIGNED_INT, 0);
 

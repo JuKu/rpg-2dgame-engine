@@ -19,7 +19,8 @@ public class Material {
     }
 
     public Material () {
-        //
+        this.color = DEFAULT_COLOUR;
+        this.reflectance = 0;
     }
 
     public Vector3f getColor () {
