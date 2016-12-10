@@ -2,6 +2,7 @@
 
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
+  - set VBOs methods are now public in class Mesh
 
 ## 1.0.1 Alpha Release
   - UIRenderer is ready for your game

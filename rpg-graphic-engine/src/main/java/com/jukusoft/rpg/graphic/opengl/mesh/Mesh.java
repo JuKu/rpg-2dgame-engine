@@ -63,7 +63,7 @@ public class Mesh {
         vao.unbind();
     }
 
-    protected void setPositionVBO (float[] positions) {
+    public void setPositionVBO (float[] positions) {
         if (this.positionVBO == null) {
             this.positionVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER);
         }
@@ -81,7 +81,7 @@ public class Mesh {
         this.positionVBO.unbind();
     }
 
-    protected void setTextureCoordinatesVBO (float[] textCoords) {
+    public void setTextureCoordinatesVBO (float[] textCoords) {
         if (this.textureCoordinatesVBO == null) {
             this.textureCoordinatesVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER);
         }
@@ -99,7 +99,7 @@ public class Mesh {
         this.textureCoordinatesVBO.unbind();
     }
 
-    protected void setNormalesVBO (float[] normals) {
+    public void setNormalesVBO (float[] normals) {
         if (this.vertexNormalsVBO == null) {
             this.vertexNormalsVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER);
         }
@@ -117,7 +117,7 @@ public class Mesh {
         this.vertexNormalsVBO.unbind();
     }
 
-    protected void setIndexVBO (int[] indices) {
+    public void setIndexVBO (int[] indices) {
         if (this.indexVBO == null) {
             this.indexVBO = new IntegerVertexBufferObject(GL_ELEMENT_ARRAY_BUFFER);
         }
