@@ -57,6 +57,11 @@ public class UIRenderer {
     protected Matrix4f cachedModelMatrix = new Matrix4f();
 
     /**
+    * cached projection model matrix, so we donnt need to create an new matrix on each renderer loop
+    */
+    protected Matrix4f cachedProjModelMatrix = new Matrix4f();
+
+    /**
     * default constructor
     */
     public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
@@ -154,7 +159,7 @@ public class UIRenderer {
             final Mesh mesh = obj.getMesh();
 
             //calculate projection model matrix
-            final Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, ortho);
+            final Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, ortho, this.cachedModelMatrix, this.cachedProjModelMatrix);
 
             uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
             uiShaderProgram.setUniform("colour", mesh.getMaterial().getColor());
