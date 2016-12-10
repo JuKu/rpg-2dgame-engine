@@ -5,6 +5,7 @@ import com.jukusoft.rpg.core.utils.LocalUniqueID;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -20,7 +21,7 @@ public abstract class Asset {
     /**
     * list with cleanUp listeners
     */
-    private final List<AssetCleanUpListener> cleanUpListenerList = new ArrayList<>();
+    private final List<AssetCleanUpListener> cleanUpListenerList = new CopyOnWriteArrayList<>();
 
     /**
     * local unique asset id
@@ -72,12 +73,12 @@ public abstract class Asset {
         }
 
         //add listener to list
-        Collections.synchronizedList(this.cleanUpListenerList).add(listener);
+        this.cleanUpListenerList.add(listener);
     }
 
     public final void removeCleanUpListener (AssetCleanUpListener listener) {
         //remove listener from list
-        Collections.synchronizedList(this.cleanUpListenerList).remove(listener);
+        this.cleanUpListenerList.remove(listener);
     }
 
     public long getLastAccess () {
