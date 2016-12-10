@@ -3,7 +3,7 @@ package com.jukusoft.rpg.graphic.opengl.image;
 /**
  * Created by Justin on 10.12.2016.
  */
-public class ImageRegionInfo {
+public class ImageRegionInfo implements ReadonlyImageRegionInfo {
 
     protected volatile float startX = 0f;
     protected volatile float startY = 0f;
