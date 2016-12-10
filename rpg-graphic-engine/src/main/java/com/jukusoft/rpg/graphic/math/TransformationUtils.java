@@ -41,8 +41,34 @@ public class TransformationUtils {
         return dest;
     }*/
 
+    public static Matrix4f getOrtoProjModelMatrix(DrawableObject gameItem, Matrix4f orthoMatrix, Matrix4f cachedModelMatrix, Matrix4f dest) {
+        return getOrtoProjModelMatrix(gameItem.getRotation(), gameItem.getPosition(), gameItem.getScale(), orthoMatrix, cachedModelMatrix, dest);
+    }
+
     public static Matrix4f getOrtoProjModelMatrix(DrawableObject gameItem, Matrix4f orthoMatrix) {
         return getOrtoProjModelMatrix(gameItem.getRotation(), gameItem.getPosition(), gameItem.getScale(), orthoMatrix);
+    }
+
+    /**
+     * get orthogonal projection model matrix
+     *
+     * optimized method, so no new matrix instances has to be created
+     */
+    public static Matrix4f getOrtoProjModelMatrix(Vector3f rotation, Vector3f position, float scale, Matrix4f orthoMatrix, Matrix4f cachedModelMatrix, Matrix4f dest) {
+        Matrix4f modelMatrix = cachedModelMatrix;
+        modelMatrix.identity();
+        modelMatrix.translate(position);
+        modelMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
+        modelMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
+        modelMatrix.rotateZ((float) Math.toRadians(-rotation.getZ()));
+        modelMatrix.scale(scale);
+
+        Matrix4f orthoMatrixCurr = dest;
+        dest.set(orthoMatrix);
+                //new Matrix4f(orthoMatrix);
+
+        orthoMatrixCurr.mul(modelMatrix);
+        return orthoMatrixCurr;
     }
 
     /**
