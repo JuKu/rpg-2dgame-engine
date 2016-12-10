@@ -5,12 +5,19 @@ package com.jukusoft.rpg.graphic.opengl.image;
  */
 public class ImageRegionInfo {
 
-    protected float startX = 0f;
-    protected float startY = 0f;
-    protected float width = 0f;
-    protected float height = 0f;
+    protected volatile float startX = 0f;
+    protected volatile float startY = 0f;
+    protected volatile float width = 0f;
+    protected volatile float height = 0f;
 
     public ImageRegionInfo(final float startX, final float startY, final float width, final float height) {
+        this.startX = startX;
+        this.startY = startY;
+        this.width = width;
+        this.height = height;
+    }
+
+    public void set (final float startX, final float startY, final float width, final float height) {
         this.startX = startX;
         this.startY = startY;
         this.width = width;
