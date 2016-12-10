@@ -35,9 +35,10 @@ public class UIRenderer {
     */
     protected OpenGLShaderProgram uiShaderProgram = null;
 
-    private static final Font FONT = new Font("Arial", Font.PLAIN, 20);
-
-    private static final String CHARSET = "ISO-8859-1";
+    /**
+    * cached drawable objects list
+    */
+    protected List<DrawableObject> drawableObjectsCache = new ArrayList<>();
 
 
     /**
@@ -95,12 +96,17 @@ public class UIRenderer {
     * render UI
     */
     public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjectsList) {
-        //create new list and add all entries to reverse list
-        List<DrawableObject> drawableObjects = new ArrayList<>();
-        drawableObjects.addAll(drawableObjectsList);
+        //clear old cache
+        this.drawableObjectsCache.clear();
+
+        //add all entries to reverse list later
+        this.drawableObjectsCache.addAll(drawableObjectsList);
 
         //reverse list
-        Collections.reverse(drawableObjects);
+        Collections.reverse(this.drawableObjectsCache);
+
+        //create new list and add all entries to reverse list
+        List<DrawableObject> drawableObjects = this.drawableObjectsCache;
 
         if (drawableObjects == null) {
             throw new IllegalArgumentException("drawableObjects list cannot be null.");
