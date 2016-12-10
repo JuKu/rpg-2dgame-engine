@@ -45,7 +45,7 @@ public class Main {
 
         try {
             //create new instance of game application with 2 threads for renderer and update thread, unlimited fps rate and 60 updates per second, also vSync isnt enabled.
-            MyGameApp game = new MyGameApp(true, -1, 60, true);
+            MyGameApp game = new MyGameApp(true, -1, 60, false);
 
             //initialize game
             game.init();
