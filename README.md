@@ -15,7 +15,7 @@ Source Code Contributors:
   - JuKu (jukusoft.com)
 
 This game uses free or open source graphics!
-Please read LICENSE file for source code and each tilesets has an extra LICENSE file.
+Please read LICENSE file for source code and each tilesets / image / asset has an extra LICENSE file.
   
 ## Requirements
   - Java 8
