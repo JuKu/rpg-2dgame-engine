@@ -52,6 +52,11 @@ public class UIRenderer {
     protected Matrix4f cachedOrthoMatrix = new Matrix4f();
 
     /**
+    * cached matrix instance, so we dont need to create an new matrix on each renderer loop
+    */
+    protected Matrix4f cachedModelMatrix = new Matrix4f();
+
+    /**
     * default constructor
     */
     public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
@@ -135,11 +140,12 @@ public class UIRenderer {
 
 
         //check, if we can used cached ortho matrix
-        if (!wasReized(windowWidth, windowHeight)) {
+        if (wasReized(windowWidth, windowHeight)) {
             //invalidate old ortho matrix and generate an new one, use same destination matrix, so we dont need to create an new matrix instance
             this.cachedOrthoMatrix = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0, this.cachedOrthoMatrix);
         }
 
+        //get ortho matrix from cached ortho matrix
         Matrix4f ortho = this.cachedOrthoMatrix;
 
         //iterate through all drawable objects
