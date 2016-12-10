@@ -40,6 +40,16 @@ public class UIRenderer {
     */
     protected List<DrawableObject> drawableObjectsCache = new ArrayList<>();
 
+    /**
+    * cached window size, so we can detect, if ortho matrix has to be calculated again or we can used cached matrix
+    */
+    protected int lastWindowWidth = 0;
+    protected int lastWindowHeight = 0;
+
+    /**
+    * cached ortho matrix
+    */
+    protected Matrix4f cachedOrthoMatrix = new Matrix4f();
 
     /**
     * default constructor
@@ -122,7 +132,15 @@ public class UIRenderer {
 
         uiShaderProgram.bind();
 
-        Matrix4f ortho = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0);
+
+
+        //check, if we can used cached ortho matrix
+        if (!wasReized(windowWidth, windowHeight)) {
+            //invalidate old ortho matrix and generate an new one, use same destination matrix, so we dont need to create an new matrix instance
+            this.cachedOrthoMatrix = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0, this.cachedOrthoMatrix);
+        }
+
+        Matrix4f ortho = this.cachedOrthoMatrix;
 
         //iterate through all drawable objects
         for (DrawableObject obj : drawableObjects) {
@@ -145,6 +163,17 @@ public class UIRenderer {
 
     protected Matrix4f getProjMatrix (final int windowWidth, final int windowHeight) {
         return TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0, new Matrix4f());
+    }
+
+    protected boolean wasReized (final int windowWidth, final int windowHeight) {
+        //check, if window was resized
+        final boolean wasResized = this.lastWindowWidth != windowWidth || this.lastWindowHeight != windowHeight;
+
+        //cache last window width & height
+        this.lastWindowWidth = windowWidth;
+        this.lastWindowHeight = windowHeight;
+
+        return wasResized;
     }
 
 }
