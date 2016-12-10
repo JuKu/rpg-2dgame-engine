@@ -29,4 +29,14 @@ public interface Camera2D {
     */
     public float getZoom ();
 
+    /**
+    * check, if camera position, rotation or something else was changed
+    */
+    public boolean hasChanged ();
+
+    /**
+    * reset changed state flag
+    */
+    public void resetChangedState ();
+
 }

@@ -34,4 +34,14 @@ public interface Camera3D {
 
     public void moveRotation (final float offsetX, final float offsetY, final float offsetZ);
 
+    /**
+     * check, if camera position, rotation or something else was changed
+     */
+    public boolean hasChanged ();
+
+    /**
+     * reset changed state flag
+     */
+    public void resetChangedState ();
+
 }

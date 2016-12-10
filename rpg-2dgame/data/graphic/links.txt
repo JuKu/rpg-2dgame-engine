@@ -34,3 +34,5 @@ Links with some example image idea (license wasnt checked yet, but images also a
  - http://opengameart.org/content/grassland-tileset (CC-BY-SA 3.0 license)
  - http://opengameart.org/content/rpg-tiles-cobble-stone-paths-town-objects (CC-BY-SA 3.0 license)
  - http://opengameart.org/content/whispers-of-avalon-grassland-tileset (CC-BY-3.0 license)
+ - http://opengameart.org/content/animated-particle-effects-2 (animated particle effects)
+ - http://opengameart.org/content/a-platformer-in-the-forest
