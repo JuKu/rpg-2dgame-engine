@@ -4,6 +4,7 @@
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
   - set VBOs methods are now public in class Mesh
   - resolved some concurrency issues on class Asset - thanks to @noctarius for this tips!
+  - marked class Shader as deprecated, use class OpenGLShaderProgram instead!
 
 Special thanks to noctarius for some tips!
 
