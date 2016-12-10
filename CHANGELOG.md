@@ -3,6 +3,9 @@
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
   - set VBOs methods are now public in class Mesh
+  - resolved some concurrency issues on class Asset - thanks to @noctarius for this tips!
+
+Special thanks to noctarius for some tips!
 
 ## 1.0.1 Alpha Release
   - UIRenderer is ready for your game
