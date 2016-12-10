@@ -93,4 +93,8 @@ public class GamePlatform {
         return scheduledExecutorService.schedule(callable, 0l, TimeUnit.MILLISECONDS);
     }
 
+    public static void setTimer (final long timeInMillis, final Runnable runnable) {
+        scheduledExecutorService.schedule(runnable, timeInMillis, TimeUnit.MILLISECONDS);
+    }
+
 }
