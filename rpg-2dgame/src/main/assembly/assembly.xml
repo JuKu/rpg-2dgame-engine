@@ -44,6 +44,15 @@
 			</excludes>
 		</fileSet>
 
+		<!-- start scripts -->
+		<fileSet>
+			<directory>startscripts</directory>
+			<outputDirectory>.</outputDirectory>
+			<excludes>
+				<exclude>*.log</exclude>
+			</excludes>
+		</fileSet>
+
 		<!-- add main jar to / -->
 		<fileSet>
 			<directory>target</directory>

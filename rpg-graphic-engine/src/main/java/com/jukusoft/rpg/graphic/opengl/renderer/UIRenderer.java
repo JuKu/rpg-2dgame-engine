@@ -148,6 +148,8 @@ public class UIRenderer {
         if (wasReized(windowWidth, windowHeight)) {
             //invalidate old ortho matrix and generate an new one, use same destination matrix, so we dont need to create an new matrix instance
             this.cachedOrthoMatrix = TransformationUtils.getOrthoProjectionMatrix(0, windowWidth, windowHeight, 0, this.cachedOrthoMatrix);
+
+            GameLogger.debug("UIRenderer", "invalidate cached ortho matrix and generate an new one, because window was resized.");
         }
 
         //get ortho matrix from cached ortho matrix
