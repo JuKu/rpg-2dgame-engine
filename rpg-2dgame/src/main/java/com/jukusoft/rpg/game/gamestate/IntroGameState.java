@@ -7,6 +7,8 @@ import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.core.utils.GamePlatform;
+import com.jukusoft.rpg.graphic.animation.*;
+import com.jukusoft.rpg.graphic.animation.Frame;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
@@ -33,11 +35,13 @@ public class IntroGameState extends BasicGameState {
 
     protected OpenGLText text = null;
     protected OpenGL2DImage image = null;
-    protected OpenGL2DTextureRegion campfire = null;
+    //protected OpenGL2DTextureRegion campfire = null;
 
-    protected long lastAnimationTime = 0l;
+    protected BasicAnimation campfire = null;
+
+    /*protected long lastAnimationTime = 0l;
     protected long animationInterval = 150l;
-    protected int animFrameCount = 0;
+    protected int animFrameCount = 0;*/
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -67,7 +71,15 @@ public class IntroGameState extends BasicGameState {
         OpenGL2DTexture campfireTexture = ResourceManager.getInstance().getTexture("spritesheets/campfire/CampFireFinished.png");
 
         this.image = new OpenGL2DImage(0, 0, texture);
-        this.campfire = new OpenGL2DTextureRegion(/*200*/0, /*200*/0, 0, 0, 64, 64, campfireTexture);
+        //this.campfire = new OpenGL2DTextureRegion(/*200*/0, /*200*/0, 0, 0, 64, 64, campfireTexture);
+
+        //create new campfire animation
+        this.campfire = new BasicAnimation(0, 0, campfireTexture);
+
+        //add frames to animation
+        for (int i = 0; i < 5; i++) {
+            this.campfire.addFrame(new Frame(i * 64, 0, 64, 64, 150));
+        }
 
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
@@ -96,12 +108,12 @@ public class IntroGameState extends BasicGameState {
             getWindow().setResizedFlag(false);
         }
 
-        if (lastAnimationTime + animationInterval < System.currentTimeMillis()) {
+        /*if (lastAnimationTime + animationInterval < System.currentTimeMillis()) {
             campfire.setRegion(animFrameCount * 64, 0, 64, 64);
 
             this.animFrameCount = (this.animFrameCount + 1) % 5;
             this.lastAnimationTime = System.currentTimeMillis();
-        }
+        }*/
 
         //render UI
         this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects);
