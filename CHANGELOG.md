@@ -8,6 +8,7 @@
   - DefaultCamera: added support to detect, if camera was changed (for example position, rotation and so on), so renderer can be optimized and dont have to generate some matrizes every render cycle
   - FloatVertexBufferObject & IntegerVertexBufferObject now supports GL_DYNAMIC_DRAW
   - OpenGLShaderProgram now also supports Vector4f uniforms
+  - added support for Texture Regions (Spritesheets)
 
 Special thanks to noctarius for some tips about Software Design / Performance and Buschtaube for an OpenGL tip about texture coordinates in texture regions!
 
