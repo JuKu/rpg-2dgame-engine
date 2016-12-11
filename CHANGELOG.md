@@ -6,6 +6,7 @@
   - resolved some concurrency issues on class Asset - thanks to @noctarius for this tips!
   - marked class Shader as deprecated, use class OpenGLShaderProgram instead!
   - DefaultCamera: added support to detect, if camera was changed (for example position, rotation and so on), so renderer can be optimized and dont have to generate some matrizes every render cycle
+  - FloatVertexBufferObject & IntegerVertexBufferObject now supports GL_DYNAMIC_DRAW
 
 Special thanks to noctarius for some tips!
 
