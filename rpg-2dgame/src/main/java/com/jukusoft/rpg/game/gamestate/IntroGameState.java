@@ -12,6 +12,7 @@ import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DTextureRegion;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
+import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
@@ -28,7 +29,7 @@ public class IntroGameState extends BasicGameState {
 
     protected UIRenderer uiRenderer = null;
 
-    protected List<DrawableObject> drawableObjects = new ArrayList<>();
+    protected List<Renderable> drawableObjects = new ArrayList<>();
 
     protected OpenGLText text = null;
     protected OpenGL2DImage image = null;

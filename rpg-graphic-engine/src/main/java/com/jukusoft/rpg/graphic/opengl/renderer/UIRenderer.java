@@ -116,7 +116,7 @@ public class UIRenderer {
     /**
     * render UI
     */
-    public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjectsList) {
+    public void render (int windowWidth, int windowHeight, List<Renderable> drawableObjectsList) {
         //clear old cache
         //this.drawableObjectsCache.clear();
 
@@ -127,7 +127,7 @@ public class UIRenderer {
         //Collections.reverse(this.drawableObjectsCache);
 
         //create new list and add all entries to reverse list
-        List<DrawableObject> drawableObjects = drawableObjectsList;
+        List<Renderable> drawableObjects = drawableObjectsList;
 
         if (drawableObjects == null) {
             throw new IllegalArgumentException("drawableObjects list cannot be null.");
@@ -157,7 +157,7 @@ public class UIRenderer {
         final long currentTime = System.currentTimeMillis();
 
         //iterate through all drawable objects
-        for (DrawableObject obj : drawableObjects) {
+        for (Renderable obj : drawableObjects) {
             //check, if object is an animation
             if (obj instanceof Animable) {
                 Animable animation = (Animable) obj;
@@ -167,14 +167,14 @@ public class UIRenderer {
             }
 
             //get mesh
-            final Mesh mesh = obj.getMesh();
+            //final Mesh mesh = obj.getMesh();
 
             //calculate projection model matrix
             final Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(obj, ortho, this.cachedModelMatrix, this.cachedProjModelMatrix);
 
             uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
-            uiShaderProgram.setUniform("colour", mesh.getMaterial().getColor());
-            uiShaderProgram.setUniform("hasTexture", mesh.getMaterial().isTextured() ? 1 : 0);
+            uiShaderProgram.setUniform("colour", obj.getMaterial().getColor());
+            uiShaderProgram.setUniform("hasTexture", obj.getMaterial().isTextured() ? 1 : 0);
 
             //render mesh
             obj.render();
