@@ -36,4 +36,5 @@ Links with some example image idea (license wasnt checked yet, but images also a
  - http://opengameart.org/content/whispers-of-avalon-grassland-tileset (CC-BY-3.0 license)
  - http://opengameart.org/content/animated-particle-effects-2 (animated particle effects)
  - http://opengameart.org/content/camp-fire-animation-for-rpgs-finished (campfire)
+ - http://opengameart.org/content/2d-spell-effects (some 2D effects)
  - http://opengameart.org/content/a-platformer-in-the-forest

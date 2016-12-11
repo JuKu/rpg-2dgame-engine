@@ -25,8 +25,17 @@ public class FloatVertexBufferObject {
 
     protected final int target;
 
+    protected int usage = GL_STATIC_DRAW;
+
     public FloatVertexBufferObject(final int target) {
         this.target = target;
+
+        this.create();
+    }
+
+    public FloatVertexBufferObject(final int target, final int usage) {
+        this.target = target;
+        this.usage = usage;
 
         this.create();
     }
@@ -65,7 +74,7 @@ public class FloatVertexBufferObject {
 
     public void putData (FloatBuffer buffer) {
         //put buffer
-        glBufferData(this.target, buffer, GL_STATIC_DRAW);
+        glBufferData(this.target, buffer, this.usage);
     }
 
     public void putData (float[] vertices) {

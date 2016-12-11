@@ -26,6 +26,15 @@ public class IntegerVertexBufferObject {
 
     protected final int target;
 
+    protected int usage = GL_STATIC_DRAW;
+
+    public IntegerVertexBufferObject(final int target, final int usage) {
+        this.target = target;
+        this.usage = usage;
+
+        this.create();
+    }
+
     public IntegerVertexBufferObject(final int target) {
         this.target = target;
 
@@ -67,7 +76,7 @@ public class IntegerVertexBufferObject {
 
     public void putData (IntBuffer buffer) {
         //put buffer
-        glBufferData(this.target, buffer, GL_STATIC_DRAW);
+        glBufferData(this.target, buffer, this.usage);
     }
 
     public void putData (int[] vertices) {
