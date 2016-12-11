@@ -3,6 +3,7 @@ package com.jukusoft.rpg.graphic.math;
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
+import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
 
 /**
  * Created by Justin on 07.12.2016.
@@ -42,6 +43,10 @@ public class TransformationUtils {
     }*/
 
     public static Matrix4f getOrtoProjModelMatrix(DrawableObject gameItem, Matrix4f orthoMatrix, Matrix4f cachedModelMatrix, Matrix4f dest) {
+        return getOrtoProjModelMatrix(gameItem.getRotation(), gameItem.getPosition(), gameItem.getScale(), orthoMatrix, cachedModelMatrix, dest);
+    }
+
+    public static Matrix4f getOrtoProjModelMatrix(Renderable gameItem, Matrix4f orthoMatrix, Matrix4f cachedModelMatrix, Matrix4f dest) {
         return getOrtoProjModelMatrix(gameItem.getRotation(), gameItem.getPosition(), gameItem.getScale(), orthoMatrix, cachedModelMatrix, dest);
     }
 
