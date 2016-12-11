@@ -13,6 +13,7 @@
   - added support for Texture Regions (Spritesheets)
   - improved performance in UIRenderer, copied list isnt required anymore, some OpenGL hints in GLFWWindow has solved this issue
   - added support for transparency
+  - added support for basic animations (with only 1 layer and 1 spritesheet per animation)
 
 Special thanks to noctarius for some tips about Software Design / Performance and Buschtaube for an OpenGL tip about texture coordinates in texture regions!
 
