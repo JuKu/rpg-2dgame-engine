@@ -4,6 +4,7 @@ import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
+import com.jukusoft.rpg.graphic.animation.Animable;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
@@ -142,8 +143,6 @@ public class UIRenderer {
 
         uiShaderProgram.bind();
 
-
-
         //check, if we can used cached ortho matrix
         if (wasReized(windowWidth, windowHeight)) {
             //invalidate old ortho matrix and generate an new one, use same destination matrix, so we dont need to create an new matrix instance
@@ -155,8 +154,18 @@ public class UIRenderer {
         //get ortho matrix from cached ortho matrix
         Matrix4f ortho = this.cachedOrthoMatrix;
 
+        final long currentTime = System.currentTimeMillis();
+
         //iterate through all drawable objects
         for (DrawableObject obj : drawableObjects) {
+            //check, if object is an animation
+            if (obj instanceof Animable) {
+                Animable animation = (Animable) obj;
+
+                //update frame if neccessary
+                animation.updateFrame(currentTime);
+            }
+
             //get mesh
             final Mesh mesh = obj.getMesh();
 

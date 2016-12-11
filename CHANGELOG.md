@@ -3,6 +3,7 @@
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
   - added support to set an interval timer (execute Runnable every fixed time)
+  - moved class GamePlatform to core module instead of game engine, so every sub system can use it
   - set VBOs methods are now public in class Mesh
   - resolved some concurrency issues on class Asset - thanks to @noctarius for this tips!
   - marked class Shader as deprecated, use class OpenGLShaderProgram instead!

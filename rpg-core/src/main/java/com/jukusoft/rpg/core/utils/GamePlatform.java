@@ -106,7 +106,7 @@ public class GamePlatform {
     public static void setInterval (final long intervalTimeInMillis, Runnable runnable) {
         initIfAbsent();
 
-        scheduledExecutorService.scheduleAtFixedRate(runnable, 0, intervalTimeInMillis, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(runnable, 1l, intervalTimeInMillis, TimeUnit.MILLISECONDS);
     }
 
 }

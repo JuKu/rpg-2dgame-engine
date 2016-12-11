@@ -34,6 +34,10 @@ public class IntroGameState extends BasicGameState {
     protected OpenGL2DImage image = null;
     protected OpenGL2DTextureRegion campfire = null;
 
+    protected long lastAnimationTime = 0l;
+    protected long animationInterval = 150l;
+    protected int animFrameCount = 0;
+
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         GameLogger.info("IntroGameState", "IntroGameState::onInit().");
@@ -68,11 +72,6 @@ public class IntroGameState extends BasicGameState {
         this.drawableObjects.add(image);
         this.drawableObjects.add(text);
         this.drawableObjects.add(campfire);
-
-        //change frame after 5 seconds
-        GamePlatform.setTimer(5000, () -> {
-            campfire.setRegion(65, 0, 64, 64);
-        });
     }
 
     @Override
@@ -94,6 +93,13 @@ public class IntroGameState extends BasicGameState {
 
             //reset resized flag
             getWindow().setResizedFlag(false);
+        }
+
+        if (lastAnimationTime + animationInterval < System.currentTimeMillis()) {
+            campfire.setRegion(animFrameCount * 64, 0, 64, 64);
+
+            this.animFrameCount = (this.animFrameCount + 1) % 5;
+            this.lastAnimationTime = System.currentTimeMillis();
         }
 
         //render UI

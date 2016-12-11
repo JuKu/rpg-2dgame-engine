@@ -172,6 +172,8 @@ public class Mesh {
 
         //TODO: replace OpenGL commands with FloatVertexBufferObject methods
 
+        this.beforeRender();
+
         //draw the mesh
         glBindVertexArray(this.getVaoID());
         glEnableVertexAttribArray(0);
@@ -190,6 +192,16 @@ public class Mesh {
         glDisableVertexAttribArray(2);
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
+
+        this.afterRender();
+    }
+
+    protected void beforeRender () {
+        //
+    }
+
+    public void afterRender () {
+        //
     }
 
     public void deleteBuffers() {
