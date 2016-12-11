@@ -10,6 +10,10 @@ uniform int hasTexture;
 
 void main()
 {
+    if(colour.a <= 0) {
+        discard;
+    }
+
     if ( hasTexture == 1 )
     {
         fragColor = vec4(colour) * texture(texture_sampler, outTexCoord);
