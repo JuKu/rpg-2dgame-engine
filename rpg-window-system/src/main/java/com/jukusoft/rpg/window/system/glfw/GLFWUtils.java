@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.window.system.glfw;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
+import com.jukusoft.rpg.core.utils.GamePlatform;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import java.util.concurrent.atomic.AtomicBoolean;

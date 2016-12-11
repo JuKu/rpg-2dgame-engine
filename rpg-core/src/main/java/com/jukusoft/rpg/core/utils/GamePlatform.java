@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.utils;
+package com.jukusoft.rpg.core.utils;
 
 import java.util.Queue;
 import java.util.concurrent.*;
@@ -29,6 +29,10 @@ public class GamePlatform {
 
     public static void init (int nOfThreads) {
         scheduledExecutorService = Executors.newScheduledThreadPool(nOfThreads);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            scheduledExecutorService.shutdownNow();
+        }));
     }
 
     protected static void initIfAbsent () {
@@ -94,7 +98,15 @@ public class GamePlatform {
     }
 
     public static void setTimer (final long timeInMillis, final Runnable runnable) {
+        initIfAbsent();
+
         scheduledExecutorService.schedule(runnable, timeInMillis, TimeUnit.MILLISECONDS);
+    }
+
+    public static void setInterval (final long intervalTimeInMillis, Runnable runnable) {
+        initIfAbsent();
+
+        scheduledExecutorService.scheduleAtFixedRate(runnable, 0, intervalTimeInMillis, TimeUnit.MILLISECONDS);
     }
 
 }

@@ -136,7 +136,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
 
         //left top vertex
         textCoords.add(imageView.getStartX() / textureWidth);
-        textCoords.add(imageView.getStartY() / imageView.getHeight());
+        textCoords.add(imageView.getStartY() / textureHeight);
 
         //left bottom vertex
         textCoords.add(imageView.getStartX() / textureWidth);
@@ -148,7 +148,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
 
         //right top vertex
         textCoords.add((imageView.getStartX() + imageView.getWidth() ) / textureWidth);
-        textCoords.add(imageView.getStartY() / imageView.getHeight());
+        textCoords.add(imageView.getStartY() / textureHeight);
 
         //left top vertex
         /*textCoords.add(imageView.getStartX() / imageView.getWidth());
@@ -215,6 +215,9 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         } else {
             this.imageRegionInfo.set(startX, startY, width, height);
         }
+
+        //update texture coordinates VBO
+        this.updateTexCoords(this.imageRegionInfo);
     }
 
     public ReadonlyImageRegionInfo getCurrentView () {

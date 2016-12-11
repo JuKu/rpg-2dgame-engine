@@ -6,7 +6,7 @@ import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.path.GamePaths;
-import com.jukusoft.rpg.game.engine.utils.GamePlatform;
+import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.graphic.opengl.font.FontAttr;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;

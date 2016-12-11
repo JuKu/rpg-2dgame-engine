@@ -1,7 +1,7 @@
 package com.jukusoft.rpg.game.engine.app;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
-import com.jukusoft.rpg.game.engine.utils.GamePlatform;
+import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.game.engine.utils.Timer;
 import com.jukusoft.rpg.window.system.IWindow;
 import com.jukusoft.rpg.window.system.callback.AbstractKeyCallback;

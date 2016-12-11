@@ -6,6 +6,7 @@ import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
+import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
@@ -67,6 +68,11 @@ public class IntroGameState extends BasicGameState {
         this.drawableObjects.add(image);
         this.drawableObjects.add(text);
         this.drawableObjects.add(campfire);
+
+        //change frame after 5 seconds
+        GamePlatform.setTimer(5000, () -> {
+            campfire.setRegion(65, 0, 64, 64);
+        });
     }
 
     @Override
