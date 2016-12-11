@@ -11,6 +11,8 @@
   - FloatVertexBufferObject & IntegerVertexBufferObject now supports GL_DYNAMIC_DRAW
   - OpenGLShaderProgram now also supports Vector4f uniforms
   - added support for Texture Regions (Spritesheets)
+  - improved performance in UIRenderer, copied list isnt required anymore, some OpenGL hints in GLFWWindow has solved this issue
+  - added support for transparency
 
 Special thanks to noctarius for some tips about Software Design / Performance and Buschtaube for an OpenGL tip about texture coordinates in texture regions!
 

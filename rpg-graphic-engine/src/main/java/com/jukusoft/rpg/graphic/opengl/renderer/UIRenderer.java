@@ -118,16 +118,16 @@ public class UIRenderer {
     */
     public void render (int windowWidth, int windowHeight, List<DrawableObject> drawableObjectsList) {
         //clear old cache
-        this.drawableObjectsCache.clear();
+        //this.drawableObjectsCache.clear();
 
         //add all entries to reverse list later
-        this.drawableObjectsCache.addAll(drawableObjectsList);
+        //this.drawableObjectsCache.addAll(drawableObjectsList);
 
         //reverse list
-        Collections.reverse(this.drawableObjectsCache);
+        //Collections.reverse(this.drawableObjectsCache);
 
         //create new list and add all entries to reverse list
-        List<DrawableObject> drawableObjects = this.drawableObjectsCache;
+        List<DrawableObject> drawableObjects = drawableObjectsList;
 
         if (drawableObjects == null) {
             throw new IllegalArgumentException("drawableObjects list cannot be null.");

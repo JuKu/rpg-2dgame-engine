@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -357,13 +358,21 @@ public class GLFWWindow implements IWindow {
         // Set the clear color
         //glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
-        glEnable(GL_DEPTH_TEST);
+        //enable depth test
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
 
         // Support for transparencies
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         glEnable(GL_ALPHA_TEST);
+
+        //set clear value for stencil buffers
+        GL11.glClearStencil(0);
+
+        //set stencil mask
+        GL11.glStencilMask(0xff);
 
         this.wasPreparedRendering.set(true);
 
