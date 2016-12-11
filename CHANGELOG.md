@@ -9,7 +9,7 @@
   - FloatVertexBufferObject & IntegerVertexBufferObject now supports GL_DYNAMIC_DRAW
   - OpenGLShaderProgram now also supports Vector4f uniforms
 
-Special thanks to noctarius for some tips!
+Special thanks to noctarius for some tips about Software Design / Performance and Buschtaube for an OpenGL tip about texture coordinates in texture regions!
 
 ## 1.0.1 Alpha Release
   - UIRenderer is ready for your game
