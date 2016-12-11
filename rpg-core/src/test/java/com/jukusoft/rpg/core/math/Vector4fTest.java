@@ -12,22 +12,25 @@ public class Vector4fTest {
     @Test
     public void testGetterAndSetter () {
         //create new vector
-        Vector4f vector = new Vector4f(1, 2, 3);
+        Vector4f vector = new Vector4f(1, 2, 3, 4);
 
         //check getter
         assertEquals(1, vector.getX(), 0);
         assertEquals(2, vector.getY(), 0);
         assertEquals(3, vector.getZ(), 0);
+        assertEquals(4, vector.getA(), 0);
 
         //check setter and getter
         vector.setX(4);
         vector.setY(5);
         vector.setZ(6);
+        vector.setA(8);
 
         //check values
         assertEquals(4, vector.getX(), 0);
         assertEquals(5, vector.getY(), 0);
         assertEquals(6, vector.getZ(), 0);
+        assertEquals(8, vector.getA(), 0);
     }
 
 }

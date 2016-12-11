@@ -25,6 +25,9 @@ public class FloatVertexBufferObject {
 
     protected final int target;
 
+    /**
+    * usage - see https://www.opengl.org/wiki/Buffer_Object#Buffer_Object_Usage
+    */
     protected int usage = GL_STATIC_DRAW;
 
     public FloatVertexBufferObject(final int target) {

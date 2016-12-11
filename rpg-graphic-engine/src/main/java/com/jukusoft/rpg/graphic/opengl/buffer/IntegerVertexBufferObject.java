@@ -26,6 +26,9 @@ public class IntegerVertexBufferObject {
 
     protected final int target;
 
+    /**
+     * usage - see https://www.opengl.org/wiki/Buffer_Object#Buffer_Object_Usage
+     */
     protected int usage = GL_STATIC_DRAW;
 
     public IntegerVertexBufferObject(final int target, final int usage) {

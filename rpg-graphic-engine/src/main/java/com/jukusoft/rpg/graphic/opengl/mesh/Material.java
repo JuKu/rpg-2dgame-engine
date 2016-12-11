@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.mesh;
 
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.core.math.Vector4f;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
 /**
@@ -8,9 +9,9 @@ import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
  */
 public class Material {
 
-    private static final Vector3f DEFAULT_COLOUR = new Vector3f(1.0f, 1.0f, 1.0f);
+    private static final Vector4f DEFAULT_COLOUR = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-    protected Vector3f color = DEFAULT_COLOUR;
+    protected Vector4f color = DEFAULT_COLOUR;
     private float reflectance = 0;
     protected OpenGL2DTexture texture = null;
 
@@ -23,12 +24,16 @@ public class Material {
         this.reflectance = 0;
     }
 
-    public Vector3f getColor () {
+    public Vector4f getColor () {
         return this.color;
     }
 
-    public void setColor (Vector3f color) {
+    public void setColor (Vector4f color) {
         this.color = color;
+    }
+
+    public void setColor (Vector3f color) {
+        this.color = new Vector4f(color.getX(), color.getY(), color.getZ(), 1f);
     }
 
     public float getReflectance() {

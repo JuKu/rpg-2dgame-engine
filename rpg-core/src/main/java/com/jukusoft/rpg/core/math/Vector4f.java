@@ -32,9 +32,9 @@ public class Vector4f {
     //flag, if vector is readonly
     protected AtomicBoolean readonly = new AtomicBoolean(false);
 
-    public Vector4f(final float x, final float y, final float z) {
+    public Vector4f(final float x, final float y, final float z, final float a) {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 4);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -43,11 +43,12 @@ public class Vector4f {
         this.floatBuffer.put(0, x);
         this.floatBuffer.put(1, y);
         this.floatBuffer.put(2, z);
+        this.floatBuffer.put(3, a);
     }
 
     public Vector4f() {
         //allocate new direct (Off Heap) byte buffer with size of 2 bytes
-        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 4);
 
         //convert to float buffer to access data easely
         this.floatBuffer = this.buffer.asFloatBuffer();
@@ -83,6 +84,10 @@ public class Vector4f {
      */
     public float getZ () {
         return this.floatBuffer.get(2);
+    }
+
+    public float getA () {
+        return this.floatBuffer.get(3);
     }
 
     public float get (int i) {
@@ -130,6 +135,19 @@ public class Vector4f {
         }
 
         this.floatBuffer.put(2, z);
+    }
+
+    /**
+     * set a coordinate of vector
+     *
+     * @param a a coordinate of vector
+     */
+    public void setA (final float a) {
+        if (readonly.get()) {
+            throw new IllegalStateException("vector is readonly.");
+        }
+
+        this.floatBuffer.put(3, a);
     }
 
     /**
@@ -282,7 +300,7 @@ public class Vector4f {
      */
     public Vector4f copy () {
         //create new vector with same values
-        Vector4f vector = new Vector4f(getX(), getY(), getZ());
+        Vector4f vector = new Vector4f(getX(), getY(), getZ(), getA());
 
         return vector;
     }

@@ -2,6 +2,7 @@ package com.jukusoft.rpg.graphic.opengl.shader;
 
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.core.math.Vector4f;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.exception.OpenGLVersionException;
 import com.jukusoft.rpg.graphic.exception.ShaderException;
@@ -332,6 +333,23 @@ public class OpenGLShaderProgram /*extends Asset*/ {
 
         //set vector value to uniform
         glUniform3f(uniformID, vector.getX(), vector.getY(), vector.getZ());
+    }
+
+    public void setUniform (final String name, Vector4f vector) {
+        if (!this.uniformsMap.containsKey(name)) {
+            throw new OpenGLShaderException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //get uniform id
+        int uniformID = uniformsMap.get(name);
+
+        //check, if uniform exists
+        /*if (!this.uniformsMap.containsKey(name) || uniformID <= 0) {
+            throw new RuntimeException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }*/
+
+        //set vector value to uniform
+        glUniform4f(uniformID, vector.getX(), vector.getY(), vector.getZ(), vector.getA());
     }
 
     /**
