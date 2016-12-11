@@ -1,12 +1,13 @@
 package com.jukusoft.rpg.graphic.opengl.mesh;
 
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
 import com.jukusoft.rpg.graphic.utils.MeshUtils;
 
 /**
  * Created by Justin on 30.11.2016.
  */
-public class DrawableObject {
+public class DrawableObject implements Renderable {
 
     /**
     * position of mesh object
@@ -100,4 +101,8 @@ public class DrawableObject {
         this.cleanUp();
     }
 
+    @Override
+    public void render() {
+        getMesh().render();
+    }
 }

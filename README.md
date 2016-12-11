@@ -61,6 +61,7 @@ Some implemented features:
   - draw images (currently only full images, spritesheets are planned)
   - Game State System
   - Logging
+  - draw texture regions (an view of an image, like in tilesets)
 
 Draw text:
 ![Draw text](https://raw.githubusercontent.com/JuKu/rpg-2dgame-engine/master/rpg-2dgame/docs/images/text.PNG)

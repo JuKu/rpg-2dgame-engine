@@ -177,7 +177,7 @@ public class UIRenderer {
             uiShaderProgram.setUniform("hasTexture", mesh.getMaterial().isTextured() ? 1 : 0);
 
             //render mesh
-            mesh.render();
+            obj.render();
         }
 
         uiShaderProgram.unbind();
