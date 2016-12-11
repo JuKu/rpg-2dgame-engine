@@ -83,7 +83,7 @@ public class Mesh {
 
     public void setTextureCoordinatesVBO (float[] textCoords) {
         if (this.textureCoordinatesVBO == null) {
-            this.textureCoordinatesVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER);
+            this.textureCoordinatesVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
         }
 
         //bind VBO
