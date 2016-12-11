@@ -105,4 +105,9 @@ public class DrawableObject implements Renderable {
     public void render() {
         getMesh().render();
     }
+
+    @Override
+    public Material getMaterial() {
+        return getMesh().getMaterial();
+    }
 }
