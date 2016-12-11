@@ -65,7 +65,7 @@ public class Mesh {
 
     public void setPositionVBO (float[] positions) {
         if (this.positionVBO == null) {
-            this.positionVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER);
+            this.positionVBO = new FloatVertexBufferObject(GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
         }
 
         //bind VBO
