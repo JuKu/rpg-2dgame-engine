@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.opengl.image;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.ArrayUtils;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
@@ -42,6 +43,8 @@ public class OpenGL2DTextureRegion extends DrawableObject {
     * default constructor
     */
     public OpenGL2DTextureRegion (final float x, final float y, final float startX, final float startY, final float width, final float height, OpenGL2DTexture texture) {
+        this.imageRegionInfo = new ImageRegionInfo(startX, startY, width, height);
+
         //set image and build mesh
         this.setTexture(x, y, startX, startY, width, height, texture);
 
@@ -63,13 +66,14 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         List<Integer> indices   = new ArrayList();
 
         int i = 0;
+        ImageRegionInfo imageView = this.imageRegionInfo;
 
         //left top vertex
         positions.add(x); //x
         positions.add(y); //y
         positions.add(ZPOS); //z
         textCoords.add(/*(float) charInfo.getStartX() / (float)fontTexture.getWidth()*/x / width);
-        textCoords.add(0.0f);
+        textCoords.add(imageView.getStartY() / imageView.getHeight());
         indices.add(i * VERTICES_PER_QUAD);
 
         //left bottom vertex
@@ -77,7 +81,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         positions.add(height); //y
         positions.add(ZPOS); //z
         textCoords.add(/*(float)charInfo.getStartX() / (float)fontTexture.getWidth()*/x / width);
-        textCoords.add(1.0f);
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
         indices.add(i * VERTICES_PER_QUAD + 1);
 
         //right bottom vertex
@@ -85,7 +89,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         positions.add(height); //y
         positions.add(ZPOS); //z
         textCoords.add((float)(x + width)/ width);
-        textCoords.add(1.0f);
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
         indices.add(i * VERTICES_PER_QUAD + 2);
 
         //right top vertex
@@ -93,7 +97,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         positions.add(0.0f); //y
         positions.add(ZPOS); //z
         textCoords.add((x + width) / width);
-        textCoords.add(0.0f);
+        textCoords.add(imageView.getStartY() / imageView.getHeight());
         indices.add(i * VERTICES_PER_QUAD + 3);
 
         //add indices for left top and bottom right vertices
@@ -116,6 +120,8 @@ public class OpenGL2DTextureRegion extends DrawableObject {
 
     protected void updateTexCoords (ReadonlyImageRegionInfo imageView) {
         List<Float> textCoords = new ArrayList();
+
+        GameLogger.debug("OpenGL2DTextureRegion", "updateTexCoords, startX: " + imageView.getStartX() + ", startY: " + imageView.getStartY() + ", width: " + imageView.getWidth() + ", height: " + imageView.getHeight());
 
         //left top vertex
         textCoords.add(imageView.getStartX() / imageView.getWidth());
@@ -168,6 +174,12 @@ public class OpenGL2DTextureRegion extends DrawableObject {
 
         //set region (viewport of image)
         this.imageRegionInfo.set(startX, startY, width, height);
+
+        //update texture coordinates
+        this.updateTexCoords(this.imageRegionInfo);
+
+        //set position
+        this.setPosition(x, y, 0);
     }
 
     public void setRegion (final float startX, final float startY, final float width, final float height) {

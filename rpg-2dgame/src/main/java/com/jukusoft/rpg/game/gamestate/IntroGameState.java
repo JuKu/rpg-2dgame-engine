@@ -1,6 +1,5 @@
 package com.jukusoft.rpg.game.gamestate;
 
-import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.game.engine.app.GameApp;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
@@ -32,7 +31,7 @@ public class IntroGameState extends BasicGameState {
 
     protected OpenGLText text = null;
     protected OpenGL2DImage image = null;
-    protected OpenGL2DTextureRegion textureRegion = null;
+    protected OpenGL2DTextureRegion campfire = null;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -57,14 +56,17 @@ public class IntroGameState extends BasicGameState {
 
         text.setText("JuKuSoft - Draw Text Example");
 
-        //load texture
+        //load textures
         OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
+        OpenGL2DTexture campfireTexture = ResourceManager.getInstance().getTexture("spritesheets/campfire/CampFireFinished.png");
 
         this.image = new OpenGL2DImage(0, 0, texture);
+        this.campfire = new OpenGL2DTextureRegion(200, 200, 0, 0, 64 * 5, 64, campfireTexture);
 
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
         this.drawableObjects.add(text);
+        this.drawableObjects.add(campfire);
     }
 
     @Override
