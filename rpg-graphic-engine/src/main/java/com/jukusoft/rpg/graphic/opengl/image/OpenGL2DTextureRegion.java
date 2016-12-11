@@ -114,8 +114,60 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         return mesh;
     }
 
+    protected void updateTexCoords (ReadonlyImageRegionInfo imageView) {
+        List<Float> textCoords = new ArrayList();
+
+        //left top vertex
+        textCoords.add(imageView.getStartX() / imageView.getWidth());
+        textCoords.add(imageView.getStartY() / imageView.getHeight());
+
+        //left bottom vertex
+        textCoords.add(imageView.getStartX() / imageView.getWidth());
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
+
+        //right bottom vertex
+        textCoords.add((imageView.getStartX() + imageView.getWidth()) / imageView.getWidth());
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
+
+        //right top vertex
+        textCoords.add((imageView.getStartX() + imageView.getWidth()) / imageView.getWidth());
+        textCoords.add(imageView.getStartY() / imageView.getHeight());
+
+        float[] textCoordsArr = ArrayUtils.convertFloatListToArray(textCoords);
+        this.getMesh().setTextureCoordinatesVBO(textCoordsArr);
+    }
+
     public void setTexture (final float x, final float y, final float startX, final float startY, final float width, final float height, OpenGL2DTexture texture) {
+        //get old texture
+        OpenGL2DTexture oldTexture = this.texture;
+
+        //create and upload new texture
+        this.texture = texture;
+
+        //create new mesh
+        Mesh mesh = buildMesh(startX, startY, width, height, texture);
+
+        //get old mesh
+        Mesh oldMesh = getMesh();
+
+        //set new mesh
+        setMesh(mesh);
+
+        //set default color #FFFFFF
+        this.getMesh().getMaterial().setColor(new Vector3f(1f, 1f, 1f));
+
+        if (oldMesh != null) {
+            //delete old mesh from gpu
+            oldMesh.cleanUp();
+        }
+
+        if (oldTexture != null) {
+            //delete old texture from gpu
+            oldTexture.delete();
+        }
+
         //set region (viewport of image)
+        this.imageRegionInfo.set(startX, startY, width, height);
     }
 
     public void setRegion (final float startX, final float startY, final float width, final float height) {
@@ -124,6 +176,10 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         } else {
             this.imageRegionInfo.set(startX, startY, width, height);
         }
+    }
+
+    public ReadonlyImageRegionInfo getCurrentView () {
+        return this.imageRegionInfo;
     }
 
 }
