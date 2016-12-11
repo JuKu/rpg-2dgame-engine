@@ -10,6 +10,7 @@ import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
+import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DTextureRegion;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
@@ -31,6 +32,7 @@ public class IntroGameState extends BasicGameState {
 
     protected OpenGLText text = null;
     protected OpenGL2DImage image = null;
+    protected OpenGL2DTextureRegion textureRegion = null;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
