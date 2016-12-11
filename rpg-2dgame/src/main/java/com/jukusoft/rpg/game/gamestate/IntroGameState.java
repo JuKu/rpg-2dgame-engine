@@ -66,7 +66,7 @@ public class IntroGameState extends BasicGameState {
         OpenGL2DTexture campfireTexture = ResourceManager.getInstance().getTexture("spritesheets/campfire/CampFireFinished.png");
 
         this.image = new OpenGL2DImage(0, 0, texture);
-        this.campfire = new OpenGL2DTextureRegion(200, 200, 0, 0, 64, 64, campfireTexture);
+        this.campfire = new OpenGL2DTextureRegion(/*200*/0, /*200*/0, 0, 0, 64, 64, campfireTexture);
 
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);

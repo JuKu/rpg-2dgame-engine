@@ -43,6 +43,11 @@ public class OpenGL2DTextureRegion extends DrawableObject {
     protected float maxHeightOfTexture = 0f;
 
     /**
+    * instance of list, so we dont need to create an new list, if texture coordinates will be updated
+    */
+    protected List<Float> cachedTextCoords = new ArrayList();
+
+    /**
     * default constructor
     */
     public OpenGL2DTextureRegion (final float x, final float y, final float startX, final float startY, final float width, final float height, OpenGL2DTexture texture) {
@@ -121,11 +126,43 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         return mesh;
     }
 
+    protected void updatePositions (final float x, final float y, final float width, final float height) {
+        //create list with new positions
+        List<Float> positions = new ArrayList();
+
+        //left top vertex
+        positions.add(x); //x
+        positions.add(y); //y
+        positions.add(ZPOS); //z
+
+        //left bottom vertex
+        positions.add(x); // x
+        positions.add(height); //y
+        positions.add(ZPOS); //z
+
+        //right bottom vertex
+        positions.add(x + width); // x
+        positions.add(height); //y
+        positions.add(ZPOS); //z
+
+        //right top vertex
+        positions.add(x + width); // x
+        positions.add(0.0f); //y
+        positions.add(ZPOS); //z
+
+        //convert list to array
+        float[] posArray = ArrayUtils.convertFloatListToArray(positions);
+
+        //upload positions array to gpu
+        this.getMesh().setPositionVBO(posArray);
+    }
+
     protected void updateTexCoords (ReadonlyImageRegionInfo imageView) {
         //create new list for texture coordinates
-        List<Float> textCoords = new ArrayList();
+        List<Float> textCoords = this.cachedTextCoords;
+        textCoords.clear();
 
-        GameLogger.debug("OpenGL2DTextureRegion", "updateTexCoords, startX: " + imageView.getStartX() + ", startY: " + imageView.getStartY() + ", width: " + imageView.getWidth() + ", height: " + imageView.getHeight());
+        //GameLogger.debug("OpenGL2DTextureRegion", "updateTexCoords, startX: " + imageView.getStartX() + ", startY: " + imageView.getStartY() + ", width: " + imageView.getWidth() + ", height: " + imageView.getHeight());
 
         /**
          * (0, 0) is left bottom and (1, 1) right top of texture
@@ -140,31 +177,15 @@ public class OpenGL2DTextureRegion extends DrawableObject {
 
         //left bottom vertex
         textCoords.add(imageView.getStartX() / textureWidth);
-        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / textureHeight);
 
         //right bottom vertex
         textCoords.add((imageView.getStartX() + imageView.getWidth() ) / textureWidth);
-        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
+        textCoords.add((imageView.getStartY() + imageView.getHeight()) / textureHeight);
 
         //right top vertex
         textCoords.add((imageView.getStartX() + imageView.getWidth() ) / textureWidth);
         textCoords.add(imageView.getStartY() / textureHeight);
-
-        //left top vertex
-        /*textCoords.add(imageView.getStartX() / imageView.getWidth());
-        textCoords.add(imageView.getStartY() / imageView.getHeight());
-
-        //left bottom vertex
-        textCoords.add(imageView.getStartX() / imageView.getWidth());
-        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
-
-        //right bottom vertex
-        textCoords.add((imageView.getStartX() + imageView.getWidth()) / imageView.getWidth());
-        textCoords.add((imageView.getStartY() + imageView.getHeight()) / imageView.getHeight());
-
-        //right top vertex
-        textCoords.add((imageView.getStartX() + imageView.getWidth()) / imageView.getWidth());
-        textCoords.add(imageView.getStartY() / imageView.getHeight());*/
 
         float[] textCoordsArr = ArrayUtils.convertFloatListToArray(textCoords);
         this.getMesh().setTextureCoordinatesVBO(textCoordsArr);
@@ -178,7 +199,7 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         this.texture = texture;
 
         //create new mesh
-        Mesh mesh = buildMesh(startX, startY, width, height, texture);
+        Mesh mesh = buildMesh(0, 0, width, height, texture);
 
         //get old mesh
         Mesh oldMesh = getMesh();
@@ -210,10 +231,22 @@ public class OpenGL2DTextureRegion extends DrawableObject {
     }
 
     public void setRegion (final float startX, final float startY, final float width, final float height) {
+        float oldWidth = 0;
+        float oldHeight = 0;
+
         if (this.imageRegionInfo == null) {
             this.imageRegionInfo = new ImageRegionInfo(startX, startY, width, height);
         } else {
+            oldWidth = this.imageRegionInfo.getWidth();
+            oldHeight = this.imageRegionInfo.getHeight();
+
             this.imageRegionInfo.set(startX, startY, width, height);
+        }
+
+        //check, if width or height was changed
+        if (this.imageRegionInfo.getWidth() != oldWidth || this.imageRegionInfo.getHeight() != oldHeight) {
+            //we have to update position VBO
+            this.updatePositions(0, 0, width, height);
         }
 
         //update texture coordinates VBO
