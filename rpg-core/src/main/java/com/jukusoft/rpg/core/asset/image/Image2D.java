@@ -4,6 +4,7 @@ import com.jukusoft.rpg.core.asset.Asset;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
 import com.jukusoft.rpg.core.exception.FilePermissionException;
 import com.jukusoft.rpg.core.exception.UnsupportedAssetException;
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.path.GamePaths;
 import com.jukusoft.rpg.core.utils.BufferUtils;
 import de.matthiasmann.twl.utils.PNGDecoder;
@@ -111,6 +112,8 @@ public class Image2D extends Asset {
 
     @Override
     public void cleanUp () {
+        GameLogger.debug("Image2D", "cleanUp image with assetID: " + this.getAssetID() + "and path: " + this.path);
+
         //cleanUp buffer
         BufferUtils.releaseMemory(this.buffer);
     }

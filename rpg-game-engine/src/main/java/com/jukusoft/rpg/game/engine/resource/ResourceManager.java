@@ -1,5 +1,7 @@
 package com.jukusoft.rpg.game.engine.resource;
 
+import com.jukusoft.rpg.core.asset.Asset;
+import com.jukusoft.rpg.core.asset.AssetCleanUpListener;
 import com.jukusoft.rpg.core.asset.image.Image2D;
 import com.jukusoft.rpg.core.exception.AssetException;
 import com.jukusoft.rpg.core.exception.AssetNotFoundException;
@@ -50,8 +52,8 @@ public class ResourceManager {
         return instance;
     }
 
-    public Image2D getImage (String path) {
-        path = GamePaths.getImagePath(path);
+    public Image2D getImage (String pathParam) {
+        final String path = GamePaths.getImagePath(pathParam);
 
         //get image from cache
         Image2D image = this.imageCache.get(path);
@@ -82,12 +84,20 @@ public class ResourceManager {
 
             //add image to cache
             this.imageCache.put(path, image);
+
+            //add listener
+            image.addCleanUpListener(new AssetCleanUpListener() {
+                @Override
+                public void cleanUp(long assetID, Asset asset) {
+                    imageCache.remove(path);
+                }
+            });
         } else {
             GameLogger.debug("ResourceManager", "load image from cache: " + image);
         }
 
         //increment texture refCount
-        image.incrementReference();
+        //image.incrementReference();
 
         //set last access timestamp
         image.setLastAccess();
@@ -154,6 +164,8 @@ public class ResourceManager {
             //create new texture
             texture = OpenGL2DTexture.createAndUpload(image);
 
+            image.release();
+
             //add texture to cache
             this.textureMap.put(path, texture);
         } else {
@@ -161,7 +173,7 @@ public class ResourceManager {
         }
 
         //increment texture refCount
-        texture.incrementReference();
+        //texture.incrementReference();
 
         //set last access timestamp
         texture.setLastAccess();
@@ -205,7 +217,7 @@ public class ResourceManager {
                 GameLogger.debug("ResourceManager", "load font from cache: " + fontAttr.toString());
 
                 //increment texture refCount
-                texture.incrementReference();
+                //texture.incrementReference();
 
                 //set last access timestamp
                 texture.setLastAccess();

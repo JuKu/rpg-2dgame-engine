@@ -108,6 +108,8 @@ public class IntroGameState extends BasicGameState {
             getWindow().setResizedFlag(false);
         }
 
+        System.out.println("FPS: " + app.getFPS());
+
         /*if (lastAnimationTime + animationInterval < System.currentTimeMillis()) {
             campfire.setRegion(animFrameCount * 64, 0, 64, 64);
 
