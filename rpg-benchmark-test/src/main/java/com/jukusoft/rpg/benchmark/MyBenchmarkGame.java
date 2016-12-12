@@ -22,8 +22,6 @@ public class MyBenchmarkGame extends SimpleGameApp {
 
     protected List<Renderable> drawableObjects = new ArrayList<>();
 
-    protected OpenGL2DImage image = null;
-
     public MyBenchmarkGame (boolean useMultiThreading, int fixedFPS, int fixedUPS, boolean vSync) {
         super(useMultiThreading, fixedFPS, fixedUPS, vSync);
     }
@@ -56,11 +54,11 @@ public class MyBenchmarkGame extends SimpleGameApp {
         OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
 
         //create image
-        this.image = new OpenGL2DImage(0, 0, texture);
+        final OpenGL2DImage image = new OpenGL2DImage(0, 0, texture);
 
         //draw same texture 2000 times
         for (int i = 0; i < 2000; i++) {
-            this.drawableObjects.add(this.image);
+            this.drawableObjects.add(image);
         }
     }
 

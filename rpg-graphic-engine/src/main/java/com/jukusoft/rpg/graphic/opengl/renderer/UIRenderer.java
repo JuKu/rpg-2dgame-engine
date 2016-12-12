@@ -62,6 +62,7 @@ public class UIRenderer {
     */
     protected Matrix4f cachedProjModelMatrix = new Matrix4f();
 
+    protected boolean redrawSameMeshOptimization = true;
     protected long lastMeshID = -1;
     protected Vector3f lastPosition = null;
     protected Vector3f lastRotation = null;
@@ -171,7 +172,7 @@ public class UIRenderer {
                 animation.updateFrame(currentTime);
             }
 
-            if (!obj.redrawWithSameParams() && this.lastMeshID == obj.getMeshID() &&
+            if (this.redrawSameMeshOptimization && !obj.redrawWithSameParams() && this.lastMeshID == obj.getMeshID() &&
                     this.lastPosition != null && this.lastPosition.equals(obj.getPosition()) &&
                     this.lastRotation != null && this.lastRotation.equals(obj.getRotation()) &&
                     this.lastScale == obj.getScale()) {
@@ -221,6 +222,14 @@ public class UIRenderer {
         this.lastWindowHeight = windowHeight;
 
         return wasResized;
+    }
+
+    protected void disableRedrawSameMeshOptimization () {
+        this.redrawSameMeshOptimization = false;
+    }
+
+    protected void enableRedrawSameMeshOptimization () {
+        this.redrawSameMeshOptimization = true;
     }
 
 }
