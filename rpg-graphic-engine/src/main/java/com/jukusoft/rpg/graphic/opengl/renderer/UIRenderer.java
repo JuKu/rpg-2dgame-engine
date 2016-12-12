@@ -224,11 +224,11 @@ public class UIRenderer {
         return wasResized;
     }
 
-    protected void disableRedrawSameMeshOptimization () {
+    public void disableRedrawSameMeshOptimization () {
         this.redrawSameMeshOptimization = false;
     }
 
-    protected void enableRedrawSameMeshOptimization () {
+    public void enableRedrawSameMeshOptimization () {
         this.redrawSameMeshOptimization = true;
     }
 
