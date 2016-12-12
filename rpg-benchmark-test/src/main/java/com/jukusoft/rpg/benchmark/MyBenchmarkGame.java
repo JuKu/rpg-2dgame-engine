@@ -56,7 +56,7 @@ public class MyBenchmarkGame extends SimpleGameApp {
         //create image
         final OpenGL2DImage image = new OpenGL2DImage(0, 0, texture);
 
-        //draw same texture 2000 times
+        //draw same texture 2000 times every render loop
         for (int i = 0; i < 2000; i++) {
             this.drawableObjects.add(image);
         }
