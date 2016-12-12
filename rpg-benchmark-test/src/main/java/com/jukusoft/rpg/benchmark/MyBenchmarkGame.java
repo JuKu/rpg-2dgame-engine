@@ -52,15 +52,18 @@ public class MyBenchmarkGame extends SimpleGameApp {
 
         //load textures
         OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
+        OpenGL2DTexture texture1 = ResourceManager.getInstance().getTexture("spritesheets/campfire/CampFireFinished.png");
 
         //create image
         final OpenGL2DImage image = new OpenGL2DImage(0, 0, texture);
+        final OpenGL2DImage image2 = new OpenGL2DImage(10, 10, texture1);
 
         this.uiRenderer.disableRedrawSameMeshOptimization();
 
         //draw same texture 2000 times every render loop
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 1000; i++) {
             this.drawableObjects.add(image);
+            this.drawableObjects.add(image2);
         }
     }
 
