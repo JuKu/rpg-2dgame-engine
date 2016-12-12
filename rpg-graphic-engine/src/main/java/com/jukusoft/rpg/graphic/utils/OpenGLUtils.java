@@ -1,7 +1,10 @@
 package com.jukusoft.rpg.graphic.utils;
 
-import static org.lwjgl.opengl.GL11.GL_VERSION;
-import static org.lwjgl.opengl.GL11.glGetString;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.glGetStringi;
 
 /**
  * Utils for OpenGL 2.0+
@@ -57,6 +60,33 @@ public class OpenGLUtils {
     public static String getVersionString () {
         //get and return OpenGL version
         return glGetString(GL_VERSION);
+    }
+
+    public static String getVendor () {
+        return glGetString(GL_VENDOR);
+    }
+
+    public static String getRendererName () {
+        return glGetString(GL_RENDERER);
+    }
+
+    public static int getNumberOfExtensions () {
+        return GL11.glGetInteger(GL30.GL_NUM_EXTENSIONS);
+    }
+
+    public static String getExtensionName (int index) {
+        return glGetStringi(GL_EXTENSIONS, index);
+    }
+
+    public static String[] getAllExtensions () {
+        int availableExtensionsNumber = getNumberOfExtensions();
+        String ext[] = new String[availableExtensionsNumber];
+
+        for (int i = 0; i < availableExtensionsNumber; i++) {
+            ext[i] = getExtensionName(i);
+        }
+
+        return ext;
     }
 
 }

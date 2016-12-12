@@ -3,6 +3,7 @@ package com.jukusoft.rpg.game.engine.app;
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.game.engine.utils.Timer;
+import com.jukusoft.rpg.graphic.utils.OpenGLUtils;
 import com.jukusoft.rpg.window.system.IWindow;
 import com.jukusoft.rpg.window.system.callback.AbstractKeyCallback;
 import com.jukusoft.rpg.window.system.glfw.GLFWUtils;
@@ -182,6 +183,9 @@ public abstract class SimpleGameApp implements GameApp {
 
         //initialize game
         this.initialize();
+
+        //log graphic card vendor name
+        GameLogger.info("SimpleGameApp", "graphic card vendor name: " + OpenGLUtils.getVendor());
 
         float elapsedTime = 0;
 
