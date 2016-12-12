@@ -70,6 +70,8 @@ public class MyBenchmarkGame extends SimpleGameApp {
     @Override
     public void render() {
         this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects);
+
+        System.out.println("FPS: " + getFPS());
     }
 
 }
