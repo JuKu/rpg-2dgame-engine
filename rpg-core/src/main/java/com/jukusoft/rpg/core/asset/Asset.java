@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.core.asset;
 
+import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.utils.LocalUniqueID;
 
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public abstract class Asset {
             //cleanUp asset, because it isnt used anymore
             this.callCleanUp();
         }
+
+        GameLogger.debug("asset", "refCount: " + refCounter.get());
     }
 
     public final void incrementReference () {
@@ -105,6 +108,8 @@ public abstract class Asset {
 
         //clear list
         this.cleanUpListenerList.clear();
+
+        this.cleanUp();
     }
 
     /**
