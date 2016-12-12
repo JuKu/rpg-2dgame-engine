@@ -73,6 +73,11 @@ public abstract class SimpleGameStateApp<T extends GameState> extends SimpleGame
     }
 
     @Override
+    protected void beforeRender () {
+        //
+    }
+
+    @Override
     public void beforeShutdown () {
         Logger.getRootLogger().info("shutdown all game states.");
 

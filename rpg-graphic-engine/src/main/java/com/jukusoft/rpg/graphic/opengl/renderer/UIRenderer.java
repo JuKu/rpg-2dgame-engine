@@ -62,6 +62,11 @@ public class UIRenderer {
     */
     protected Matrix4f cachedProjModelMatrix = new Matrix4f();
 
+    protected long lastMeshID = -1;
+    protected Vector3f lastPosition = null;
+    protected Vector3f lastRotation = null;
+    protected float lastScale = 0;
+
     /**
     * default constructor
     */
@@ -166,6 +171,14 @@ public class UIRenderer {
                 animation.updateFrame(currentTime);
             }
 
+            if (!obj.redrawWithSameParams() && this.lastMeshID == obj.getMeshID() &&
+                    this.lastPosition != null && this.lastPosition.equals(obj.getPosition()) &&
+                    this.lastRotation != null && this.lastRotation.equals(obj.getRotation()) &&
+                    this.lastScale == obj.getScale()) {
+                //we dont need to redraw the same texture with the same params, because the underlaying texture isnt visible
+                continue;
+            }
+
             //get mesh
             //final Mesh mesh = obj.getMesh();
 
@@ -178,7 +191,19 @@ public class UIRenderer {
 
             //render mesh
             obj.render();
+
+            //set last params
+            this.lastMeshID = obj.getMeshID();
+            this.lastPosition = obj.getPosition();
+            this.lastRotation = obj.getRotation();
+            this.lastScale = obj.getScale();
         }
+
+        //reset params
+        this.lastMeshID = -1;
+        this.lastPosition = null;
+        this.lastRotation = null;
+        this.lastScale = Integer.MAX_VALUE;
 
         uiShaderProgram.unbind();
     }

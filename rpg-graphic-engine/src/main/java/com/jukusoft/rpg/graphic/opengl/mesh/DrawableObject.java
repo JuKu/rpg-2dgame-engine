@@ -77,6 +77,11 @@ public class DrawableObject implements Renderable {
         return this.meshID;
     }
 
+    @Override
+    public boolean redrawWithSameParams() {
+        return false;
+    }
+
     public Mesh getMesh () {
         return this.mesh;
     }

@@ -14,6 +14,7 @@
         <module>rpg-graphic-engine</module>
         <module>rpg-game-engine</module>
         <module>rpg-2dgame</module>
+        <module>rpg-benchmark-test</module>
     </modules>
 
     <properties>

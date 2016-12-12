@@ -253,6 +253,11 @@ public class OpenGL2DTextureRegion extends DrawableObject {
         this.updateTexCoords(this.imageRegionInfo);
     }
 
+    @Override
+    public boolean redrawWithSameParams() {
+        return true;
+    }
+
     public ReadonlyImageRegionInfo getCurrentView () {
         return this.imageRegionInfo;
     }

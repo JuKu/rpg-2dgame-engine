@@ -237,6 +237,8 @@ public abstract class SimpleGameApp implements GameApp {
                     GameLogger.debug("SimpleGameApp", "render.");
                 }
 
+                this.beforeRender();
+
                 //render
                 this.render();
 
@@ -291,6 +293,8 @@ public abstract class SimpleGameApp implements GameApp {
                 if (GameLogger.isRendererDebugMode()) {
                     GameLogger.debug("SimpleGameApp", "render.");
                 }
+
+                this.beforeRender();
 
                 //render
                 this.render();
@@ -490,6 +494,19 @@ public abstract class SimpleGameApp implements GameApp {
     * will be called if app is initializing game
     */
     protected abstract void initialize();
+
+    protected void beforeRender () {
+        //check, if window was resized
+        if (this.wasResized()) {
+            //window was resized
+
+            //reset resized flag
+            this.setResizedFlag(false);
+
+            //reset viewport
+            this.getWindow().setViewPort(0, 0, this.getWindow().getWidth(), this.getWindow().getHeight());
+        }
+    }
 
     /**
     * update game state

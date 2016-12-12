@@ -20,4 +20,11 @@ public interface Renderable {
 
     public float getScale ();
 
+    public long getMeshID ();
+
+    /**
+    * flag, if object should also be redrawed (overlayed), if it has the same params
+    */
+    public boolean redrawWithSameParams ();
+
 }
