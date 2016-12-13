@@ -54,6 +54,22 @@ public class Vector3f {
     /**
      * default constructor
      */
+    public Vector3f(Vector3f copiedVector) {
+        //allocate new direct (Off Heap) byte buffer with size of 3 bytes
+        this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
+
+        //convert to float buffer to access data easely
+        this.floatBuffer = this.buffer.asFloatBuffer();
+
+        //set initial coordinates
+        this.floatBuffer.put(0, copiedVector.getX());
+        this.floatBuffer.put(1, copiedVector.getY());
+        this.floatBuffer.put(2, copiedVector.getZ());
+    }
+
+    /**
+     * default constructor
+     */
     public Vector3f() {
         //allocate new direct (Off Heap) byte buffer with size of 3 bytes
         this.buffer = BufferUtils.createByteBuffer(FLOAT_IN_BYTES * 3);
