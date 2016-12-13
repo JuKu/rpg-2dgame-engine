@@ -34,6 +34,11 @@ public interface Camera3D extends ReadonlyCamera {
     */
     public void setRotation (Vector3f rotation);
 
+    /**
+     * set camera rotation
+     */
+    public void setRotation (final float x, final float y, final float z);
+
     public void moveRotation (final float offsetX, final float offsetY, final float offsetZ);
 
     /**

@@ -125,6 +125,13 @@ public class DefaultCamera implements Camera2D, Camera3D {
     }
 
     @Override
+    public void setRotation(float x, float y, float z) {
+        this.rotation.setX(x);
+        this.rotation.setY(y);
+        this.rotation.setZ(z);
+    }
+
+    @Override
     public void moveRotation(float offsetX, float offsetY, float offsetZ) {
         this.position.add(offsetX, offsetY, offsetZ);
 
