@@ -286,6 +286,30 @@ public class Matrix4fTest {
     }
 
     @Test
+    public void testRotate () {
+        //create new matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        //rotate matrix
+        matrix.rotate(0.5f, new Vector3f(1, 0, 0));
+
+        //expected result matrix, calculated with JOML
+        Matrix4f resultMatrix = new Matrix4f(
+                1, 3.1934419f, 1.6738966f, 4,
+                5, 8.621474f, 3.2665246f, 8,
+                9, 14.049507f, 4.859153f, 12,
+                13, 19.47754f, 6.4517803f, 16
+        );
+
+        assertEquals("matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+    }
+
+    @Test
     public void testRotateX () {
         //create new matrix
         Matrix4f matrix = new Matrix4f(

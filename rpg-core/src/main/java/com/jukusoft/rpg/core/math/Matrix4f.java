@@ -451,6 +451,72 @@ public class Matrix4f implements Serializable, Cloneable {
         return this;
     }
 
+    public Matrix4f rotate(float angle, Vector3f axis) {
+        return this.rotate(angle, axis.getX(), axis.getY(), axis.getZ());
+    }
+
+    public Matrix4f rotate(float ang, float x, float y, float z) {
+        return this.rotate(ang, x, y, z, this);
+    }
+
+    /**
+    * rotate matrix
+    */
+    private Matrix4f rotate(float angel, float x, float y, float z, Matrix4f dest) {
+        float s = (float) Math.sin((double) angel);
+        float c = (float) Math.cos((double) angel);
+
+        //do some calculation like JOML
+        float C = 1.0F - c;
+        float xx = x * x;
+        float xy = x * y;
+        float xz = x * z;
+        float yy = y * y;
+        float yz = y * z;
+        float zz = z * z;
+
+        float rm00 = xx * C + c;
+        float rm01 = xy * C + z * s;
+        float rm02 = xz * C - y * s;
+        float rm10 = xy * C - z * s;
+        float rm11 = yy * C + c;
+        float rm12 = yz * C + x * s;
+        float rm20 = xz * C + y * s;
+        float rm21 = yz * C - x * s;
+        float rm22 = zz * C + c;
+
+        float nm00 = this.get(0, 0) * rm00 + this.get(1, 0) * rm01 + this.get(2, 0) * rm02;
+        float nm01 = this.get(0, 1) * rm00 + this.get(1, 1) * rm01 + this.get(2, 1) * rm02;
+        float nm02 = this.get(0, 2) * rm00 + this.get(1, 2) * rm01 + this.get(2, 2) * rm02;
+        float nm03 = this.get(0, 3) * rm00 + this.get(1, 3) * rm01 + this.get(2, 3) * rm02;
+        float nm10 = this.get(0, 0) * rm10 + this.get(1, 0) * rm11 + this.get(2, 0) * rm12;
+        float nm11 = this.get(0, 1) * rm10 + this.get(1, 1) * rm11 + this.get(2, 1) * rm12;
+        float nm12 = this.get(0, 2) * rm10 + this.get(1, 2) * rm11 + this.get(2, 2) * rm12;
+        float nm13 = this.get(0, 3) * rm10 + this.get(1, 3) * rm11 + this.get(2, 3) * rm12;
+
+        dest.set(2, 0, this.get(0, 0) * rm20 + this.get(1, 0) * rm21 + this.get(2, 0) * rm22);
+        dest.set(2, 1, this.get(0, 1) * rm20 + this.get(1, 1) * rm21 + this.get(2, 1) * rm22);
+        dest.set(2, 2, this.get(0, 2) * rm20 + this.get(1, 2) * rm21 + this.get(2, 2) * rm22);
+        dest.set(2, 3, this.get(0, 3) * rm20 + this.get(1, 3) * rm21 + this.get(2, 3) * rm22);
+
+        dest.set(0, 0, nm00);
+        dest.set(0, 1, nm01);
+        dest.set(0, 2, nm02);
+        dest.set(0, 3, nm03);
+
+        dest.set(1, 0, nm10);
+        dest.set(1, 1, nm11);
+        dest.set(1, 2, nm12);
+        dest.set(1, 3, nm13);
+
+        dest.set(3, 0, get(3, 0));
+        dest.set(3, 1, get(3, 1));
+        dest.set(3, 2, get(3, 2));
+        dest.set(3, 3, get(3, 3));
+
+        return dest;
+    }
+
     public void rotateX (float angel) {
         this.rotateX(angel, this);
     }
