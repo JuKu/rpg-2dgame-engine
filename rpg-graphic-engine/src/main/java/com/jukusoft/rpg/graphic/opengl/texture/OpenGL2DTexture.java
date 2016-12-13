@@ -171,6 +171,10 @@ public class OpenGL2DTexture extends Asset {
         return this.textureID;
     }
 
+    public int getTarget () {
+        return GL_TEXTURE_2D;
+    }
+
     /**
     * check, if texture is bind to gpu
     */
