@@ -3,6 +3,7 @@
 ## Version 1.0.3 Alpha
   - added support for framebuffers
   - added support to rotate Matrix4f
+  - improved camera
 
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
