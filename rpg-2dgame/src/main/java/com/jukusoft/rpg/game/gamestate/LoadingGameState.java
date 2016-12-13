@@ -38,6 +38,8 @@ public class LoadingGameState extends BasicGameState {
 
     protected OpenGL2DImage loadImage = null;
 
+    protected BasicAnimation campfire = null;
+
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         GameLogger.info("IntroGameState", "IntroGameState::onInit().");
@@ -68,9 +70,19 @@ public class LoadingGameState extends BasicGameState {
 
         this.image = new OpenGL2DImage(0, 0, bgTexture);
 
+        OpenGL2DTexture campfireTexture = ResourceManager.getInstance().getTexture("spritesheets/campfire/CampFireFinished.png");
+        //create new campfire animation
+        this.campfire = new BasicAnimation(200, 500, campfireTexture);
+
+        //add frames to animation
+        for (int i = 0; i < 5; i++) {
+            this.campfire.addFrame(new Frame(i * 64, 0, 64, 64, 150));
+        }
+
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
-        this.drawableObjects.add(loading);
+        //this.drawableObjects.add(loading);
+        this.drawableObjects.add(this.campfire);
     }
 
     @Override
