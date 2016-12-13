@@ -95,6 +95,12 @@ public class TransformationUtils {
         return orthoMatrixCurr;
     }
 
+    /**
+    * generate view matrix of camera
+     *
+     * @param camera instance of camera
+     * @param destViewMatrix destination matrix (so we dont have to create an new matrix)
+    */
     public static Matrix4f getCameraViewMatrix (final ReadonlyCamera camera, final Matrix4f destViewMatrix) {
         //get position and rotation of camera
         Vector3f cameraPos = camera.getPosition();
@@ -112,6 +118,19 @@ public class TransformationUtils {
         viewMatrix.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
 
         return viewMatrix;
+    }
+
+    public final Matrix4f getProjectionMatrix (float fov, float width, float height, float zNear, float zFar, final Matrix4f projectionMatrix) {
+        //calculate aspectRatio
+        float aspectRatio = width / height;
+
+        //set identity matrix
+        projectionMatrix.identity();
+
+        //generate perspective matrix
+        projectionMatrix.perspective(fov, aspectRatio, zNear, zFar, projectionMatrix);
+
+        return projectionMatrix;
     }
 
 }
