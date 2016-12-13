@@ -4,6 +4,7 @@
   - added support for framebuffers
   - added support to rotate Matrix4f
   - improved camera
+  - added support to generate view matrix of camera with class TransformationUtils
 
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
