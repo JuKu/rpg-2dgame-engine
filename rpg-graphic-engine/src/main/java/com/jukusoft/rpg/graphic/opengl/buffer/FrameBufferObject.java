@@ -2,8 +2,12 @@ package com.jukusoft.rpg.graphic.opengl.buffer;
 
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
+import static com.jukusoft.rpg.graphic.opengl.texture.TextureFilterMode.NEAREST;
+import static jdk.nashorn.internal.runtime.regexp.joni.constants.StackType.REPEAT;
 import static org.lwjgl.opengl.ARBFramebufferObject.*;
 import static org.lwjgl.opengl.EXTFramebufferObject.*;
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+import static org.lwjgl.opengl.GL11.GL_REPEAT;
 import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL15.glDeleteBuffers;
@@ -43,6 +47,14 @@ public class FrameBufferObject {
 
     public FrameBufferObject (OpenGL2DTexture texture) {
         this(texture, false);
+    }
+
+    public FrameBufferObject (int width, int height, int filter, int wrap) {
+        this(new OpenGL2DTexture(width, height, filter, wrap));
+    }
+
+    public FrameBufferObject (int width, int height) {
+        this(width, height, GL_NEAREST, GL_REPEAT);
     }
 
     protected void create (OpenGL2DTexture texture) {

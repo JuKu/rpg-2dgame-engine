@@ -47,6 +47,27 @@ public class OpenGL2DTexture extends Asset {
     }
 
     /**
+    * create a new, empty texture on gpu
+    */
+    public OpenGL2DTexture (int width, int height, int filter, int wrap) {
+        this.width = width;
+        this.height = height;
+
+        //create new texture on gpu
+        this.create();
+
+        bind();
+
+        setFilter(filter);
+        setWrap(wrap);
+
+        ByteBuffer buf = BufferUtils.createByteBuffer(width * height * 4);
+        upload(GL_RGBA, buf);
+
+        this.unbind();
+    }
+
+    /**
      * create new vertex buffer object on gpu
      */
     protected void create () {
@@ -138,6 +159,17 @@ public class OpenGL2DTexture extends Asset {
         this.isUploaded = true;
     }
 
+    public void upload(final int dataFormat, final ByteBuffer data) {
+        //bind texture
+        this.bind();
+
+        setUnpackAlignment();
+        glTexImage2D(getTarget(), 0, GL_RGBA, width, height, 0, dataFormat, GL_UNSIGNED_BYTE, data);
+
+        //unbind texture
+        this.unbind();
+    }
+
     public void uploadIfAbsent (Image2D image) {
         if (!this.isUploaded) {
             this.upload(image);
@@ -189,6 +221,39 @@ public class OpenGL2DTexture extends Asset {
     */
     public boolean isUploaded () {
         return this.isUploaded;
+    }
+
+    public void setFilter (final int minFilter, final int magFilter) {
+        //bind texture
+        this.bind();
+
+        //set texture filter
+        glTexParameteri(getTarget(), GL_TEXTURE_MIN_FILTER, minFilter);
+        glTexParameteri(getTarget(), GL_TEXTURE_MAG_FILTER, magFilter);
+
+        //unbind texture
+        this.unbind();
+    }
+
+    public void setFilter(int filter) {
+        setFilter(filter, filter);
+    }
+
+    public void setWrap (final int wrap) {
+        //bind texture
+        this.bind();
+
+        //set texture wrap
+        glTexParameteri(getTarget(), GL_TEXTURE_WRAP_S, wrap);
+        glTexParameteri(getTarget(), GL_TEXTURE_WRAP_T, wrap);
+
+        //unbind texture
+        this.unbind();
+    }
+
+    protected void setUnpackAlignment() {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        glPixelStorei(GL_PACK_ALIGNMENT, 1);
     }
 
     public void delete () {
