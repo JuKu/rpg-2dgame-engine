@@ -41,6 +41,10 @@ public class FrameBufferObject {
         this.create(texture);
     }
 
+    public FrameBufferObject (OpenGL2DTexture texture) {
+        this(texture, false);
+    }
+
     protected void create (OpenGL2DTexture texture) {
         //bind texture
         this.texture.bind();

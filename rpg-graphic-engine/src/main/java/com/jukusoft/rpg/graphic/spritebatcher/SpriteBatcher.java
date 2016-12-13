@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.game.engine.spritebatcher;
+package com.jukusoft.rpg.graphic.spritebatcher;
 
 import com.jukusoft.rpg.graphic.animation.BasicAnimation;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
@@ -32,5 +32,10 @@ public interface SpriteBatcher {
     public void drawAnimation (BasicAnimation animation, final float x, final float y);
 
     public void drawImage (OpenGL2DImage image, final float x, final float y);
+
+    /**
+    * resize viewport
+    */
+    public void resize (final float width, final float height);
 
 }
