@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.game.gamestate;
 
 import com.jukusoft.rpg.game.engine.app.GameApp;
+import com.jukusoft.rpg.game.engine.exception.GameStateNotFoundException;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
@@ -85,6 +86,16 @@ public class IntroGameState extends BasicGameState {
         this.drawableObjects.add(image);
         this.drawableObjects.add(text);
         this.drawableObjects.add(campfire);
+
+        GamePlatform.setTimer(5000, () -> {
+            try {
+                GameLogger.info("IntroGameState", "change to loading game state now.");
+
+                gameStateManager.leaveAndEnterGameState("loading");
+            } catch (GameStateNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
@@ -108,7 +119,7 @@ public class IntroGameState extends BasicGameState {
             getWindow().setResizedFlag(false);
         }
 
-        System.out.println("FPS: " + app.getFPS());
+        //System.out.println("FPS: " + app.getFPS());
 
         /*if (lastAnimationTime + animationInterval < System.currentTimeMillis()) {
             campfire.setRegion(animFrameCount * 64, 0, 64, 64);
