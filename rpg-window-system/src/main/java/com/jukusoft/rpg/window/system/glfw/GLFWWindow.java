@@ -2,6 +2,7 @@ package com.jukusoft.rpg.window.system.glfw;
 
 import com.jukusoft.rpg.core.color.Color;
 import com.jukusoft.rpg.core.logger.GameLogger;
+import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.window.system.IWindow;
 import com.jukusoft.rpg.window.system.callback.KeyCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
@@ -515,6 +516,8 @@ public class GLFWWindow implements IWindow {
     public void close() {
         //set window should close flag to true
         glfwSetWindowShouldClose(this.window, true);
+
+        GamePlatform.shutdown();
 
         //TODO: call close listeners
 

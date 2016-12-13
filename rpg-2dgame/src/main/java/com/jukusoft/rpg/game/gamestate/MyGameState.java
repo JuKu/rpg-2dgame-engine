@@ -1,42 +1,30 @@
 package com.jukusoft.rpg.game.gamestate;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
-import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.game.engine.app.GameApp;
-import com.jukusoft.rpg.game.engine.exception.GameStateNotFoundException;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
-import com.jukusoft.rpg.graphic.animation.*;
+import com.jukusoft.rpg.graphic.animation.BasicAnimation;
 import com.jukusoft.rpg.graphic.animation.Frame;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
-import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
-import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Justin on 13.12.2016.
  */
-public class LoadingGameState extends BasicGameState {
+public class MyGameState extends BasicGameState {
 
     protected UIRenderer uiRenderer = null;
 
     protected java.util.List<Renderable> drawableObjects = new ArrayList<>();
-
-    protected OpenGL2DTexture bgTexture = null;
-    protected OpenGL2DTexture bgTexture2 = null;
-    protected OpenGL2DImage image = null;
-    protected BasicAnimation loading = null;
-
-    protected OpenGL2DImage loadImage = null;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -51,26 +39,6 @@ public class LoadingGameState extends BasicGameState {
             e.printStackTrace();
             throw new OpenGLShaderException("IOException while loading UI Renderer: " + e.getLocalizedMessage());
         }
-
-        //load textures
-        this.bgTexture = ResourceManager.getInstance().getTexture("thirdparty/wallpaper/ocean/Ocean_large.png");
-        this.bgTexture2 = ResourceManager.getInstance().getTexture("thirdparty/wallpaper/starry_night/starry_night.png");
-        OpenGL2DTexture loadingTexture = ResourceManager.getInstance().getTexture("loadscreen/spritesheet.png");
-        OpenGL2DTexture frameTexture = ResourceManager.getInstance().getTexture("loadscreen/frame1.png");
-        this.loadImage = new OpenGL2DImage((getWindow().getWidth() / 2) - 200, (getWindow().getHeight() / 2) - 200, frameTexture);
-
-        this.loading = new BasicAnimation((getWindow().getWidth() / 2) - 200, (getWindow().getHeight() / 2) - 200, loadingTexture);
-
-        this.loading.addFrame(new Frame(0, 0, 400, 400, 200));
-        this.loading.addFrame(new Frame(400, 0, 400, 400, 200));
-        this.loading.addFrame(new Frame(0, 400, 400, 400, 200));
-        this.loading.addFrame(new Frame(400, 400, 400, 400, 200));
-
-        this.image = new OpenGL2DImage(0, 0, bgTexture);
-
-        //this.drawableObjects.add(text);
-        this.drawableObjects.add(image);
-        this.drawableObjects.add(loading);
     }
 
     @Override

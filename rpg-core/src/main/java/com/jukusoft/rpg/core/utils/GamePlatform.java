@@ -109,4 +109,8 @@ public class GamePlatform {
         scheduledExecutorService.scheduleAtFixedRate(runnable, 1l, intervalTimeInMillis, TimeUnit.MILLISECONDS);
     }
 
+    public static void shutdown () {
+        scheduledExecutorService.shutdown();
+    }
+
 }
