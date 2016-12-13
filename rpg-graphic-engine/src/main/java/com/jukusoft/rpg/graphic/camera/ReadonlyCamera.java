@@ -14,4 +14,8 @@ public interface ReadonlyCamera {
 
     public Vector3f getRotation ();
 
+    public boolean wasChanged ();
+
+    public void resetChangedState ();
+
 }

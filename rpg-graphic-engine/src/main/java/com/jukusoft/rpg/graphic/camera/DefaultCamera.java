@@ -29,6 +29,9 @@ public class DefaultCamera implements Camera2D, Camera3D {
     public void set2DPosition(float x, float y) {
         this.position.setX(x);
         this.position.setY(y);
+
+        //set changed flag
+        this.setChangedFlag();
     }
 
     @Override
@@ -114,6 +117,11 @@ public class DefaultCamera implements Camera2D, Camera3D {
 
     public Vector3f getRotation () {
         return this.rotation;
+    }
+
+    @Override
+    public boolean wasChanged() {
+        return this.wasChanged.get();
     }
 
     @Override
