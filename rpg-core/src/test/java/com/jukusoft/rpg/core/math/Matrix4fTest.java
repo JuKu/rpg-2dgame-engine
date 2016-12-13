@@ -425,6 +425,33 @@ public class Matrix4fTest {
     }
 
     @Test
+    public void testPerspective () {
+        //create new matrix
+        Matrix4f matrix = new Matrix4f(
+                1, 2, 3, 4,
+                5, 6, 7, 8,
+                9, 10, 11, 12,
+                13, 14, 15, 16
+        );
+
+        float aspectRatio = 1280 / 720;
+
+        matrix.identity();
+
+        matrix.perspective((float) Math.toRadians(60.0f), aspectRatio, 0.01f, 1000.f, matrix);
+
+        //expected result matrix
+        Matrix4f resultMatrix = new Matrix4f(
+                1.7320509f, 0, 0, 0,
+                0, 1.7320509f, 0, 0,
+                0, 0, -1.00002f, -0.0200002f,
+                0, 0, -1, 0
+        );
+
+        assertEquals("matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+    }
+
+    @Test
     public void testByteOrderForOpenGL () {
         //create new matrix
         Matrix4f matrix = new Matrix4f(

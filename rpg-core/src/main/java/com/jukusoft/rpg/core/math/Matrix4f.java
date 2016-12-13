@@ -659,6 +659,63 @@ public class Matrix4f implements Serializable, Cloneable {
         this.set(3, 1, -(top + bottom) / (top - bottom));
     }
 
+    public Matrix4f perspective(float fovy, float aspect, float zNear, float zFar, Matrix4f dest) {
+        return this.perspective(fovy, aspect, zNear, zFar, false, dest);
+    }
+
+    private Matrix4f perspective (float fovy, float aspect, float zNear, float zFar, boolean zZeroToOne, Matrix4f dest) {
+        float h = (float)Math.tan((double)(fovy * 0.5F));
+        float rm00 = 1.0F / (h * aspect);
+        float rm11 = 1.0F / h;
+
+        boolean farInf = zFar > 0.0F && Float.isInfinite(zFar);
+        boolean nearInf = zNear > 0.0F && Float.isInfinite(zNear);
+
+        float rm22 = 0;
+        float rm32 = 0;
+        float nm20 = 0;
+
+        if(farInf) {
+            nm20 = 1.0E-6F;
+            rm22 = nm20 - 1.0F;
+            rm32 = (nm20 - (zZeroToOne ? 1.0F : 2.0F)) * zNear;
+        } else if(nearInf) {
+            nm20 = 1.0E-6F;
+            rm22 = (zZeroToOne ? 0.0F : 1.0F) - nm20;
+            rm32 = ((zZeroToOne ? 1.0F : 2.0F) - nm20) * zFar;
+        } else {
+            rm22 = (zZeroToOne ? zFar : zFar + zNear) / (zNear - zFar);
+            rm32 = (zZeroToOne ? zFar : zFar + zFar) * zNear / (zNear - zFar);
+        }
+
+        nm20 = this.get(2, 0) * rm22 - this.get(3, 0);
+        float nm21 = this.get(2, 1) * rm22 - this.get(3, 1);
+        float nm22 = this.get(2, 2) * rm22 - this.get(3, 2);
+        float nm23 = this.get(2, 3) * rm22 - this.get(3, 3);
+
+        dest.set(0, 0, this.get(0, 0) * rm00);
+        dest.set(0, 1, this.get(0, 1) * rm00);
+        dest.set(0, 2, this.get(0, 2) * rm00);
+        dest.set(0, 3, this.get(0, 3) * rm00);
+
+        dest.set(1, 0, this.get(1, 0) * rm11);
+        dest.set(1, 1, this.get(1, 1) * rm11);
+        dest.set(1, 2, this.get(1, 2) * rm11);
+        dest.set(1, 3, this.get(1, 3) * rm11);
+
+        dest.set(3, 0, this.get(2, 0) * rm32);
+        dest.set(3, 1, this.get(2, 1) * rm32);
+        dest.set(3, 2, this.get(2, 2) * rm32);
+        dest.set(3, 3, this.get(2, 3) * rm32);
+
+        dest.set(2, 0, nm20);
+        dest.set(2, 1, nm21);
+        dest.set(2, 2, nm22);
+        dest.set(2, 3, nm23);
+
+        return dest;
+    }
+
     /**
     * check, if matrix only contains 0 values
      *
