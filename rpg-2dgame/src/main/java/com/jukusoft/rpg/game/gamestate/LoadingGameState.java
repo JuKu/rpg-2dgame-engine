@@ -64,26 +64,7 @@ public class LoadingGameState extends BasicGameState {
 
     @Override
     public void update(GameApp app, double delta) {
-        long now = System.currentTimeMillis();
-
-        if (this.lastUpdate + 3000 < now) {
-            //change image
-            if (this.imageIndex == 0) {
-                imageIndex = 1;
-
-                GamePlatform.runOnUIThread(() -> {
-                    this.image.setTexture(0, 0, this.bgTexture2);
-                });
-            } else {
-                imageIndex = 0;
-
-                GamePlatform.runOnUIThread(() -> {
-                    this.image.setTexture(0, 0, this.bgTexture);
-                });
-            }
-
-            this.lastUpdate = now;
-        }
+        //
     }
 
     @Override
