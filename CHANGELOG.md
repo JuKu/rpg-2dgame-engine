@@ -6,6 +6,7 @@
   - improved camera
   - added support to generate view matrix of camera with class TransformationUtils
   - added support to set filter & wrap on texture
+  - added support to create an empty texture
 
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
