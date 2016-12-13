@@ -15,6 +15,9 @@
         <module>rpg-game-engine</module>
         <module>rpg-2dgame</module>
         <module>rpg-benchmark-test</module>
+        <module>build-windows</module>
+        <module>build-linux</module>
+        <module>build-macosx</module>
     </modules>
 
     <properties>
