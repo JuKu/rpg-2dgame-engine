@@ -65,7 +65,7 @@ public class IntroGameState extends BasicGameState {
         text = new OpenGLText(10f, getWindow().getHeight() - 50, "DEMO", fontTexture);
         text.setPosition(20, getWindow().getHeight() - 50);
 
-        text.setText("JuKuSoft - Draw Text Example");
+        text.setText("Loading...");
 
         //load textures
         OpenGL2DTexture texture = ResourceManager.getInstance().getTexture("intro/intro_screen.png");
@@ -85,9 +85,9 @@ public class IntroGameState extends BasicGameState {
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
         this.drawableObjects.add(text);
-        this.drawableObjects.add(campfire);
+        //this.drawableObjects.add(campfire);
 
-        GamePlatform.setTimer(5000, () -> {
+        GamePlatform.setTimer(2000, () -> {
             try {
                 GameLogger.info("IntroGameState", "change to loading game state now.");
 
