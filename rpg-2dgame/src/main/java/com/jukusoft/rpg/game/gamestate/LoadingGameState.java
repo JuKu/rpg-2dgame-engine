@@ -30,6 +30,13 @@ public class LoadingGameState extends BasicGameState {
 
     protected java.util.List<Renderable> drawableObjects = new ArrayList<>();
 
+    protected OpenGL2DTexture bgTexture = null;
+    protected OpenGL2DTexture bgTexture2 = null;
+    protected OpenGL2DImage image = null;
+
+    protected long lastUpdate = System.currentTimeMillis();
+    protected int imageIndex = 0;
+
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
         GameLogger.info("IntroGameState", "IntroGameState::onInit().");
@@ -39,15 +46,17 @@ public class LoadingGameState extends BasicGameState {
 
         try {
             this.uiRenderer = new UIRenderer("./data/shader/hud_vertex.vs", "./data/shader/hud_fragment.fs");
+            this.uiRenderer.disableRedrawSameMeshOptimization();
         } catch (IOException e) {
             e.printStackTrace();
             throw new OpenGLShaderException("IOException while loading UI Renderer: " + e.getLocalizedMessage());
         }
 
         //load textures
-        OpenGL2DTexture bgTexture = ResourceManager.getInstance().getTexture("thirdparty/wallpaper/ocean/Ocean_large.png");
+        this.bgTexture = ResourceManager.getInstance().getTexture("thirdparty/wallpaper/ocean/Ocean_large.png");
+        this.bgTexture2 = ResourceManager.getInstance().getTexture("thirdparty/wallpaper/starry_night/starry_night.png");
 
-        OpenGL2DImage image = new OpenGL2DImage(0, 0, bgTexture);
+        this.image = new OpenGL2DImage(0, 0, bgTexture);
 
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
@@ -55,7 +64,26 @@ public class LoadingGameState extends BasicGameState {
 
     @Override
     public void update(GameApp app, double delta) {
-        //
+        long now = System.currentTimeMillis();
+
+        if (this.lastUpdate + 3000 < now) {
+            //change image
+            if (this.imageIndex == 0) {
+                imageIndex = 1;
+
+                GamePlatform.runOnUIThread(() -> {
+                    this.image.setTexture(0, 0, this.bgTexture2);
+                });
+            } else {
+                imageIndex = 0;
+
+                GamePlatform.runOnUIThread(() -> {
+                    this.image.setTexture(0, 0, this.bgTexture);
+                });
+            }
+
+            this.lastUpdate = now;
+        }
     }
 
     @Override

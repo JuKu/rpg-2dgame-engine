@@ -182,10 +182,10 @@ public class OpenGL2DImage extends DrawableObject {
             oldMesh.cleanUp();
         }
 
-        if (oldTexture != null) {
+        /*if (oldTexture != null) {
             //delete old texture from gpu
             oldTexture.delete();
-        }
+        }*/
     }
 
     @Deprecated

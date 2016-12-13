@@ -38,5 +38,35 @@ Links with some example image idea (license wasnt checked yet, but images also a
  - http://opengameart.org/content/camp-fire-animation-for-rpgs-finished (campfire)
  - http://opengameart.org/content/2d-spell-effects (some 2D effects)
  - http://opengameart.org/content/overworld-rpg-tileset
+ - http://opengameart.org/content/spell-icon-collection-part-2 (spells)
  - http://opengameart.org/content/dark-night-full-moon-background
+ - http://opengameart.org/content/background-for-games-2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  - http://opengameart.org/content/a-platformer-in-the-forest
