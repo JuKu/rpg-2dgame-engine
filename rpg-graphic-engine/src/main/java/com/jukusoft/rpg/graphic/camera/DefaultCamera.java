@@ -107,6 +107,10 @@ public class DefaultCamera implements Camera2D, Camera3D {
         this.setChangedFlag();
     }
 
+    public Vector3f getRotation () {
+        return this.rotation;
+    }
+
     @Override
     public void setRotation(Vector3f rotation) {
         this.rotation = rotation;

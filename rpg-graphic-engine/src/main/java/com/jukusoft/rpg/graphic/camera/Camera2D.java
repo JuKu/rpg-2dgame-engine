@@ -5,7 +5,7 @@ import com.jukusoft.rpg.core.math.Vector2f;
 /**
  * Created by Justin on 06.12.2016.
  */
-public interface Camera2D {
+public interface Camera2D extends ReadonlyCamera {
 
     /**
     * set 2D position of camera
