@@ -2,6 +2,8 @@ package com.jukusoft.rpg.graphic.math;
 
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.graphic.camera.DefaultCamera;
+import com.jukusoft.rpg.graphic.camera.ReadonlyCamera;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -145,6 +147,31 @@ public class TransformationUtilsTest {
 
         //compare matrizes
         assertEquals("projection model matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
+    }
+
+    @Test
+    public void testCameraViewMatrix () {
+        //create new camera
+        DefaultCamera camera = new DefaultCamera();
+        camera.setPosition(40, 50, 60);
+        camera.setRotation(3, 5, 7);
+
+        //create new matrix
+        Matrix4f matrix = new Matrix4f();
+
+        //calculate view matrix
+        matrix = TransformationUtils.getCameraViewMatrix(camera, matrix);
+
+        //expected result matrix
+        Matrix4f resultMatrix = new Matrix4f(
+                0.9961947f, 0, 0.08715574f, -45.077133f,
+                0.004561379f, 0.9986295f, -0.052136805f, -46.985725f,
+                -0.08703629f, 0.05233596f, 0.9948294f, -58.82511f,
+                0, 0, 0, 1
+        );
+
+        //compare matrizes
+        assertEquals("view matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
     }
 
 }

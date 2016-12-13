@@ -2,6 +2,7 @@ package com.jukusoft.rpg.graphic.math;
 
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.graphic.camera.ReadonlyCamera;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
 
@@ -92,6 +93,25 @@ public class TransformationUtils {
         Matrix4f orthoMatrixCurr = new Matrix4f(orthoMatrix);
         orthoMatrixCurr.mul(modelMatrix);
         return orthoMatrixCurr;
+    }
+
+    public static Matrix4f getCameraViewMatrix (final ReadonlyCamera camera, final Matrix4f destViewMatrix) {
+        //get position and rotation of camera
+        Vector3f cameraPos = camera.getPosition();
+        Vector3f rotation = camera.getRotation();
+
+        Matrix4f viewMatrix = destViewMatrix;
+
+        viewMatrix.identity();
+
+        //rotate matrix
+        viewMatrix.rotate((float)Math.toRadians(rotation.getX()), new Vector3f(1, 0, 0))
+                .rotate((float)Math.toRadians(rotation.getY()), new Vector3f(0, 1, 0));
+
+        //translate matrix
+        viewMatrix.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
+
+        return viewMatrix;
     }
 
 }
