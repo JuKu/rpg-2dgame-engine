@@ -7,6 +7,10 @@ import java.awt.*;
  */
 public interface SpriteBatcher {
 
+    public void begin ();
+
+    public void end ();
+
     /**
     * draw text
     */
