@@ -18,6 +18,16 @@ import static org.lwjgl.opengl.GL15.glDeleteBuffers;
 public class FrameBufferObject {
 
     /**
+    *  links:
+     *
+     * http://wiki.lwjgl.org/wiki/Using_Frame_Buffer_Objects_(FBO).html
+     * https://www.opengl.org/wiki/Framebuffer_Object_Examples
+     * http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
+     * https://github.com/mattdesl/lwjgl-basics/blob/master/src/mdesl/graphics/Texture.java
+     * https://github.com/mattdesl/lwjgl-basics/wiki/FrameBufferObjects
+    */
+
+    /**
     * frame buffer object
     */
     protected int fboID = 0;
