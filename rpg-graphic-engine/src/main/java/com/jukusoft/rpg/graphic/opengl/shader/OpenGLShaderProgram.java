@@ -6,6 +6,9 @@ import com.jukusoft.rpg.core.math.Vector4f;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.exception.OpenGLVersionException;
 import com.jukusoft.rpg.graphic.exception.ShaderException;
+import com.jukusoft.rpg.graphic.lighting.DirectionalLight;
+import com.jukusoft.rpg.graphic.lighting.PointLight;
+import com.jukusoft.rpg.graphic.lighting.SpotLight;
 import com.jukusoft.rpg.graphic.utils.OpenGLUtils;
 import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL32;
@@ -383,6 +386,51 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         createUniform(uniformName + ".color");
         createUniform(uniformName + ".direction");
         createUniform(uniformName + ".intensity");
+    }
+
+    public void setUniform(String uniformName, PointLight[] pointLights) {
+        int numLights = pointLights != null ? pointLights.length : 0;
+
+        for (int i = 0; i < numLights; i++) {
+            setUniform(uniformName, pointLights[i], i);
+        }
+    }
+
+    public void setUniform(String uniformName, PointLight pointLight, int pos) {
+        setUniform(uniformName + "[" + pos + "]", pointLight);
+    }
+
+    public void setUniform(String uniformName, PointLight pointLight) {
+        setUniform(uniformName + ".colour", pointLight.getColor());
+        setUniform(uniformName + ".position", pointLight.getPosition());
+        setUniform(uniformName + ".intensity", pointLight.getIntensity());
+        PointLight.Attenuation att = pointLight.getAttenuation();
+        setUniform(uniformName + ".att.constant", att.getConstant());
+        setUniform(uniformName + ".att.linear", att.getLinear());
+        setUniform(uniformName + ".att.exponent", att.getExponent());
+    }
+
+    public void setUniform(String uniformName, SpotLight[] spotLights) {
+        int numLights = spotLights != null ? spotLights.length : 0;
+        for (int i = 0; i < numLights; i++) {
+            setUniform(uniformName, spotLights[i], i);
+        }
+    }
+
+    public void setUniform(String uniformName, SpotLight spotLight, int pos) {
+        setUniform(uniformName + "[" + pos + "]", spotLight);
+    }
+
+    public void setUniform(String uniformName, SpotLight spotLight) {
+        setUniform(uniformName + ".pl", spotLight.getPointLight());
+        setUniform(uniformName + ".conedir", spotLight.getConeDirection());
+        setUniform(uniformName + ".cutoff", spotLight.getCutOff());
+    }
+
+    public void setUniform(String uniformName, DirectionalLight dirLight) {
+        setUniform(uniformName + ".colour", dirLight.getColor());
+        setUniform(uniformName + ".direction", dirLight.getDirection());
+        setUniform(uniformName + ".intensity", dirLight.getIntensity());
     }
 
     /**
