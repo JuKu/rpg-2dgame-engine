@@ -51,6 +51,7 @@ Also double requires 8 byte, while float only requires 4 bytes and OpenGL is sup
   - reimplement class Color, use Off Heap memory
   - implement GameConfig
   - maybe use NanoVG for drawing text
+  - added support for framebuffers - see also http://wiki.lwjgl.org/wiki/Using_Frame_Buffer_Objects_(FBO).html
 
 ### Implemented Features
 
