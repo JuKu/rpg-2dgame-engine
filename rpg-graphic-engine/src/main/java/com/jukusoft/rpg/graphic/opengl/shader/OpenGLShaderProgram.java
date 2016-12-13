@@ -352,7 +352,7 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         glUniform4f(uniformID, vector.getX(), vector.getY(), vector.getZ(), vector.getA());
     }
 
-    public void createPointLightUniform(String uniformName) throws Exception {
+    public void createPointLightUniform (String uniformName) throws Exception {
         createUniform(uniformName + ".color");
         createUniform(uniformName + ".position");
         createUniform(uniformName + ".intensity");
@@ -361,13 +361,25 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         createUniform(uniformName + ".att.exponent");
     }
 
-    public void createSpotLightUniform(String uniformName) throws Exception {
+    public void createPointLightUniforms (String uniformName, int size) throws Exception {
+        for (int i = 0; i < size; i++) {
+            this.createPointLightUniform(uniformName + "[" + i + "]");
+        }
+    }
+
+    public void createSpotLightUniform (String uniformName) throws Exception {
         createPointLightUniform(uniformName + ".pl");
         createUniform(uniformName + ".conedir");
         createUniform(uniformName + ".cutoff");
     }
 
-    public void createDirectionalLightUniform(String uniformName) throws Exception {
+    public void createSpotLightUniforms (String uniformName, int size) throws Exception {
+        for (int i = 0; i < size; i++) {
+            this.createSpotLightUniform(uniformName + "[" + i + "]");
+        }
+    }
+
+    public void createDirectionalLightUniform (String uniformName) throws Exception {
         createUniform(uniformName + ".color");
         createUniform(uniformName + ".direction");
         createUniform(uniformName + ".intensity");
