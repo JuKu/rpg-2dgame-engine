@@ -17,7 +17,7 @@ public interface Camera2D extends ReadonlyCamera {
     /**
     * get current camera position
     */
-    public Vector2f getPosition ();
+    public Vector2f get2DPosition ();
 
     /**
     * set zoom level

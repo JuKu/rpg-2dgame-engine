@@ -7,6 +7,8 @@ import com.jukusoft.rpg.core.math.Vector3f;
  */
 public interface Camera3D extends ReadonlyCamera {
 
+    public Vector3f getPosition ();
+
     /**
     * set camera position
      *

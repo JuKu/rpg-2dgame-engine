@@ -8,7 +8,9 @@ import com.jukusoft.rpg.core.math.Vector3f;
  */
 public interface ReadonlyCamera {
 
-    public Vector2f getPosition();
+    public Vector3f getPosition();
+
+    public Vector2f get2DPosition();
 
     public Vector3f getRotation ();
 

@@ -40,7 +40,12 @@ public class DefaultCamera implements Camera2D, Camera3D {
     }
 
     @Override
-    public Vector2f getPosition() {
+    public Vector3f getPosition() {
+        return this.position;
+    }
+
+    @Override
+    public Vector2f get2DPosition() {
         return new Vector2f(this.position.getDirectByteBuffer());
     }
 
