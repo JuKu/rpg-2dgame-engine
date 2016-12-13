@@ -1,4 +1,4 @@
-package com.jukusoft.rpg.graphic.opengl.renderer;
+package com.jukusoft.rpg.graphic.renderer;
 
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.opengl.mesh.Material;

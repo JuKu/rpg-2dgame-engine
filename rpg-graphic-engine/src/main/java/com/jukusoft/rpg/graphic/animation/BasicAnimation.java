@@ -2,7 +2,6 @@ package com.jukusoft.rpg.graphic.animation;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DTextureRegion;
-import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
 import java.util.ArrayList;

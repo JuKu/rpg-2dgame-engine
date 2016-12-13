@@ -3,7 +3,7 @@ package com.jukusoft.rpg.graphic.math;
 import com.jukusoft.rpg.core.math.Matrix4f;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
-import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
+import com.jukusoft.rpg.graphic.renderer.Renderable;
 
 /**
  * Created by Justin on 07.12.2016.

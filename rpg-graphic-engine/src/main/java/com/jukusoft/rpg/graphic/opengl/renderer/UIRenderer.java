@@ -7,17 +7,13 @@ import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.graphic.animation.Animable;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
-import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
-import com.jukusoft.rpg.graphic.opengl.mesh.Mesh;
 import com.jukusoft.rpg.graphic.opengl.shader.OpenGLShaderProgram;
-import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
+import com.jukusoft.rpg.graphic.renderer.Renderable;
 
-import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 

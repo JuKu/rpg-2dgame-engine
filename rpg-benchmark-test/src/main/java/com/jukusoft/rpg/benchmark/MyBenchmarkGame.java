@@ -4,7 +4,7 @@ import com.jukusoft.rpg.game.engine.app.SimpleGameApp;
 import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
-import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
+import com.jukusoft.rpg.graphic.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 import com.jukusoft.rpg.window.system.IWindow;

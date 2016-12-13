@@ -1,9 +1,7 @@
 package com.jukusoft.rpg.game.gamestate;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
-import com.jukusoft.rpg.core.utils.GamePlatform;
 import com.jukusoft.rpg.game.engine.app.GameApp;
-import com.jukusoft.rpg.game.engine.exception.GameStateNotFoundException;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
 import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.engine.gamestate.impl.BasicGameState;
@@ -11,14 +9,11 @@ import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.animation.*;
 import com.jukusoft.rpg.graphic.animation.Frame;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
-import com.jukusoft.rpg.graphic.opengl.font.FontTexture;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
-import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
+import com.jukusoft.rpg.graphic.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
-import com.jukusoft.rpg.graphic.opengl.text.OpenGLText;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.*;
 

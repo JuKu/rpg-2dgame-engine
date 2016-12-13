@@ -1,35 +1,14 @@
 package com.jukusoft.rpg.graphic.opengl.mesh;
 
 import com.jukusoft.rpg.core.math.Vector3f;
-import com.jukusoft.rpg.graphic.opengl.renderer.Renderable;
+import com.jukusoft.rpg.graphic.renderer.BasicRenderable;
+import com.jukusoft.rpg.graphic.renderer.Renderable;
 import com.jukusoft.rpg.graphic.utils.MeshUtils;
 
 /**
  * Created by Justin on 30.11.2016.
  */
-public class DrawableObject implements Renderable {
-
-    /**
-    * position of mesh object
-    */
-    protected Vector3f position = new Vector3f(0, 0, 0);
-
-    /**
-    * scale factor for mesh
-    */
-    protected volatile float scale = 1;
-
-    /**
-    * rotation vector
-    */
-    protected Vector3f rotation = new Vector3f(0, 0, 0);
-
-    protected Mesh mesh = null;
-
-    /**
-    * local unique meshID
-    */
-    protected final long meshID = MeshUtils.generateID();
+public class DrawableObject extends BasicRenderable implements Renderable {
 
     /**
     * default constructor
