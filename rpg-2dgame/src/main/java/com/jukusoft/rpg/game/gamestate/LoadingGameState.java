@@ -37,10 +37,10 @@ public class LoadingGameState extends BasicGameState {
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
-        GameLogger.info("IntroGameState", "IntroGameState::onInit().");
+        GameLogger.info("LoadingGameState", "LoadingGameState::onInit().");
 
         //create new UI renderer
-        GameLogger.info("IntroGameState", "create new UI Renderer for IntroGameState.");
+        GameLogger.info("LoadingGameState", "create new UI Renderer for IntroGameState.");
 
         try {
             this.uiRenderer = new UIRenderer("./data/shader/hud_vertex.vs", "./data/shader/hud_fragment.fs");
@@ -88,13 +88,13 @@ public class LoadingGameState extends BasicGameState {
     @Override
     public void render (GameApp app) {
         //check, if window was resized
-        if (getWindow().wasResized()) {
+        /*if (getWindow().wasResized()) {
             //reset viewport
             getWindow().setViewPort(0, 0, getWindow().getWidth(), getWindow().getHeight());
 
             //reset resized flag
             getWindow().setResizedFlag(false);
-        }
+        }*/
 
         //render UI
         this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects);

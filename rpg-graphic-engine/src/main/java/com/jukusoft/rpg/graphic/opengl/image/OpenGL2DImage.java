@@ -84,6 +84,15 @@ public class OpenGL2DImage extends DrawableObject {
     /**
      * default constructor
      *
+     * @param texture instance of texture
+     */
+    public OpenGL2DImage(OpenGL2DTexture texture) {
+        this(0, 0, texture.getWidth(), texture.getHeight(), texture);
+    }
+
+    /**
+     * default constructor
+     *
      * @param x x coordinate of image
      * @param y y coordinate of image
      * @param image instance of image
