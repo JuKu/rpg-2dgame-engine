@@ -72,7 +72,7 @@ public class DefaultCamera implements Camera2D, Camera3D {
 
     @Override
     public void resetChangedState() {
-        this.wasChanged.set(true);
+        this.wasChanged.set(false);
     }
 
     protected void setChangedFlag () {

@@ -7,6 +7,7 @@ import com.jukusoft.rpg.game.engine.gamestate.GameStateManager;
 import com.jukusoft.rpg.game.gamestate.IntroGameState;
 import com.jukusoft.rpg.game.gamestate.LoadingGameState;
 import com.jukusoft.rpg.game.gamestate.MyGameState;
+import com.jukusoft.rpg.game.gamestate.TestGameState;
 import com.jukusoft.rpg.window.system.IWindow;
 
 /**
@@ -24,7 +25,8 @@ public class MyGameApp extends SimpleGameStateApp<GameState> {
         IntroGameState intro = new IntroGameState();
         stateManager.addGameState("intro", intro);
 
-        LoadingGameState loadingGameState = new LoadingGameState();
+        //LoadingGameState loadingGameState = new LoadingGameState();
+        TestGameState loadingGameState = new TestGameState();
         stateManager.addGameState("loading", loadingGameState);
 
         MyGameState gameState = new MyGameState();
