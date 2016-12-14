@@ -8,7 +8,7 @@ import com.jukusoft.rpg.window.system.IWindow;
 /**
  * Created by Justin on 17.08.2016.
  */
-public class BasicGameState implements GameState {
+public abstract class BasicGameState implements GameState {
 
     /**
     * instance of game application
@@ -28,9 +28,7 @@ public class BasicGameState implements GameState {
      *
      * will be called, if game state will be created
      */
-    public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
-        //
-    }
+    public abstract <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app);
 
     /**
      * shutdown game state
@@ -60,9 +58,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public void render(GameApp app) {
-
-    }
+    public abstract void render(GameApp app);
 
     @Override
     public void processInputEvents() {
@@ -70,9 +66,7 @@ public class BasicGameState implements GameState {
     }
 
     @Override
-    public void update(GameApp app, double delta) {
-
-    }
+    public abstract void update(GameApp app, double delta);
 
     /**
     * get instance of window
