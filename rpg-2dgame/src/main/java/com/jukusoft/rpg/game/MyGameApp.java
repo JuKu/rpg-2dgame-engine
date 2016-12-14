@@ -25,8 +25,8 @@ public class MyGameApp extends SimpleGameStateApp<GameState> {
         IntroGameState intro = new IntroGameState();
         stateManager.addGameState("intro", intro);
 
-        //LoadingGameState loadingGameState = new LoadingGameState();
-        TestGameState loadingGameState = new TestGameState();
+        LoadingGameState loadingGameState = new LoadingGameState();
+        //TestGameState loadingGameState = new TestGameState();
         stateManager.addGameState("loading", loadingGameState);
 
         MyGameState gameState = new MyGameState();

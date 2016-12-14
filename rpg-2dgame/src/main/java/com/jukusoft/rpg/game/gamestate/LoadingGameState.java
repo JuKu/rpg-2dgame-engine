@@ -17,6 +17,8 @@ import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
 import java.io.IOException;
 import java.util.*;
 
+import static org.lwjgl.glfw.GLFW.*;
+
 /**
  * Created by Justin on 13.12.2016.
  */
@@ -34,6 +36,11 @@ public class LoadingGameState extends BasicGameState {
     protected OpenGL2DImage loadImage = null;
 
     protected BasicAnimation campfire = null;
+
+    protected float playerPosX = 0;
+    protected float playerPosY = 0;
+    protected float speedX = 0;
+    protected float speedY = 0;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -82,7 +89,22 @@ public class LoadingGameState extends BasicGameState {
 
     @Override
     public void update(GameApp app, double delta) {
-        //
+        this.speedX = 0;
+        this.speedY = 0;
+
+        if (getWindow().isKeyPressed(GLFW_KEY_W)) {
+            this.speedY = -1;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_S)) {
+            this.speedY = 1;
+        }
+
+        if (getWindow().isKeyPressed(GLFW_KEY_A)) {
+            this.speedX = -1;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_D)) {
+            this.speedX = 1;
+        }
+
+        this.campfire.getPosition().add(speedX, speedY, 0);
     }
 
     @Override
