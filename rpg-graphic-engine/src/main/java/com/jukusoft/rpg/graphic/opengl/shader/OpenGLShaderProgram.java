@@ -9,6 +9,7 @@ import com.jukusoft.rpg.graphic.exception.ShaderException;
 import com.jukusoft.rpg.graphic.lighting.DirectionalLight;
 import com.jukusoft.rpg.graphic.lighting.PointLight;
 import com.jukusoft.rpg.graphic.lighting.SpotLight;
+import com.jukusoft.rpg.graphic.opengl.mesh.Material;
 import com.jukusoft.rpg.graphic.utils.OpenGLUtils;
 import org.apache.log4j.Logger;
 import org.lwjgl.opengl.GL32;
@@ -437,6 +438,12 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         setUniform(uniformName + ".color", dirLight.getColor());
         setUniform(uniformName + ".direction", dirLight.getDirection());
         setUniform(uniformName + ".intensity", dirLight.getIntensity());
+    }
+
+    public void setUniform(String uniformName, Material material) {
+        setUniform(uniformName + ".color", material.getColor());
+        setUniform(uniformName + ".hasTexture", material.isTextured() ? 1 : 0);
+        setUniform(uniformName + ".reflectance", material.getReflectance());
     }
 
     /**

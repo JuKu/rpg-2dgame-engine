@@ -120,7 +120,7 @@ public class TransformationUtils {
         return viewMatrix;
     }
 
-    public final Matrix4f getProjectionMatrix (float fov, float width, float height, float zNear, float zFar, final Matrix4f projectionMatrix) {
+    public static Matrix4f getProjectionMatrix (float fov, float width, float height, float zNear, float zFar, final Matrix4f projectionMatrix) {
         //calculate aspectRatio
         float aspectRatio = width / height;
 
@@ -131,6 +131,26 @@ public class TransformationUtils {
         projectionMatrix.perspective(fov, aspectRatio, zNear, zFar, projectionMatrix);
 
         return projectionMatrix;
+    }
+
+    public static Matrix4f getModelViewMatrix(Renderable gameItem, Matrix4f cachedModelViewMatrix, Matrix4f viewMatrix, Matrix4f dest) {
+        //get rotation of drawable object
+        Vector3f rotation = gameItem.getRotation();
+
+        //calculate model view matrix
+        cachedModelViewMatrix.identity();
+        cachedModelViewMatrix.translate(gameItem.getPosition());
+        cachedModelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
+        cachedModelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
+        cachedModelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getY()));
+        cachedModelViewMatrix.scale(gameItem.getScale());
+
+        Matrix4f viewCurr = dest;
+        viewCurr.set(viewMatrix);
+
+        viewCurr.mul(cachedModelViewMatrix);
+
+        return viewCurr;
     }
 
 }
