@@ -134,16 +134,17 @@ public class TransformationUtils {
     }
 
     public static Matrix4f getModelViewMatrix(Renderable gameItem, Matrix4f cachedModelViewMatrix, Matrix4f viewMatrix, Matrix4f dest) {
-        //get rotation of drawable object
-        Vector3f rotation = gameItem.getRotation();
+        return getModelViewMatrix(gameItem.getPosition(), gameItem.getRotation(), gameItem.getScale(), cachedModelViewMatrix, viewMatrix, dest);
+    }
 
+    public static Matrix4f getModelViewMatrix(Vector3f position, Vector3f rotation, final float scaleFactor, Matrix4f cachedModelViewMatrix, Matrix4f viewMatrix, Matrix4f dest) {
         //calculate model view matrix
         cachedModelViewMatrix.identity();
-        cachedModelViewMatrix.translate(gameItem.getPosition());
+        cachedModelViewMatrix.translate(position);
         cachedModelViewMatrix.rotateX((float) Math.toRadians(-rotation.getX()));
         cachedModelViewMatrix.rotateY((float) Math.toRadians(-rotation.getY()));
         cachedModelViewMatrix.rotateZ((float) Math.toRadians(-rotation.getY()));
-        cachedModelViewMatrix.scale(gameItem.getScale());
+        cachedModelViewMatrix.scale(scaleFactor);
 
         Matrix4f viewCurr = dest;
         viewCurr.set(viewMatrix);
