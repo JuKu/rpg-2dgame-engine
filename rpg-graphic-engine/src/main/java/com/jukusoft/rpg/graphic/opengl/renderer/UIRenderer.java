@@ -65,6 +65,17 @@ public class UIRenderer {
     protected float lastScale = 0;
 
     /**
+    * flag, if lighting is enabled
+    */
+    protected AtomicBoolean lightingEnabled = new AtomicBoolean(true);
+
+    /**
+    * ambient light params
+    */
+    public float ambientIntensity = .7f;
+    public final Vector3f ambientColor = new Vector3f(0.3f, 0.3f, 0.7f);
+
+    /**
     * default constructor
     */
     public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
@@ -203,6 +214,14 @@ public class UIRenderer {
         this.lastScale = Integer.MAX_VALUE;
 
         uiShaderProgram.unbind();
+    }
+
+    public void setAmbientIntensity (final float ambientIntensity) {
+        this.ambientIntensity = ambientIntensity;
+    }
+
+    public void setAmbientColor (final float x, final float y, final float z) {
+        this.ambientColor.set(x, y, z);
     }
 
     protected Matrix4f getProjMatrix (final int windowWidth, final int windowHeight) {
