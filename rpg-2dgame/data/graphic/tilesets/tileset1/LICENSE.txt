@@ -1,0 +1,3 @@
+Credits: Zabin, Daneeklu, Jetrel, Hyptosis, Redshrike, Bertram. License: CC BY SA 3.0
+
+Found at: http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
