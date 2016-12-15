@@ -1,0 +1,2 @@
+License: CC0
+Found at: http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
