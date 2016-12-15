@@ -78,13 +78,22 @@ public class UIRenderer {
     /**
     * default constructor
     */
-    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
+    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath, final boolean lightingEnabled) throws IOException, OpenGLShaderException {
+        this.lightingEnabled.set(lightingEnabled);
+
         try {
             this.init(vertexShaderPath, fragmentShaderPath);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * default constructor
+     */
+    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath) throws IOException, OpenGLShaderException {
+        this(vertexShaderPath, fragmentShaderPath, false);
     }
 
     /**
@@ -122,6 +131,13 @@ public class UIRenderer {
         this.uiShaderProgram.createUniform("projModelMatrix");
         this.uiShaderProgram.createUniform("colour");
         this.uiShaderProgram.createUniform("hasTexture");
+
+        //https://www.opengl.org/wiki/Texture
+
+        if (lightingEnabled.get()) {
+            //create uniforms for lighting
+            this.uiShaderProgram.createUniform("ambientColor");
+        }
 
         this.isInitialized.set(true);
     }
@@ -197,6 +213,12 @@ public class UIRenderer {
             uiShaderProgram.setUniform("colour", obj.getMaterial().getColor());
             uiShaderProgram.setUniform("hasTexture", obj.getMaterial().isTextured() ? 1 : 0);
 
+            if (lightingEnabled.get()) {
+                uiShaderProgram.setUniformf("ambientColor", ambientColor.getX(), ambientColor.getY(), ambientColor.getZ(), ambientIntensity);
+            } else {
+                //GameLogger.debug("UIRenderer", "lighting isnt enabled.");
+            }
+
             //render mesh
             obj.render();
 
@@ -245,6 +267,22 @@ public class UIRenderer {
 
     public void enableRedrawSameMeshOptimization () {
         this.redrawSameMeshOptimization = true;
+    }
+
+    public void enableLighting () {
+        if (isInitialized.get()) {
+            throw new IllegalStateException("You have to enable lighting for renderer initialization.");
+        }
+
+        this.lightingEnabled.set(true);
+    }
+
+    public void disableLighting () {
+        if (isInitialized.get()) {
+            throw new IllegalStateException("You have to disable lighting for renderer initialization.");
+        }
+
+        this.lightingEnabled.set(false);
     }
 
 }
