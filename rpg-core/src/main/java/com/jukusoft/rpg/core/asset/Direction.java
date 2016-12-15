@@ -5,7 +5,7 @@ package com.jukusoft.rpg.core.asset;
  */
 public enum Direction {
 
-    TOP,
+    UP,
 
     DOWN,
 
@@ -13,9 +13,9 @@ public enum Direction {
 
     RIGHT,
 
-    TOP_LEFT,
+    UP_LEFT,
 
-    TOP_RIGHT,
+    UP_RIGHT,
 
     DOWN_LEFT,
 

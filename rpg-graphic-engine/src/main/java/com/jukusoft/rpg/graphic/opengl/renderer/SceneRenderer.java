@@ -16,6 +16,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.jukusoft.rpg.graphic.lighting.LightingScene.MAX_NUMBER_OF_POINT_LIGHTS;
 import static com.jukusoft.rpg.graphic.lighting.LightingScene.MAX_NUMBER_OF_SPOT_LIGHTS;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 /**
  * Created by Justin on 13.12.2016.

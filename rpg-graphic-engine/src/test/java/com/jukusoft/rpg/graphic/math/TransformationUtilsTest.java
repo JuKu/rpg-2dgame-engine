@@ -174,4 +174,23 @@ public class TransformationUtilsTest {
         assertEquals("view matrizes arent equals,\nresult matrix:\n" + matrix.toString(true) + "\n\nexpected matrix:\n" + resultMatrix.toString(true), true, matrix.equals(resultMatrix));
     }
 
+    @Test
+    public void testProjectionMatrix () {
+        //create new camera
+        DefaultCamera camera = new DefaultCamera();
+
+        //calculate new view matrix of camera
+        Matrix4f viewMatrix = TransformationUtils.getCameraViewMatrix(camera, new Matrix4f());
+
+        Matrix4f resultViewMatrix = new Matrix4f(
+                1, 0, 0, 0,
+                0, 1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1
+        );
+
+        //compare matrizes
+        assertEquals("view matrizes arent equals,\nresult matrix:\n" + viewMatrix.toString(true) + "\n\nexpected matrix:\n" + resultViewMatrix.toString(true), true, viewMatrix.equals(resultViewMatrix));
+    }
+
 }

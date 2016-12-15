@@ -30,7 +30,7 @@ public class BasicAnimation extends OpenGL2DTextureRegion implements Animable {
     /**
     * instance of current frame
     */
-    protected Frame currentFrame = null;
+    protected volatile Frame currentFrame = null;
 
     /**
     * list with all frames
@@ -52,7 +52,7 @@ public class BasicAnimation extends OpenGL2DTextureRegion implements Animable {
     @Override
     public void updateFrame(long now) {
         if (this.cachedFrameCount == 0) {
-            GameLogger.warn("BasicAnimation", "no frames added to animation.");
+            //GameLogger.warn("BasicAnimation", "no frames added to animation.");
             return;
         }
 
@@ -91,6 +91,13 @@ public class BasicAnimation extends OpenGL2DTextureRegion implements Animable {
     public void removeFrame (Frame frame) {
         this.frames.remove(frame);
         this.cachedFrameCount = this.frames.size();
+    }
+
+    public void clearAllFrames () {
+        GameLogger.debug("BasicAnimation", "clear all animation frames.");
+
+        this.cachedFrameCount = 0;
+        this.frames.clear();
     }
 
 }

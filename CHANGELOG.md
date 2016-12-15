@@ -10,6 +10,8 @@
   - added support to generate projection matrix
   - added SceneRenderer
 
+Special thanks to Patrick Wilhelmi (Nostritius from pentaquin.com project) for some OpenGL optimization tips!
+
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
   - added support to set an interval timer (execute Runnable every fixed time)
