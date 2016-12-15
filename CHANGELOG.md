@@ -9,6 +9,7 @@
   - added support to create an empty texture
   - added support to generate projection matrix
   - added SceneRenderer
+  - added support to set an uniform with 4 float values (without requirement of Vector4f)
 
 Special thanks to Patrick Wilhelmi (Nostritius from pentaquin.com project) for some OpenGL optimization tips!
 
