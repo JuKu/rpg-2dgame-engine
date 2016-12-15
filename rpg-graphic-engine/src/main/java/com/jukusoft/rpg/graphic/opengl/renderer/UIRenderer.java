@@ -72,8 +72,12 @@ public class UIRenderer {
     /**
     * ambient light params
     */
-    public float ambientIntensity = .7f;
+    public volatile float ambientIntensity = 0.7f;
     public final Vector3f ambientColor = new Vector3f(0.3f, 0.3f, 0.7f);
+
+    /**
+    * http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
+    */
 
     /**
     * default constructor
@@ -238,7 +242,17 @@ public class UIRenderer {
         uiShaderProgram.unbind();
     }
 
-    public void setAmbientIntensity (final float ambientIntensity) {
+    public float getAmbientIntensity () {
+        return this.ambientIntensity;
+    }
+
+    public void setAmbientIntensity (float ambientIntensity) {
+        /*if (ambientIntensity > 1) {
+            ambientIntensity = 1;
+        } else if (ambientIntensity < 0) {
+            ambientIntensity = 0;
+        }*/
+
         this.ambientIntensity = ambientIntensity;
     }
 
