@@ -11,7 +11,7 @@
   - added SceneRenderer
   - added support to set an uniform with 4 float values (without requirement of Vector4f)
 
-Special thanks to Patrick Wilhelmi (Nostritius from pentaquin.com project) for some OpenGL optimization tips!
+Special thanks to Patrick D. (Nostritius from pentaquin.com project) for some OpenGL optimization tips!
 
 ## Version 1.0.2 Alpha
   - added support to set an timer for an Runnable (execute Runnable after an fixe time)
