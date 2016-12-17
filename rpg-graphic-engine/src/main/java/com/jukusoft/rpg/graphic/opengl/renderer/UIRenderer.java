@@ -2,6 +2,7 @@ package com.jukusoft.rpg.graphic.opengl.renderer;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.core.math.Matrix4f;
+import com.jukusoft.rpg.core.math.RandomUtils;
 import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.graphic.animation.Animable;
@@ -79,6 +80,10 @@ public class UIRenderer {
     public final Vector3f ambientColor = new Vector3f(0.3f, 0.3f, 0.7f);
 
     protected FrameBufferObject lightingFBO = null;
+
+    protected float zAngle = 0;
+
+    public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
     /**
     * http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
@@ -223,11 +228,6 @@ public class UIRenderer {
             uiShaderProgram.setUniform("hasTexture", obj.getMaterial().isTextured() ? 1 : 0);
 
             if (lightingInitialized.get()) {
-                if (this.lightingFBO == null) {
-                    //initialize lighting framebuffer
-                    this.lightingFBO = new FrameBufferObject(windowWidth, windowHeight);
-                }
-
                 if (lightingEnabled.get()) {
                     uiShaderProgram.setUniformf("ambientColor", ambientColor.getX(), ambientColor.getY(), ambientColor.getZ(), ambientIntensity);
                 } else {
@@ -254,6 +254,32 @@ public class UIRenderer {
         this.lastScale = Integer.MAX_VALUE;
 
         uiShaderProgram.unbind();
+
+        if (this.lightingEnabled.get()) {
+            this.renderLights(windowWidth, windowHeight, true);
+        }
+    }
+
+    protected void renderLights (int width, int height, boolean lightOscillate) {
+        if (this.lightingFBO == null) {
+            //initialize lighting framebuffer
+            this.lightingFBO = new FrameBufferObject(width, height);
+        }
+
+        //bind framebuffer, so we draw to framebuffer
+        this.lightingFBO.bind();
+
+        float dt = 1000 / 60;
+        float zSpeed = 15.0f;
+
+        zAngle += dt * zSpeed;
+        while(zAngle > PI2)
+            zAngle -= PI2;
+
+        float lightSize = lightOscillate? (4.75f + 0.25f * (float) Math.sin(zAngle) + .2f * RandomUtils.random()) : 5.0f;
+
+        //unbind framebuffer
+        this.lightingFBO.unbind();
     }
 
     public float getAmbientIntensity () {
