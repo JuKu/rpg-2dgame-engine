@@ -194,11 +194,13 @@ public class LoadingGameState extends BasicGameState {
         this.uiRenderer.setAmbientColor(0.3f, 0.3f, 0.3f);
         //this.uiRenderer.disableLighting();
 
-        GameLogger.debug("LoadingGameState", "FPS: " + getGameApp().getFPS());
+        //GameLogger.debug("LoadingGameState", "FPS: " + getGameApp().getFPS());
 
-        if (getWindow().isKeyPressed(GLFW_KEY_Y)) {
+        if (getWindow().isKeyPressed(GLFW_KEY_U)) {
+            GameLogger.debug("LoadingGameState", "disable lighting.");
             this.uiRenderer.disableLighting();
-        } else if (getWindow().isKeyPressed(GLFW_KEY_X)) {
+        } else if (getWindow().isKeyPressed(GLFW_KEY_I)) {
+            GameLogger.debug("LoadingGameState", "enable lighting.");
             this.uiRenderer.enableLighting();
         }
 

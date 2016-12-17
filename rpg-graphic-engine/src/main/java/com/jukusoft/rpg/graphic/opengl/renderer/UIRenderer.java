@@ -7,6 +7,7 @@ import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.graphic.animation.Animable;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
+import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.shader.OpenGLShaderProgram;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
@@ -76,6 +77,8 @@ public class UIRenderer {
     */
     public volatile float ambientIntensity = 0.7f;
     public final Vector3f ambientColor = new Vector3f(0.3f, 0.3f, 0.7f);
+
+    protected FrameBufferObject lightingFBO = null;
 
     /**
     * http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
@@ -220,6 +223,11 @@ public class UIRenderer {
             uiShaderProgram.setUniform("hasTexture", obj.getMaterial().isTextured() ? 1 : 0);
 
             if (lightingInitialized.get()) {
+                if (this.lightingFBO == null) {
+                    //initialize lighting framebuffer
+                    this.lightingFBO = new FrameBufferObject(windowWidth, windowHeight);
+                }
+
                 if (lightingEnabled.get()) {
                     uiShaderProgram.setUniformf("ambientColor", ambientColor.getX(), ambientColor.getY(), ambientColor.getZ(), ambientIntensity);
                 } else {
