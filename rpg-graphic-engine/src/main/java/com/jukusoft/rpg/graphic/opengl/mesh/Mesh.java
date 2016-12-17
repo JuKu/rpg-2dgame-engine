@@ -33,6 +33,8 @@ public class Mesh {
 
     protected Material material = null;
 
+    protected int textureBank = GL_TEXTURE0;
+
     /**
      * vertex array object
      */
@@ -160,7 +162,7 @@ public class Mesh {
             }
 
             //activate firs texture bank
-            glActiveTexture(GL_TEXTURE0);
+            glActiveTexture(this.textureBank);
 
             //bind the texture
             glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
@@ -194,6 +196,10 @@ public class Mesh {
         glBindTexture(GL_TEXTURE_2D, 0);
 
         this.afterRender();
+    }
+
+    public void setTextureBank (int textureBank) {
+        this.textureBank = textureBank;
     }
 
     protected void beforeRender () {

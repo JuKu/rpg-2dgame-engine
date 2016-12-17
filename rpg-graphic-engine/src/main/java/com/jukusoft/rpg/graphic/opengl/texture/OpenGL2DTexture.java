@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL30.glGenerateMipmap;
 
 /**
@@ -92,6 +93,10 @@ public class OpenGL2DTexture extends Asset {
 
         //set bind flag to false
         this.isBind = false;
+    }
+
+    public void setActiveTextureBank (int textureBank) {
+        glActiveTexture(textureBank);
     }
 
     public void upload (Image2D image) {
