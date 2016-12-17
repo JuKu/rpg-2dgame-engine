@@ -75,4 +75,9 @@ public class CircleLight2D implements Light2D {
         this.image.render();
     }
 
+    @Override
+    public void setTextureBank(int textureBank) {
+        this.image.getMesh().setTextureBank(textureBank);
+    }
+
 }

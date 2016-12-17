@@ -29,4 +29,6 @@ public interface Light2D {
 
     public void renderLight (final float windowWidth, final float windowHeight);
 
+    public void setTextureBank (int textureBank);
+
 }
