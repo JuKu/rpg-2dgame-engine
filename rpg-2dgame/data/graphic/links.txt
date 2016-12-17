@@ -42,31 +42,48 @@ Links with some example image idea (license wasnt checked yet, but images also a
  - http://opengameart.org/content/dark-night-full-moon-background
  - http://opengameart.org/content/background-for-games-2
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ - http://opengameart.org/content/alternate-lpc-character-sprites-george
+ - http://opengameart.org/content/one-more-lpc-alternate-character
+ - http://opengameart.org/content/lpc-weapons-two-bows-a-spear-and-a-trident
+ - http://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+ - http://opengameart.org/content/base-pixel-art-for-3d-pixelish-rpg
+ - opengameart.org search for "LPC"
+ - http://opengameart.org/content/enemies-and-characters-pixel-art
+ - http://opengameart.org/content/rpg-items-pixel-art
+ - http://opengameart.org/content/top-down-2d-jrpg-32x32-characters-art-collection
+ - http://opengameart.org/content/a-pixel-art-collection
+ - http://opengameart.org/content/base-pixel-art-for-3d-pixelish-rpg
+ - http://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+ - http://opengameart.org/content/lpc-pennomis-ui-elements
+ - http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements
+ - http://opengameart.org/content/lpc-interface-items-contribution-by-tempest-in-the-aether
+ - http://opengameart.org/content/lpc-style-farm-animals
+ - http://opengameart.org/content/lpc-tile-atlas
+ - http://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
+ - http://opengameart.org/content/lpc-wands
+ - http://opengameart.org/content/lpc-fireplace
+ - http://opengameart.org/content/lpc-tile-atlas2
+ - http://opengameart.org/content/lpc-fireplace
+ - http://opengameart.org/content/lpc-wands
+ - http://lpc.opengameart.org/
+ - http://opengameart.org/content/lpc-style-farm-animals
+ - http://opengameart.org/content/lpc-interface-items-contribution-by-tempest-in-the-aether
+ - http://opengameart.org/content/lots-of-free-2d-tiles-and-sprites-by-hyptosis
+ - http://opengameart.org/content/castle-tiles-for-rpgs
+ - http://opengameart.org/content/rpg-game-0
+ - http://opengameart.org/content/stone-bridge-tiles-32x32
+ - http://opengameart.org/content/rpg-game-0
+ - http://opengameart.org/content/pixelfarm
+ - http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements
+ - http://opengameart.org/content/lpc-pennomis-ui-elements
+ - http://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+ - http://opengameart.org/content/base-pixel-art-for-3d-pixelish-rpg
+ - http://opengameart.org/content/a-pixel-art-collection
+ - http://opengameart.org/content/top-down-2d-jrpg-32x32-characters-art-collection
+ - http://opengameart.org/content/rpg-items-pixel-art
+ - http://opengameart.org/content/enemies-and-characters-pixel-art
+ - http://opengameart.org/content/lpc-weapons-two-bows-a-spear-and-a-trident
+ - http://opengameart.org/art-search-advanced?keys=&title=&field_art_tags_tid_op=and&field_art_tags_tid=LPC&name=&field_art_type_tid[9]=9&field_art_type_tid[10]=10&field_art_type_tid[7273]=7273&field_art_type_tid[14]=14&field_art_type_tid[12]=12&field_art_type_tid[13]=13&field_art_type_tid[11]=11&field_art_licenses_tid[2]=2&field_art_licenses_tid[3]=3&field_art_licenses_tid[6]=6&field_art_licenses_tid[5]=5&field_art_licenses_tid[10310]=10310&field_art_licenses_tid[4]=4&field_art_licenses_tid[8]=8&field_art_licenses_tid[7]=7&sort_by=score&sort_order=DESC&items_per_page=24&collection=&page=1
+ - http://opengameart.org/comment/55179#comment-55179
 
  - http://opengameart.org/content/a-platformer-in-the-forest

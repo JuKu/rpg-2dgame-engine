@@ -67,6 +67,8 @@ public class UIRenderer {
     /**
     * flag, if lighting is enabled
     */
+    protected AtomicBoolean lightingInitialized = new AtomicBoolean(true);
+
     protected AtomicBoolean lightingEnabled = new AtomicBoolean(true);
 
     /**
@@ -82,8 +84,8 @@ public class UIRenderer {
     /**
     * default constructor
     */
-    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath, final boolean lightingEnabled) throws IOException, OpenGLShaderException {
-        this.lightingEnabled.set(lightingEnabled);
+    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath, final boolean lightingInitialized) throws IOException, OpenGLShaderException {
+        this.lightingInitialized.set(lightingInitialized);
 
         try {
             this.init(vertexShaderPath, fragmentShaderPath);
@@ -138,7 +140,7 @@ public class UIRenderer {
 
         //https://www.opengl.org/wiki/Texture
 
-        if (lightingEnabled.get()) {
+        if (lightingInitialized.get()) {
             //create uniforms for lighting
             this.uiShaderProgram.createUniform("ambientColor");
         }
@@ -217,8 +219,12 @@ public class UIRenderer {
             uiShaderProgram.setUniform("colour", obj.getMaterial().getColor());
             uiShaderProgram.setUniform("hasTexture", obj.getMaterial().isTextured() ? 1 : 0);
 
-            if (lightingEnabled.get()) {
-                uiShaderProgram.setUniformf("ambientColor", ambientColor.getX(), ambientColor.getY(), ambientColor.getZ(), ambientIntensity);
+            if (lightingInitialized.get()) {
+                if (lightingEnabled.get()) {
+                    uiShaderProgram.setUniformf("ambientColor", ambientColor.getX(), ambientColor.getY(), ambientColor.getZ(), ambientIntensity);
+                } else {
+                    uiShaderProgram.setUniformf("ambientColor", 1f, 1f, 1f, 1f);
+                }
             } else {
                 //GameLogger.debug("UIRenderer", "lighting isnt enabled.");
             }
@@ -284,18 +290,14 @@ public class UIRenderer {
     }
 
     public void enableLighting () {
-        if (isInitialized.get()) {
-            throw new IllegalStateException("You have to enable lighting for renderer initialization.");
+        if (!lightingInitialized.get()) {
+            throw new IllegalStateException("You cannot enable lighting, because lighting wasnt initialized. Allow lighting in constructor.");
         }
 
         this.lightingEnabled.set(true);
     }
 
     public void disableLighting () {
-        if (isInitialized.get()) {
-            throw new IllegalStateException("You have to disable lighting for renderer initialization.");
-        }
-
         this.lightingEnabled.set(false);
     }
 

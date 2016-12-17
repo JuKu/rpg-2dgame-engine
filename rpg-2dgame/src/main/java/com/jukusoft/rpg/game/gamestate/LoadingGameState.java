@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.game.gamestate;
 
+import com.jukusoft.rpg.core.asset.Direction;
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.game.engine.app.GameApp;
 import com.jukusoft.rpg.game.engine.gamestate.GameState;
@@ -37,10 +38,12 @@ public class LoadingGameState extends BasicGameState {
 
     protected BasicAnimation campfire = null;
 
-    protected float playerPosX = 0;
-    protected float playerPosY = 0;
-    protected float speedX = 0;
-    protected float speedY = 0;
+    protected volatile float speedX = 0;
+    protected volatile float speedY = 0;
+    protected volatile float ambientIntensity = 0.7f;
+
+    protected BasicAnimation characterAnimation = null;
+    protected Direction lastDirection = Direction.DOWN;
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -50,7 +53,7 @@ public class LoadingGameState extends BasicGameState {
         GameLogger.info("LoadingGameState", "create new UI Renderer for IntroGameState.");
 
         try {
-            this.uiRenderer = new UIRenderer("./data/shader/hud_vertex.vs", "./data/shader/hud_fragment.fs");
+            this.uiRenderer = new UIRenderer("./data/shader/lighting_vertex.vs", "./data/shader/lighting_fragment.fs", true);
         } catch (IOException e) {
             e.printStackTrace();
             throw new OpenGLShaderException("IOException while loading UI Renderer: " + e.getLocalizedMessage());
@@ -81,42 +84,123 @@ public class LoadingGameState extends BasicGameState {
             this.campfire.addFrame(new Frame(i * 64, 0, 64, 64, 150));
         }
 
+        OpenGL2DTexture characterTexture = ResourceManager.getInstance().getTexture("spritesheets/pentaquin/Walk.png");
+        this.characterAnimation = new BasicAnimation(500, 500, characterTexture);
+
+        //add frames to animation
+        for (int i = 0; i < 5; i++) {
+            this.characterAnimation.addFrame(new Frame(i * 64, 0, 64, 64, 150));
+        }
+
         //this.drawableObjects.add(text);
         this.drawableObjects.add(image);
         //this.drawableObjects.add(loading);
         this.drawableObjects.add(this.campfire);
+        this.drawableObjects.add(this.characterAnimation);
+    }
+
+    protected void setAnimation (Direction direction) {
+        if (direction == lastDirection) {
+            return;
+        }
+
+        GameLogger.info("LoadingGameState", "set character direction: " + direction.name());
+
+        int k = 0;
+
+        if (direction == Direction.DOWN) {
+            k = 0;
+        } else if (direction == Direction.DOWN_LEFT) {
+            k = 7;
+        } else if (direction == Direction.DOWN_RIGHT) {
+            k = 1;
+        } else if (direction == Direction.UP) {
+            k = 4;
+        } else if (direction == Direction.UP_LEFT) {
+            k = 5;
+        } else if (direction == Direction.UP_RIGHT) {
+            k = 3;
+        } else if (direction == Direction.LEFT) {
+            k = 6;
+        } else if (direction == Direction.RIGHT) {
+            k = 2;
+        }
+
+        this.characterAnimation.clearAllFrames();
+
+        for (int i = 0; i < 16; i++) {
+            this.characterAnimation.addFrame(new Frame(i * 160, k * 160, 160, 160, 60));
+        }
+
+        this.lastDirection = direction;
     }
 
     @Override
     public void update(GameApp app, double delta) {
-        this.speedX = 0;
-        this.speedY = 0;
-
-        if (getWindow().isKeyPressed(GLFW_KEY_W)) {
-            this.speedY = -1;
-        } else if (getWindow().isKeyPressed(GLFW_KEY_S)) {
-            this.speedY = 1;
-        }
-
-        if (getWindow().isKeyPressed(GLFW_KEY_A)) {
-            this.speedX = -1;
-        } else if (getWindow().isKeyPressed(GLFW_KEY_D)) {
-            this.speedX = 1;
-        }
-
-        this.campfire.getPosition().add(speedX, speedY, 0);
+        //
     }
 
     @Override
     public void render (GameApp app) {
-        //check, if window was resized
-        /*if (getWindow().wasResized()) {
-            //reset viewport
-            getWindow().setViewPort(0, 0, getWindow().getWidth(), getWindow().getHeight());
+        float newSpeedX = 0;
+        float newSpeedY = 0;
 
-            //reset resized flag
-            getWindow().setResizedFlag(false);
-        }*/
+        if (getWindow().isKeyPressed(GLFW_KEY_W)) {
+            newSpeedY = -1;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_S)) {
+            newSpeedY = 1;
+        }
+
+        if (getWindow().isKeyPressed(GLFW_KEY_A)) {
+            newSpeedX = -1;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_D)) {
+            newSpeedX = 1;
+        }
+
+        if (getWindow().isKeyPressed(GLFW_KEY_N)) {
+            this.ambientIntensity -= 0.01f;
+        } else if (getWindow().isKeyPressed(GLFW_KEY_M)) {
+            this.ambientIntensity += 0.01f;
+        }
+
+        this.speedX = newSpeedX;
+        this.speedY = newSpeedY;
+
+        if (speedX == 0 && speedY == 0) {
+            //this.characterAnimation.clearAllFrames();
+            this.characterAnimation.addFrame(new Frame(0, 0, 160, 160, 150));
+        } else if (speedX == -1 && speedY == 0) {
+            this.setAnimation(Direction.LEFT);
+        } else if (speedX == -1 && speedY == -1) {
+            this.setAnimation(Direction.UP_LEFT);
+        } else if (speedX == -1 && speedY == 1) {
+            this.setAnimation(Direction.DOWN_LEFT);
+        } else if (speedX == 0 && speedY == -1) {
+            this.setAnimation(Direction.UP);
+        } else if (speedX == 0 && speedY == 1) {
+            this.setAnimation(Direction.DOWN);
+        } else if (speedX == 1 && speedY == -1) {
+            this.setAnimation(Direction.UP_RIGHT);
+        } else if (speedX == 1 && speedY == 0) {
+            this.setAnimation(Direction.RIGHT);
+        } else if (speedX == 1 && speedY == 1) {
+            this.setAnimation(Direction.DOWN_RIGHT);
+        }
+
+        this.characterAnimation.getPosition().add(speedX, speedY, 0);
+
+        //GameLogger.debug("LoadingGameState", "ambient intensity: " + this.ambientIntensity);
+        this.uiRenderer.setAmbientIntensity(this.ambientIntensity);
+        this.uiRenderer.setAmbientColor(0.3f, 0.3f, 0.3f);
+        //this.uiRenderer.disableLighting();
+
+        GameLogger.debug("LoadingGameState", "FPS: " + getGameApp().getFPS());
+
+        if (getWindow().isKeyPressed(GLFW_KEY_Y)) {
+            this.uiRenderer.disableLighting();
+        } else if (getWindow().isKeyPressed(GLFW_KEY_X)) {
+            this.uiRenderer.enableLighting();
+        }
 
         //render UI
         this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects);

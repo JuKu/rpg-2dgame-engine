@@ -68,6 +68,10 @@ public abstract class BasicGameState implements GameState {
     @Override
     public abstract void update(GameApp app, double delta);
 
+    protected GameApp getGameApp () {
+        return this.app;
+    }
+
     /**
     * get instance of window
     */
