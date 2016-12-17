@@ -368,6 +368,18 @@ public class OpenGLShaderProgram /*extends Asset*/ {
         glUniform4f(uniformID, x, y, z, a);
     }
 
+    public void setUniformf (final String name, final float x, final float y) {
+        if (!this.uniformsMap.containsKey(name)) {
+            throw new OpenGLShaderException("OpenGL Error: Cannot set value for uniform '" + name + "', because uniform doesnt exists.");
+        }
+
+        //get uniform id
+        int uniformID = uniformsMap.get(name);
+
+        //set vector value to uniform
+        glUniform2f(uniformID, x, y);
+    }
+
     public void createPointLightUniform (String uniformName) throws Exception {
         createUniform(uniformName + ".color");
         createUniform(uniformName + ".position");

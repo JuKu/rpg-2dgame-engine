@@ -204,6 +204,10 @@ public class UIRenderer {
         //get ortho matrix from cached ortho matrix
         Matrix4f ortho = this.cachedOrthoMatrix;
 
+        if (this.lightingEnabled.get()) {
+            this.renderLightsFBO(windowWidth, windowHeight, ortho, lights);
+        }
+
         final long currentTime = System.currentTimeMillis();
 
         //iterate through all drawable objects
@@ -261,13 +265,9 @@ public class UIRenderer {
         this.lastScale = Integer.MAX_VALUE;
 
         uiShaderProgram.unbind();
-
-        if (this.lightingEnabled.get()) {
-            this.renderLights(windowWidth, windowHeight, ortho, lights);
-        }
     }
 
-    protected void renderLights (int width, int height, Matrix4f ortho, List<Light2D> lights) {
+    protected void renderLightsFBO(int width, int height, Matrix4f ortho, List<Light2D> lights) {
         if (this.lightingFBO == null) {
             //initialize lighting framebuffer
             this.lightingFBO = new FrameBufferObject(width, height);
