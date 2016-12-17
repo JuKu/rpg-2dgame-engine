@@ -32,6 +32,12 @@ public class CircleLight2D implements Light2D {
     }
 
     @Override
+    public void setPosition2D(float x, float y) {
+        this.getPosition().setX(x);
+        this.getPosition().setY(y);
+    }
+
+    @Override
     public OpenGL2DImage getLightTexture () {
         return this.image;
     }

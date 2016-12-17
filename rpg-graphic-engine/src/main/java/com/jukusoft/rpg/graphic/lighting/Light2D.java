@@ -13,6 +13,8 @@ public interface Light2D {
 
     public float getY ();
 
+    public void setPosition2D (final float x, final float y);
+
     public OpenGL2DImage getLightTexture ();
 
     public boolean isLightOscillateEnabled ();
