@@ -7,6 +7,7 @@ import com.jukusoft.rpg.core.math.Vector3f;
 import com.jukusoft.rpg.core.utils.FileUtils;
 import com.jukusoft.rpg.graphic.animation.Animable;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
+import com.jukusoft.rpg.graphic.lighting.Light2D;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
 import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
@@ -85,6 +86,8 @@ public class UIRenderer {
 
     public static final float PI2 = 3.1415926535897932384626433832795f * 2.0f;
 
+    public static final List<Light2D> EMPTY_LIGHTS_LIST = new ArrayList<>();
+
     /**
     * http://www.alcove-games.com/opengl-es-2-tutorials/lightmap-shader-fire-effect-glsl/
     */
@@ -156,10 +159,14 @@ public class UIRenderer {
         this.isInitialized.set(true);
     }
 
+    public void render (int windowWidth, int windowHeight, List<Renderable> drawableObjectsList) {
+        render(windowWidth, windowHeight, drawableObjectsList, EMPTY_LIGHTS_LIST);
+    }
+
     /**
     * render UI
     */
-    public void render (int windowWidth, int windowHeight, List<Renderable> drawableObjectsList) {
+    public void render (int windowWidth, int windowHeight, List<Renderable> drawableObjectsList, List<Light2D> lights) {
         //clear old cache
         //this.drawableObjectsCache.clear();
 
@@ -256,11 +263,11 @@ public class UIRenderer {
         uiShaderProgram.unbind();
 
         if (this.lightingEnabled.get()) {
-            this.renderLights(windowWidth, windowHeight, true);
+            this.renderLights(windowWidth, windowHeight, ortho, lights);
         }
     }
 
-    protected void renderLights (int width, int height, boolean lightOscillate) {
+    protected void renderLights (int width, int height, Matrix4f ortho, List<Light2D> lights) {
         if (this.lightingFBO == null) {
             //initialize lighting framebuffer
             this.lightingFBO = new FrameBufferObject(width, height);
@@ -276,7 +283,24 @@ public class UIRenderer {
         while(zAngle > PI2)
             zAngle -= PI2;
 
-        float lightSize = lightOscillate? (4.75f + 0.25f * (float) Math.sin(zAngle) + .2f * RandomUtils.random()) : 5.0f;
+        //iterate through all lights
+        for (Light2D light : lights) {
+            float lightSize = light.isLightOscillateEnabled() ? (4.75f + 0.25f * (float) Math.sin(zAngle) + .2f * RandomUtils.random()) : 5.0f;
+
+            //calculate projection model matrix
+            final Matrix4f projModelMatrix = TransformationUtils.getOrtoProjModelMatrix(light, ortho, this.cachedModelMatrix, this.cachedProjModelMatrix);
+
+            uiShaderProgram.setUniform("projModelMatrix", projModelMatrix);
+            uiShaderProgram.setUniform("colour", light.getMaterial().getColor());
+            uiShaderProgram.setUniform("hasTexture", light.getMaterial().isTextured() ? 1 : 0);
+
+            if (lightingEnabled.get()) {
+                uiShaderProgram.setUniformf("ambientColor", 1f, 1f, 1f, 1f);
+            }
+
+            //draw light texture
+            light.renderLight(width, height);
+        }
 
         //unbind framebuffer
         this.lightingFBO.unbind();
@@ -287,12 +311,6 @@ public class UIRenderer {
     }
 
     public void setAmbientIntensity (float ambientIntensity) {
-        /*if (ambientIntensity > 1) {
-            ambientIntensity = 1;
-        } else if (ambientIntensity < 0) {
-            ambientIntensity = 0;
-        }*/
-
         this.ambientIntensity = ambientIntensity;
     }
 

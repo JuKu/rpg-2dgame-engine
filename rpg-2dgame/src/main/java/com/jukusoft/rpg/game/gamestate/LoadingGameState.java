@@ -10,6 +10,8 @@ import com.jukusoft.rpg.game.engine.resource.ResourceManager;
 import com.jukusoft.rpg.graphic.animation.*;
 import com.jukusoft.rpg.graphic.animation.Frame;
 import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
+import com.jukusoft.rpg.graphic.lighting.Light2D;
+import com.jukusoft.rpg.graphic.lighting.impl.CircleLight2D;
 import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
 import com.jukusoft.rpg.graphic.opengl.renderer.UIRenderer;
@@ -44,6 +46,8 @@ public class LoadingGameState extends BasicGameState {
 
     protected BasicAnimation characterAnimation = null;
     protected Direction lastDirection = Direction.DOWN;
+
+    protected List<Light2D> lights = new ArrayList<>();
 
     @Override
     public <T extends GameState> void onInit(GameStateManager<T> gameStateManager, GameApp app) {
@@ -97,6 +101,12 @@ public class LoadingGameState extends BasicGameState {
         //this.drawableObjects.add(loading);
         this.drawableObjects.add(this.campfire);
         this.drawableObjects.add(this.characterAnimation);
+
+        //create new light
+        OpenGL2DTexture lightTexture = ResourceManager.getInstance().getTexture("lightmap/lightmap1/light.png");
+        OpenGL2DImage lightImage = new OpenGL2DImage(200, 500, lightTexture);
+        Light2D fireLight = new CircleLight2D(200, 500, lightImage);
+        this.lights.add(fireLight);
     }
 
     protected void setAnimation (Direction direction) {
@@ -205,7 +215,7 @@ public class LoadingGameState extends BasicGameState {
         }
 
         //render UI
-        this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects);
+        this.uiRenderer.render(getWindow().getWidth(), getWindow().getHeight(), this.drawableObjects, this.lights);
     }
 
 }
