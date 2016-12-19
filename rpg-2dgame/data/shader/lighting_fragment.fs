@@ -21,6 +21,8 @@ uniform LOWP vec4 ambientColor;
 //resolution of screen
 uniform vec2 resolution;
 
+uniform sampler2D u_lightmap;//light map
+
 void main()
 {
     if (colour.a <= 0) {
@@ -29,15 +31,29 @@ void main()
 
     if ( hasTexture == 1 )
     {
-        vec2 lighCoord = (gl_FragCoord.xy / resolution.xy);
+        vec2 lightCoord = (gl_FragCoord.xy / resolution.xy);
+        vec4 light = texture(u_lightmap, lightCoord);
 
         vec4 diffuseColor = texture(texture_sampler, outTexCoord);
-        vec3 ambient = ambientColor.rgb * ambientColor.a;
 
-        vec3 final = colour * diffuseColor.rgb * ambient;
+        //calculate ambient color
+        vec3 ambient = ambientColor.rgb * ambientColor.a;
+        vec3 intensity = ambient + light.rgb;
+
+        vec3 final = diffuseColor.rgb * ambient;
 
         //fragColor = vec4(colour) * texture(texture_sampler, outTexCoord);
-        fragColor = vec4(final, diffuseColor.a);
+        fragColor = colour * vec4(final, diffuseColor.a);
+
+        /*vec4 diffuseColor = texture(texture_sampler, outTexCoord);
+        vec2 lightCoord = (gl_FragCoord.xy / resolution.xy);
+        vec4 light = texture(u_lightmap, lightCoord);
+
+        vec3 ambient = ambientColor.rgb * ambientColor.a;
+        vec3 intensity = ambient + light.rgb;
+        vec3 finalColor = diffuseColor.rgb * intensity;
+
+        fragColor = colour * vec4(finalColor, diffuseColor.a);*/
     }
     else
     {
