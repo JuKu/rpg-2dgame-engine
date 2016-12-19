@@ -199,10 +199,8 @@ public class LoadingGameState extends BasicGameState {
 
         this.characterAnimation.getPosition().add(speedX, speedY, 0);
 
-        //GameLogger.debug("LoadingGameState", "ambient intensity: " + this.ambientIntensity);
         this.uiRenderer.setAmbientIntensity(this.ambientIntensity);
         this.uiRenderer.setAmbientColor(0.3f, 0.3f, 0.3f);
-        //this.uiRenderer.disableLighting();
 
         //GameLogger.debug("LoadingGameState", "FPS: " + getGameApp().getFPS());
 
