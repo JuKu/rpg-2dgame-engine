@@ -10,6 +10,7 @@ import com.jukusoft.rpg.graphic.exception.OpenGLShaderException;
 import com.jukusoft.rpg.graphic.lighting.Light2D;
 import com.jukusoft.rpg.graphic.math.TransformationUtils;
 import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
+import com.jukusoft.rpg.graphic.opengl.image.OpenGL2DImage;
 import com.jukusoft.rpg.graphic.opengl.mesh.DrawableObject;
 import com.jukusoft.rpg.graphic.opengl.shader.OpenGLShaderProgram;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
@@ -34,11 +35,6 @@ public class UIRenderer {
     * shader program for UI
     */
     protected OpenGLShaderProgram uiShaderProgram = null;
-
-    /**
-    * cached drawable objects list
-    */
-    protected List<DrawableObject> drawableObjectsCache = new ArrayList<>();
 
     /**
     * cached window size, so we can detect, if ortho matrix has to be calculated again or we can used cached matrix
@@ -228,8 +224,6 @@ public class UIRenderer {
             throw new IllegalStateException("UIRenderer wasnt initialized yet, call init() method first.");
         }
 
-        uiShaderProgram.bind();
-
         //check, if we can used cached ortho matrix
         if (wasReized(windowWidth, windowHeight)) {
             //invalidate old ortho matrix and generate an new one, use same destination matrix, so we dont need to create an new matrix instance
@@ -244,6 +238,8 @@ public class UIRenderer {
         if (this.lightingEnabled.get()) {
             this.renderLightsFBO(windowWidth, windowHeight, ortho, lights);
         }
+
+        uiShaderProgram.bind();
 
         final long currentTime = System.currentTimeMillis();
 
@@ -305,6 +301,9 @@ public class UIRenderer {
     }
 
     protected void renderLightsFBO(int width, int height, Matrix4f ortho, List<Light2D> lights) {
+        //bind lightmap shader program
+        this.lightMapShaderPrgrogram.bind();
+
         if (this.lightingFBO == null) {
             //initialize lighting framebuffer
             this.lightingFBO = new FrameBufferObject(width, height);
@@ -341,6 +340,9 @@ public class UIRenderer {
 
         //unbind framebuffer
         this.lightingFBO.unbind();
+
+        //unbind lightmap shader program
+        this.lightMapShaderPrgrogram.unbind();
     }
 
     public float getAmbientIntensity () {

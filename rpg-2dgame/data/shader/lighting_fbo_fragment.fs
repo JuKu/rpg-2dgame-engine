@@ -16,14 +16,7 @@ uniform vec4 colour;
 uniform int hasTexture;
 
 //additional parameters for the lighting shader
-//uniform LOWP vec4 ambientColor;
-//uniform LOWP vec4 ambientColor;
 uniform LOWP vec4 ambientColor;
-
-//uniform sampler2D u_lightmap;   //light map
-//uniform vec2 resolution; //resolution of screen
-
-//LOWP vec4 vColor;
 
 void main()
 {
