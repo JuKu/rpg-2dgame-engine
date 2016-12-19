@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.graphic.renderer;
 
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.opengl.mesh.Material;
 
 /**
@@ -9,6 +10,8 @@ import com.jukusoft.rpg.graphic.opengl.mesh.Material;
  * Created by Justin on 11.12.2016.
  */
 public interface Renderable {
+
+    public void render (FrameBufferObject lightingMap);
 
     public void render ();
 

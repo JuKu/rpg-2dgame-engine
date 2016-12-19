@@ -2,6 +2,7 @@ package com.jukusoft.rpg.graphic.opengl.mesh;
 
 import com.jukusoft.rpg.core.logger.GameLogger;
 import com.jukusoft.rpg.graphic.opengl.buffer.FloatVertexBufferObject;
+import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.IntegerVertexBufferObject;
 import com.jukusoft.rpg.graphic.opengl.buffer.VertexArrayObject;
 import com.jukusoft.rpg.graphic.opengl.texture.OpenGL2DTexture;
@@ -12,6 +13,7 @@ import java.util.List;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.glDisableVertexAttribArray;
@@ -153,7 +155,11 @@ public class Mesh {
         this.material = material;
     }
 
-    public void render() {
+    public void render () {
+        this.render(null);
+    }
+
+    public void render(FrameBufferObject lightMap) {
         OpenGL2DTexture texture = material.getTexture();
 
         if (texture != null) {
@@ -161,11 +167,19 @@ public class Mesh {
                 GameLogger.debug("Mesh", "set active texture");
             }
 
-            //activate firs texture bank
+            //activate first texture bank
             glActiveTexture(this.textureBank);
 
             //bind the texture
             glBindTexture(GL_TEXTURE_2D, texture.getTextureID());
+
+            if (lightMap != null) {
+                //active second texture bank
+                glActiveTexture(GL_TEXTURE1);
+
+                //bind framebuffer texture
+                glBindBuffer(GL_TEXTURE_2D, lightMap.getTexture().getTextureID());
+            }
         } else {
             if (GameLogger.isRendererDebugMode()) {
                 GameLogger.debug("Mesh", "Mesh with vaoID " + getVaoID() + "doesnt have an texture.");

@@ -288,8 +288,13 @@ public class UIRenderer {
                 //GameLogger.debug("UIRenderer", "lighting isnt enabled.");
             }
 
-            //render mesh
-            obj.render();
+            if (lightingEnabled.get()) {
+                //render mesh with lightmap
+                obj.render(this.lightingFBO);
+            } else {
+                //render mesh
+                obj.render(null);
+            }
 
             //set last params
             this.lastMeshID = obj.getMeshID();

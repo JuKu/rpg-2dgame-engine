@@ -1,5 +1,6 @@
 package com.jukusoft.rpg.graphic.animation;
 
+import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.renderer.BasicRenderable;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
 
@@ -39,8 +40,13 @@ public class ComplexAnimation extends BasicRenderable implements Animable {
     }
 
     @Override
-    public void render() {
+    public void render(FrameBufferObject lightingMap) {
         //
+    }
+
+    @Override
+    public void render() {
+        this.render(null);
     }
 
 }

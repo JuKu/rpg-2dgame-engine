@@ -1,6 +1,7 @@
 package com.jukusoft.rpg.graphic.opengl.mesh;
 
 import com.jukusoft.rpg.core.math.Vector3f;
+import com.jukusoft.rpg.graphic.opengl.buffer.FrameBufferObject;
 import com.jukusoft.rpg.graphic.renderer.BasicRenderable;
 import com.jukusoft.rpg.graphic.renderer.Renderable;
 import com.jukusoft.rpg.graphic.utils.MeshUtils;
@@ -83,6 +84,11 @@ public class DrawableObject extends BasicRenderable implements Renderable {
     @Override
     public final void finalize () {
         this.cleanUp();
+    }
+
+    @Override
+    public void render(FrameBufferObject lightingMap) {
+        getMesh().render(lightingMap);
     }
 
     @Override
