@@ -165,6 +165,9 @@ public class UIRenderer {
         if (lightingInitialized.get()) {
             //create uniforms for lighting
             this.uiShaderProgram.createUniform("ambientColor");
+
+            //create uniform for resolution
+            this.uiShaderProgram.createUniform("resolution");
         }
 
         /**
@@ -240,6 +243,10 @@ public class UIRenderer {
         }
 
         uiShaderProgram.bind();
+
+        if (lightingInitialized.get()) {
+            uiShaderProgram.setUniformf("resolution", windowWidth, windowHeight);
+        }
 
         final long currentTime = System.currentTimeMillis();
 

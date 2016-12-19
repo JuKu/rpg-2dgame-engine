@@ -18,6 +18,9 @@ uniform int hasTexture;
 //additional parameters for the lighting shader
 uniform LOWP vec4 ambientColor;
 
+//resolution of screen
+uniform vec2 resolution;
+
 void main()
 {
     if (colour.a <= 0) {
@@ -26,6 +29,8 @@ void main()
 
     if ( hasTexture == 1 )
     {
+        vec2 lighCoord = (gl_FragCoord.xy / resolution.xy);
+
         vec4 diffuseColor = texture(texture_sampler, outTexCoord);
         vec3 ambient = ambientColor.rgb * ambientColor.a;
 
