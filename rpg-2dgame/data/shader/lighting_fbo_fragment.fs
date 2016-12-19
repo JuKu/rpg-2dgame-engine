@@ -16,7 +16,14 @@ uniform vec4 colour;
 uniform int hasTexture;
 
 //additional parameters for the lighting shader
+//uniform LOWP vec4 ambientColor;
+//uniform LOWP vec4 ambientColor;
 uniform LOWP vec4 ambientColor;
+
+//uniform sampler2D u_lightmap;   //light map
+//uniform vec2 resolution; //resolution of screen
+
+//LOWP vec4 vColor;
 
 void main()
 {
@@ -29,6 +36,7 @@ void main()
         vec4 diffuseColor = texture(texture_sampler, outTexCoord);
         vec3 ambient = ambientColor.rgb * ambientColor.a;
 
+        //vec3 final = vColor * diffuseColor.rgb * ambient;
         vec3 final = colour * diffuseColor.rgb * ambient;
 
         //fragColor = vec4(colour) * texture(texture_sampler, outTexCoord);
