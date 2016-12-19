@@ -8,8 +8,9 @@
   - added support to set filter & wrap on texture
   - added support to create an empty texture
   - added support to generate projection matrix
-  - added SceneRenderer
+  - added beginnging of SceneRenderer
   - added support to set an uniform with 4 float values (without requirement of Vector4f)
+  - added support for ambiente lighting
 
 Special thanks to Patrick D. (Nostritius from pentaquin.com project) for some OpenGL optimization tips!
 
