@@ -81,6 +81,7 @@ public class UIRenderer {
     public final Vector3f ambientColor = new Vector3f(0.3f, 0.3f, 0.7f);
 
     protected FrameBufferObject lightingFBO = null;
+    protected OpenGLShaderProgram lightMapShaderPrgrogram = null;
 
     protected float zAngle = 0;
 
@@ -95,11 +96,25 @@ public class UIRenderer {
     /**
     * default constructor
     */
+    public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath, final String lightingVertexShader, final String lightingFragmentShader, final boolean lightingInitialized) throws IOException, OpenGLShaderException {
+        this.lightingInitialized.set(lightingInitialized);
+
+        try {
+            this.init(vertexShaderPath, fragmentShaderPath, lightingVertexShader, lightingFragmentShader);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * default constructor
+     */
     public UIRenderer (final String vertexShaderPath, final String fragmentShaderPath, final boolean lightingInitialized) throws IOException, OpenGLShaderException {
         this.lightingInitialized.set(lightingInitialized);
 
         try {
-            this.init(vertexShaderPath, fragmentShaderPath);
+            this.init(vertexShaderPath, fragmentShaderPath, "./data/shader/lighting_fbo_vertex.vs", "./data/shader/lighting_fbo_fragment.fs");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -123,7 +138,7 @@ public class UIRenderer {
     /**
     * initialize UI renderer
     */
-    public void init (final String vertexShaderPath, final String fragmentShaderPath) throws Exception {
+    public void init (final String vertexShaderPath, final String fragmentShaderPath, final String lightingVertexShader, final String lightingFragmentShader) throws Exception {
         if (isInitialized.get()) {
             throw new IllegalStateException("UIRenderer was already initialized.");
         }
@@ -155,6 +170,28 @@ public class UIRenderer {
             //create uniforms for lighting
             this.uiShaderProgram.createUniform("ambientColor");
         }
+
+        /**
+        * initlialize lighting map shader
+        */
+        this.lightMapShaderPrgrogram = new OpenGLShaderProgram();
+
+        //add vertex shader
+        this.lightMapShaderPrgrogram.setVertexShader(FileUtils.readFile(lightingVertexShader, StandardCharsets.UTF_8));//.setVertexShader(FileUtils.readFile(vertexShaderPath, StandardCharsets.UTF_8));
+
+        //add fragment shader
+        this.lightMapShaderPrgrogram.setFragmentShader(FileUtils.readFile(lightingFragmentShader, StandardCharsets.UTF_8));
+
+        //compile shader program
+        this.lightMapShaderPrgrogram.link();
+
+        //create uniforms for ortographic model projection matrix and base color
+        this.lightMapShaderPrgrogram.createUniform("projModelMatrix");
+        this.lightMapShaderPrgrogram.createUniform("colour");
+        this.lightMapShaderPrgrogram.createUniform("hasTexture");
+
+        //create uniforms for lighting
+        this.lightMapShaderPrgrogram.createUniform("ambientColor");
 
         this.isInitialized.set(true);
     }
